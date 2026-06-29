@@ -1,0 +1,25 @@
+# Claude Code 로컬 진입점 (각자 로컬에서 `@AGENTS.md` 한 줄로 생성). 커밋 금지.
+CLAUDE.md
+CLAUDE.local.md
+
+# 산출물 — 저장소 비대화 방지 (폴더 자체는 .gitkeep으로 유지)
+output/*
+!output/.gitkeep
+*.pdf
+!examples/**/*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# LibreOffice 변환 임시 프로필
+.~lock.*#
