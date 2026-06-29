@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """storyboard(슬라이드별 .md) + 브랜드 테마 -> .pptx 생성.
 
-문서의 doc.yaml이 브랜드를 고르고(brands/<brand>/theme.yaml), 필요하면 doc.yaml의
+문서의 brief.md frontmatter가 브랜드를 고르고(brands/<brand>/theme.yaml), 필요하면
 theme: 블록으로 토큰을 오버라이드한다. 마스터 pptx 없이 토큰으로 프로그래밍
 스타일링한다(마스터가 생기면 그 위에 얹도록 확장). layout 정의는
 reference/layout-catalog.md, 브랜드 구조는 brands/README.md 참고.
@@ -42,10 +42,13 @@ def deep_merge(base, over):
 
 
 def load_doc_meta(doc_dir):
-    path = os.path.join(doc_dir, "doc.yaml")
-    if os.path.exists(path):
-        return yaml.safe_load(open(path, encoding="utf-8")) or {}
-    return {}
+    """문서 메타(title/brand/version/theme)를 brief.md frontmatter에서 읽는다."""
+    path = os.path.join(doc_dir, "brief.md")
+    if not os.path.exists(path):
+        return {}
+    text = open(path, encoding="utf-8").read()
+    m = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+    return (yaml.safe_load(m.group(1)) or {}) if m else {}
 
 
 def resolve_brand_dir(brand):
@@ -56,7 +59,7 @@ def resolve_brand_dir(brand):
 
 
 def resolve_theme(doc_dir, brand_override=None, theme_path=None):
-    """doc.yaml -> 브랜드 theme 로드 -> doc.yaml theme: 오버라이드 병합.
+    """brief.md frontmatter -> 브랜드 theme 로드 -> theme: 오버라이드 병합.
     반환: (theme dict, brand_dir, meta dict)."""
     meta = load_doc_meta(doc_dir)
     brand = brand_override or meta.get("brand") or "_default"
@@ -265,7 +268,7 @@ def main():
     ap = argparse.ArgumentParser(description="storyboard -> pptx")
     ap.add_argument("doc_dir", help="문서 폴더 (storyboard/ 포함)")
     ap.add_argument("-o", "--out", help="출력 pptx 경로")
-    ap.add_argument("--brand", help="brands/<NAME> 강제 지정(doc.yaml보다 우선)")
+    ap.add_argument("--brand", help="brands/<NAME> 강제 지정(brief.md frontmatter보다 우선)")
     ap.add_argument("--theme", help="theme.yaml 경로 직접 지정")
     args = ap.parse_args()
     build(args.doc_dir, args.out, args.brand, args.theme)

@@ -26,9 +26,10 @@ python src/lib/deckbuilder.py docs/20260629_proposal
 # -> docs/20260629_proposal/output/20260629_proposal_v1.pptx
 ```
 
-- **브랜드/테마 선택은 문서의 `doc.yaml`**: `brand:`로 `brands/<brand>/theme.yaml`을
-  고르고, `theme:` 블록으로 이 덱만의 토큰을 오버라이드(deep-merge). 해석 순서·구조는
-  `brands/README.md` 참고. 빌더에 `--brand NAME`으로 강제 지정도 가능.
+- **브랜드/테마 선택은 문서 `brief.md`의 frontmatter**: `brand:`로
+  `brands/<brand>/theme.yaml`을 고르고, `theme:` 블록으로 이 덱만의 토큰을
+  오버라이드(deep-merge). 해석 순서·구조는 `brands/README.md` 참고. 빌더에
+  `--brand NAME`으로 강제 지정도 가능.
 - 색·폰트·여백은 브랜드 `theme.yaml` 토큰을 따릅니다(임의 지정 금지).
 - 슬라이드 `layout:` 값의 의미·필드는 `reference/layout-catalog.md` 참고.
 - 차트 CSV 형식·차트 규칙은 `reference/chart-style.md` 참고.

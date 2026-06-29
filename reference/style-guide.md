@@ -18,7 +18,7 @@ AGENTS.md §4(작성 원칙)의 확장판. 슬라이드를 쓸 때 이 기준을
 ## 시각
 
 - 색·폰트는 선택한 브랜드의 `theme.yaml`(`brands/<brand>/theme.yaml`) 토큰만 사용.
-  임의 색/폰트 금지. 이 덱만의 조정은 `doc.yaml`의 `theme:` 오버라이드로.
+  임의 색/폰트 금지. 이 덱만의 조정은 `brief.md` frontmatter의 `theme:` 오버라이드로.
 - 강조는 색(accent) 하나로. 굵게/색/크기 동시 남발 금지.
 - 표·차트 스타일은 `reference/chart-style.md`를 따른다.
 

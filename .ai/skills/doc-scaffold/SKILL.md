@@ -26,8 +26,7 @@ storyboard → output)을 따릅니다.
 
 ```
 docs/20260629_proposal/
-├── doc.yaml            # 문서 메타: brand 선택 + theme 오버라이드 + version
-├── brief.md
+├── brief.md            # frontmatter(brand·theme·version) + 본문(대상·목적…)
 ├── research/sources.md
 ├── storyline.md
 ├── storyboard/         # 슬라이드 1장 = 파일 1개 (NN-slug.md)
@@ -40,16 +39,15 @@ docs/20260629_proposal/
 
 ## 생성 후 절차
 
-1. **doc.yaml 설정** — `title`, `brand`(브랜드 선택, 기본 `_default`), `version`.
-   같은 브랜드인데 이 덱만 색을 바꾸려면 `theme:` 오버라이드. (브랜드 구조는
-   `brands/README.md`)
-2. **brief.md 채운다** — 대상·목적·핵심 질문·제약. (게이트: 확정 전 조사 금지)
-3. `research/`에 근거·출처 수집, `sources.md`에 정리.
-4. `storyline.md`로 논리 구조 작성 → **사용자 승인**.
-5. `storyboard/`에 슬라이드별 파일(`NN-slug.md`) 작성. 순서는 파일명 숫자 접두.
-6. `pptx-builder` 스킬(`deckbuilder.py`)로 `output/`에 .pptx 생성, 필요 시
+1. **brief.md 채운다** — frontmatter에 `title`/`brand`(기본 `_default`)/`version`,
+   필요하면 `theme:` 오버라이드. 본문에 대상·목적·핵심 질문·제약.
+   (게이트: 확정 전 조사 금지. 브랜드 구조는 `brands/README.md`)
+2. `research/`에 근거·출처 수집, `sources.md`에 정리.
+3. `storyline.md`로 논리 구조 작성 → **사용자 승인**.
+4. `storyboard/`에 슬라이드별 파일(`NN-slug.md`) 작성. 순서는 파일명 숫자 접두.
+5. `pptx-builder` 스킬(`deckbuilder.py`)로 `output/`에 .pptx 생성, 필요 시
    `pdf-export`로 변환.
-7. 확정되면 해당 버전을 `release/`로 복사해 커밋(`output/`은 git 제외).
+6. 확정되면 해당 버전을 `release/`로 복사해 커밋(`output/`은 git 제외).
 
 ## 주의
 
