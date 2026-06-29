@@ -2,8 +2,10 @@
 CLAUDE.md
 CLAUDE.local.md
 
-# 산출물 — 저장소 비대화 방지: 모든 깊이의 output/ 내용만 제외(폴더는 .gitkeep 유지).
-# templates/ 마스터 pptx, research/ 근거 pdf 등은 정상 추적된다.
+# 산출물 정책:
+#   output/   작업 중 임시 export → git 제외(폴더는 .gitkeep 유지)
+#   release/  확정·릴리스 버전만 → git 추적(별도 무시 규칙 없음)
+# templates/ 마스터 pptx, research/ 근거 pdf 등도 정상 추적된다.
 **/output/*
 !**/output/.gitkeep
 

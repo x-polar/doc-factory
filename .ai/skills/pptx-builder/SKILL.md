@@ -90,6 +90,7 @@ prs.save("output/20260629_proposal_v1.pptx")
 
 ## 마무리
 
-- 산출물은 `output/`에 `YYYYMMDD_프로젝트_버전.pptx`로 저장.
+- 산출물은 `output/`에 `YYYYMMDD_프로젝트_버전.pptx`로 저장(작업 중 임시본).
 - PDF가 필요하면 `pdf-export` 스킬로 변환.
 - 생성 후 슬라이드 수·제목·오타·레이아웃 깨짐을 점검.
+- 확정된 버전은 `release/`로 복사해 커밋한다(`output/`은 git 제외, `release/`는 추적).

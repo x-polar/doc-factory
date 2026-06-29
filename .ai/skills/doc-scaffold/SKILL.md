@@ -30,7 +30,8 @@ docs/20260629_proposal/
 ├── research/sources.md
 ├── storyline.md
 ├── storyboard/storyboard.yaml
-└── output/
+├── output/    # 임시 export (git 제외)
+└── release/   # 확정본 (git 추적)
 ```
 
 ## 생성 후 절차
@@ -40,6 +41,7 @@ docs/20260629_proposal/
 3. `storyline.md`로 논리 구조 작성 → **사용자 승인**.
 4. `storyboard/storyboard.yaml`에 슬라이드별 스펙 작성.
 5. `pptx-builder` 스킬로 `output/`에 .pptx 생성, 필요 시 `pdf-export`로 변환.
+6. 확정되면 해당 버전을 `release/`로 복사해 커밋(`output/`은 git 제외).
 
 ## 주의
 
