@@ -2,7 +2,7 @@
 
 ## 원칙
 
-- 차트 색은 `brand/theme.yaml`의 `colors.series` 팔레트를 **순서대로** 사용.
+- 차트 색은 브랜드 `theme.yaml`의 `colors.series` 팔레트를 **순서대로** 사용.
 - 한 차트에 시리즈는 가능하면 4개 이하. 많으면 묶거나 분리.
 - 제목은 슬라이드 action title이 담당 → 차트 자체 제목은 보통 생략.
 - 축·범례 폰트는 `fonts.body`, 크기는 `sizes.caption` 수준.

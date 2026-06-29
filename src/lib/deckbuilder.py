@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""storyboard(슬라이드별 .md) + brand/theme.yaml -> .pptx 생성.
+"""storyboard(슬라이드별 .md) + 브랜드 테마 -> .pptx 생성.
 
-마스터 pptx 없이 브랜드 토큰으로 프로그래밍 스타일링한다(마스터가 생기면 그 위에
-얹도록 확장). layout 값의 정의는 reference/layout-catalog.md 참고.
+문서의 doc.yaml이 브랜드를 고르고(brands/<brand>/theme.yaml), 필요하면 doc.yaml의
+theme: 블록으로 토큰을 오버라이드한다. 마스터 pptx 없이 토큰으로 프로그래밍
+스타일링한다(마스터가 생기면 그 위에 얹도록 확장). layout 정의는
+reference/layout-catalog.md, 브랜드 구조는 brands/README.md 참고.
 
 사용법:
-  python src/lib/deckbuilder.py <문서폴더> [-o output/deck.pptx] [--theme brand/theme.yaml]
+  python src/lib/deckbuilder.py <문서폴더> [-o out.pptx] [--brand NAME] [--theme path]
 예:
   python src/lib/deckbuilder.py docs/20260629_proposal
 """
@@ -28,10 +30,41 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 # ----- 입력 파싱 ---------------------------------------------------------------
 
-def load_theme(path=None):
-    path = path or os.path.join(ROOT, "brand", "theme.yaml")
-    with open(path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+def deep_merge(base, over):
+    """over의 값으로 base를 재귀 병합(dict는 깊게, 그 외는 덮어씀)."""
+    out = dict(base)
+    for k, v in (over or {}).items():
+        if isinstance(v, dict) and isinstance(out.get(k), dict):
+            out[k] = deep_merge(out[k], v)
+        else:
+            out[k] = v
+    return out
+
+
+def load_doc_meta(doc_dir):
+    path = os.path.join(doc_dir, "doc.yaml")
+    if os.path.exists(path):
+        return yaml.safe_load(open(path, encoding="utf-8")) or {}
+    return {}
+
+
+def resolve_brand_dir(brand):
+    brand_dir = os.path.join(ROOT, "brands", brand or "_default")
+    if not os.path.isdir(brand_dir):
+        brand_dir = os.path.join(ROOT, "brands", "_default")
+    return brand_dir
+
+
+def resolve_theme(doc_dir, brand_override=None, theme_path=None):
+    """doc.yaml -> 브랜드 theme 로드 -> doc.yaml theme: 오버라이드 병합.
+    반환: (theme dict, brand_dir, meta dict)."""
+    meta = load_doc_meta(doc_dir)
+    brand = brand_override or meta.get("brand") or "_default"
+    brand_dir = resolve_brand_dir(brand)
+    theme_file = theme_path or os.path.join(brand_dir, "theme.yaml")
+    theme = yaml.safe_load(open(theme_file, encoding="utf-8"))
+    theme = deep_merge(theme, meta.get("theme"))
+    return theme, brand_dir, meta
 
 
 def load_slides(storyboard_dir):
@@ -205,8 +238,8 @@ class Deck:
 
 # ----- 엔트리포인트 ------------------------------------------------------------
 
-def build(doc_dir, out=None, theme_path=None):
-    theme = load_theme(theme_path)
+def build(doc_dir, out=None, brand=None, theme_path=None):
+    theme, brand_dir, meta = resolve_theme(doc_dir, brand, theme_path)
     slides = load_slides(os.path.join(doc_dir, "storyboard"))
     # chart/image 경로를 문서폴더 기준 절대경로로 해석
     for sp in slides:
@@ -215,13 +248,16 @@ def build(doc_dir, out=None, theme_path=None):
         if sp.get("image"):
             sp["_image_abspath"] = os.path.join(doc_dir, sp["image"])
     deck = Deck(theme)
+    deck.brand_dir = brand_dir  # 자산(로고 등) 해석 기준
     for sp in slides:
         deck.render(sp)
     if out is None:
         name = os.path.basename(os.path.normpath(doc_dir))
-        out = os.path.join(doc_dir, "output", f"{name}.pptx")
+        version = meta.get("version")
+        fname = f"{name}_{version}.pptx" if version else f"{name}.pptx"
+        out = os.path.join(doc_dir, "output", fname)
     deck.save(out)
-    print(f"생성: {out}  (슬라이드 {len(slides)}장)")
+    print(f"생성: {out}  (슬라이드 {len(slides)}장, 브랜드: {os.path.basename(brand_dir)})")
     return out
 
 
@@ -229,9 +265,10 @@ def main():
     ap = argparse.ArgumentParser(description="storyboard -> pptx")
     ap.add_argument("doc_dir", help="문서 폴더 (storyboard/ 포함)")
     ap.add_argument("-o", "--out", help="출력 pptx 경로")
-    ap.add_argument("--theme", help="theme.yaml 경로")
+    ap.add_argument("--brand", help="brands/<NAME> 강제 지정(doc.yaml보다 우선)")
+    ap.add_argument("--theme", help="theme.yaml 경로 직접 지정")
     args = ap.parse_args()
-    build(args.doc_dir, args.out, args.theme)
+    build(args.doc_dir, args.out, args.brand, args.theme)
 
 
 if __name__ == "__main__":

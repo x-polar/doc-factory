@@ -19,14 +19,17 @@ pip install -r requirements.txt   # python-pptx, PyYAML 포함
 ## 권장 경로: deckbuilder
 
 대부분의 경우 직접 python을 짜지 말고 공유 빌더를 씁니다. storyboard와
-`brand/theme.yaml`을 읽어 자동으로 덱을 생성합니다.
+**선택된 브랜드 테마**를 읽어 자동으로 덱을 생성합니다.
 
 ```bash
 python src/lib/deckbuilder.py docs/20260629_proposal
-# -> docs/20260629_proposal/output/20260629_proposal.pptx
+# -> docs/20260629_proposal/output/20260629_proposal_v1.pptx
 ```
 
-- 색·폰트·여백은 `brand/theme.yaml` 토큰을 따릅니다(임의 지정 금지).
+- **브랜드/테마 선택은 문서의 `doc.yaml`**: `brand:`로 `brands/<brand>/theme.yaml`을
+  고르고, `theme:` 블록으로 이 덱만의 토큰을 오버라이드(deep-merge). 해석 순서·구조는
+  `brands/README.md` 참고. 빌더에 `--brand NAME`으로 강제 지정도 가능.
+- 색·폰트·여백은 브랜드 `theme.yaml` 토큰을 따릅니다(임의 지정 금지).
 - 슬라이드 `layout:` 값의 의미·필드는 `reference/layout-catalog.md` 참고.
 - 차트 CSV 형식·차트 규칙은 `reference/chart-style.md` 참고.
 - 새 layout/차트유형이 필요하면 `deckbuilder.py`와 `layout-catalog.md`를 **함께**
@@ -66,10 +69,10 @@ slides = load_slides("docs/20260629_proposal/storyboard")
 
 ## 작업 원칙
 
-1. **템플릿 우선.** `templates/`에 마스터 `.pptx`가 있으면 그 위에서 시작:
+1. **템플릿 우선.** 브랜드의 `templates/`에 마스터 `.pptx`가 있으면 그 위에서 시작:
    ```python
    from pptx import Presentation
-   prs = Presentation("templates/corporate-16x9.pptx")  # 마스터/레이아웃 상속
+   prs = Presentation("brands/acme/templates/acme-16x9.pptx")  # 마스터/레이아웃 상속
    ```
    템플릿이 없으면 빈 16:9로 시작:
    ```python
@@ -134,7 +137,7 @@ prs.save("output/20260629_proposal_v1.pptx")
 ## 한글 폰트
 
 - 시스템에 한글 폰트(예: Noto Sans KR / Pretendant 등)가 설치돼 있어야 PDF 변환
-  시 깨지지 않습니다. 폰트는 `assets/fonts/`에 두고 환경에 설치해 사용합니다.
+  시 깨지지 않습니다. 폰트는 브랜드의 `assets/fonts/`에 두고 환경에 설치해 씁니다.
 - 런(run) 단위로 폰트 지정: `run.font.name = "Noto Sans KR"`.
 
 ## 마무리

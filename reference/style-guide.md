@@ -17,13 +17,14 @@ AGENTS.md §4(작성 원칙)의 확장판. 슬라이드를 쓸 때 이 기준을
 
 ## 시각
 
-- 색·폰트는 `brand/theme.yaml` 토큰만 사용. 임의 색/폰트 금지.
+- 색·폰트는 선택한 브랜드의 `theme.yaml`(`brands/<brand>/theme.yaml`) 토큰만 사용.
+  임의 색/폰트 금지. 이 덱만의 조정은 `doc.yaml`의 `theme:` 오버라이드로.
 - 강조는 색(accent) 하나로. 굵게/색/크기 동시 남발 금지.
 - 표·차트 스타일은 `reference/chart-style.md`를 따른다.
 
 ## 언어
 
-- 한글·영문 혼용 시 폰트 깨짐 주의. 본문은 `brand/theme.yaml`의 `fonts.body`.
+- 한글·영문 혼용 시 폰트 깨짐 주의. 본문은 브랜드 `theme.yaml`의 `fonts.body`.
 - 숫자 단위·표기 일관(예: 30% / 30 % 혼용 금지).
 - 용어는 `knowledge/messaging.md`의 승인 용어집을 따른다.
 
