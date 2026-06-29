@@ -13,8 +13,38 @@ description: >
 ## 준비
 
 ```bash
-pip install -r requirements.txt   # python-pptx 포함 (없으면: pip install python-pptx)
+pip install -r requirements.txt   # python-pptx, PyYAML 포함
 ```
+
+## 입력: 스토리보드 읽기
+
+덱은 `docs/<문서>/storyboard/`의 **슬라이드별 파일**에서 생성합니다. 파일 하나가
+슬라이드 하나이고, **파일명 숫자 접두(`01-`, `02-`) 순서가 곧 슬라이드 순서**입니다.
+각 파일은 YAML frontmatter(구조) + Markdown 본문(불릿) + `## notes`(스피커 노트)
+구성입니다.
+
+```python
+import glob, os, re, yaml
+
+def load_slides(storyboard_dir):
+    slides = []
+    for path in sorted(glob.glob(os.path.join(storyboard_dir, "*.md"))):
+        text = open(path, encoding="utf-8").read()
+        m = re.match(r"^---\n(.*?)\n---\n(.*)$", text, re.S)
+        meta = yaml.safe_load(m.group(1)) if m else {}
+        rest = m.group(2) if m else text
+        # 본문과 notes 분리
+        parts = re.split(r"^##\s*notes\s*$", rest, maxsplit=1, flags=re.M)
+        body  = [l[1:].strip() for l in parts[0].splitlines() if l.strip().startswith("-")]
+        notes = parts[1].strip() if len(parts) > 1 else ""
+        slides.append({**meta, "body": body, "notes": notes, "_file": path})
+    return slides
+
+slides = load_slides("docs/20260629_proposal/storyboard")
+```
+
+`meta`에는 `title`(action title), `layout`, `chart`, `image`, `source` 등이 담깁니다.
+이 리스트를 순회하며 아래 패턴으로 슬라이드를 만듭니다.
 
 ## 작업 원칙
 
@@ -38,7 +68,8 @@ pip install -r requirements.txt   # python-pptx 포함 (없으면: pip install p
 3. **Action title.** 각 슬라이드 제목은 결론/주장을 담습니다(예: "매출은 3년간
    2배 성장" — "매출 추이"가 아니라).
 
-4. **스피커 노트.** 상세 설명은 `slide.notes_slide.notes_text_frame.text`에.
+4. **스피커 노트.** 상세 설명은 `slide.notes_slide.notes_text_frame.text`에
+   (스토리보드 각 파일의 `## notes` 내용을 그대로 넣음).
 
 ## 기본 패턴
 

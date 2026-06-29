@@ -29,7 +29,10 @@ docs/20260629_proposal/
 ├── brief.md
 ├── research/sources.md
 ├── storyline.md
-├── storyboard/storyboard.yaml
+├── storyboard/         # 슬라이드 1장 = 파일 1개 (NN-slug.md)
+│   ├── 01-title.md
+│   ├── 02-message.md
+│   └── 03-chart.md
 ├── output/    # 임시 export (git 제외)
 └── release/   # 확정본 (git 추적)
 ```
@@ -39,7 +42,7 @@ docs/20260629_proposal/
 1. **brief.md 먼저 채운다** — 대상·목적·핵심 질문·제약. (게이트: 확정 전 조사 금지)
 2. `research/`에 근거·출처 수집, `sources.md`에 정리.
 3. `storyline.md`로 논리 구조 작성 → **사용자 승인**.
-4. `storyboard/storyboard.yaml`에 슬라이드별 스펙 작성.
+4. `storyboard/`에 슬라이드별 파일(`NN-slug.md`) 작성. 순서는 파일명 숫자 접두.
 5. `pptx-builder` 스킬로 `output/`에 .pptx 생성, 필요 시 `pdf-export`로 변환.
 6. 확정되면 해당 버전을 `release/`로 복사해 커밋(`output/`은 git 제외).
 
