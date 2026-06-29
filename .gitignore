@@ -2,11 +2,10 @@
 CLAUDE.md
 CLAUDE.local.md
 
-# 산출물 — 저장소 비대화 방지 (폴더 자체는 .gitkeep으로 유지)
-output/*
-!output/.gitkeep
-*.pdf
-!examples/**/*.pdf
+# 산출물 — 저장소 비대화 방지: 모든 깊이의 output/ 내용만 제외(폴더는 .gitkeep 유지).
+# templates/ 마스터 pptx, research/ 근거 pdf 등은 정상 추적된다.
+**/output/*
+!**/output/.gitkeep
 
 # Python
 __pycache__/
