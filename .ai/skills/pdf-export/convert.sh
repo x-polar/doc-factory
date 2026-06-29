@@ -10,6 +10,13 @@ if ! command -v soffice >/dev/null 2>&1; then
   exit 1
 fi
 
+# pptx 변환에는 Impress 모듈이 필요(core만 있으면 'source file could not be loaded').
+if [ ! -e /usr/lib/libreoffice/program/simpress.so ] \
+   && ! ls /usr/lib/libreoffice/program/*impress* >/dev/null 2>&1; then
+  echo "경고: LibreOffice Impress 모듈이 안 보입니다. 변환이 실패하면 설치하세요:" >&2
+  echo "      sudo apt-get update && sudo apt-get install -y libreoffice-impress" >&2
+fi
+
 if [ "$#" -ne 1 ]; then
   echo "사용법: $0 <file.pptx | dir>" >&2
   exit 1
@@ -17,12 +24,17 @@ fi
 
 target="$1"
 
+# 동시 실행/락 충돌을 피하기 위한 전용 프로필 디렉터리
+profile="$(mktemp -d)"
+trap 'rm -rf "$profile"' EXIT
+
 convert_one() {
   local f="$1"
   local outdir
   outdir="$(dirname "$f")"
   echo "변환 중: $f -> $outdir/$(basename "${f%.*}").pdf"
-  soffice --headless --convert-to pdf --outdir "$outdir" "$f"
+  soffice --headless -env:UserInstallation="file://$profile" \
+    --convert-to pdf --outdir "$outdir" "$f"
 }
 
 if [ -d "$target" ]; then

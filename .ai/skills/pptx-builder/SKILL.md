@@ -16,6 +16,24 @@ description: >
 pip install -r requirements.txt   # python-pptx, PyYAML 포함
 ```
 
+## 권장 경로: deckbuilder
+
+대부분의 경우 직접 python을 짜지 말고 공유 빌더를 씁니다. storyboard와
+`brand/theme.yaml`을 읽어 자동으로 덱을 생성합니다.
+
+```bash
+python src/lib/deckbuilder.py docs/20260629_proposal
+# -> docs/20260629_proposal/output/20260629_proposal.pptx
+```
+
+- 색·폰트·여백은 `brand/theme.yaml` 토큰을 따릅니다(임의 지정 금지).
+- 슬라이드 `layout:` 값의 의미·필드는 `reference/layout-catalog.md` 참고.
+- 차트 CSV 형식·차트 규칙은 `reference/chart-style.md` 참고.
+- 새 layout/차트유형이 필요하면 `deckbuilder.py`와 `layout-catalog.md`를 **함께**
+  확장합니다(AGENTS.md §6 교차 검증).
+
+아래 내용은 deckbuilder를 확장하거나 특수 슬라이드를 손으로 만들 때의 참고입니다.
+
 ## 입력: 스토리보드 읽기
 
 덱은 `docs/<문서>/storyboard/`의 **슬라이드별 파일**에서 생성합니다. 파일 하나가
