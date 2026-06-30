@@ -1,0 +1,40 @@
+# XENOIMPACT — 디자인 토큰 (2026 회사소개서 CI에서 추출)
+# 다크 테마: 근블랙 배경 + 화이트 텍스트 + 번트 오렌지 포인트.
+# 색은 '#' 없는 6자리 HEX.
+
+meta:
+  name: "XENOIMPACT"
+  ratio: "16:9"
+
+colors:
+  primary:    "0A0A0B"   # 근블랙 (브랜드 베이스)
+  secondary:  "C04F15"
+  accent:     "C04F15"   # 번트 오렌지/코퍼 (포인트)
+  text:       "EAEAEA"   # 다크 배경 위 본문
+  muted:      "9AA0A6"   # 캡션·보조
+  background: "0B0B0D"   # 콘텐츠 슬라이드 배경(다크)
+  on_primary: "FFFFFF"
+  # 다크 테마용 추가 토큰 (deckbuilder가 없으면 위 값으로 폴백)
+  title_ink:  "FFFFFF"   # 콘텐츠 슬라이드 제목(다크 위)
+  bg_cover:   "0A0A0B"   # 표지 배경
+  on_cover:   "FFFFFF"
+  bg_section: "0A0A0B"   # 섹션 구분 배경
+  on_section: "FFFFFF"
+  # 차트 시리즈 팔레트(오렌지 주도 + 중립)
+  series: ["C04F15", "E0875A", "C9A227", "6E7B8B", "9AA0A6"]
+
+fonts:
+  heading:  "Pretendard"   # 굵기는 bold 플래그로 처리
+  body:     "Pretendard"
+  fallback: "Arial"        # Pretendard 미설치 환경 폴백
+
+sizes:        # pt
+  title:    28
+  subtitle: 18
+  body:     16
+  caption:  11
+
+slide:        # inches (16:9)
+  width:  13.333
+  height: 7.5
+  margin: 0.7

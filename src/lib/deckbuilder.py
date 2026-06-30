@@ -119,6 +119,12 @@ class Deck:
     def rgb(self, key):
         return RGBColor.from_string(self.c[key])
 
+    def col(self, key, default_key=None):
+        """토큰 색을 가져오되 없으면 default_key 토큰으로 폴백(하위호환)."""
+        if key in self.c:
+            return self.c[key]
+        return self.c[default_key]
+
     def _add_text(self, slide, text, left, top, width, height, *,
                   size, color, bold=False, align=PP_ALIGN.LEFT,
                   anchor=MSO_ANCHOR.TOP, font=None):
@@ -137,9 +143,9 @@ class Deck:
         run.font.color.rgb = RGBColor.from_string(color)
         return box
 
-    def _bg(self, slide, color_key):
+    def _bg(self, slide, hexstr):
         slide.background.fill.solid()
-        slide.background.fill.fore_color.rgb = self.rgb(color_key)
+        slide.background.fill.fore_color.rgb = RGBColor.from_string(hexstr)
 
     def _notes(self, slide, text):
         if text:
@@ -156,32 +162,39 @@ class Deck:
         self._notes(slide, sp.get("notes", ""))
         return slide
 
+    def _content_bg(self, slide):
+        # 콘텐츠 슬라이드 배경(라이트=흰색, 다크 브랜드=어두운 색). 기본 흰색.
+        self._bg(slide, self.col("background", None) if "background" in self.c else "FFFFFF")
+
     def _title_band(self, slide, text):
         m = self.sl["margin"]
+        # 콘텐츠 슬라이드 제목색: title_ink 없으면 primary로 폴백.
         self._add_text(slide, text, m, m, self.sl["width"] - 2 * m, 1.0,
-                       size=self.s["title"], color=self.c["primary"],
+                       size=self.s["title"], color=self.col("title_ink", "primary"),
                        bold=True, font=self.f["heading"])
 
     def _l_title(self, slide, sp):
-        self._bg(slide, "primary")
+        self._bg(slide, self.col("bg_cover", "primary"))
         w, h = self.sl["width"], self.sl["height"]
+        on = self.col("on_cover", "on_primary")
         self._add_text(slide, sp["title"], 1.0, h / 2 - 1.0, w - 2.0, 1.5,
-                       size=self.s["title"] + 8, color=self.c["on_primary"],
+                       size=self.s["title"] + 8, color=on,
                        bold=True, align=PP_ALIGN.LEFT, font=self.f["heading"])
         sub = " · ".join(sp.get("free", []))
         if sub:
             self._add_text(slide, sub, 1.0, h / 2 + 0.3, w - 2.0, 1.0,
-                           size=self.s["subtitle"], color=self.c["on_primary"],
+                           size=self.s["subtitle"], color=on,
                            font=self.f["body"])
 
     def _l_section(self, slide, sp):
-        self._bg(slide, "accent")
+        self._bg(slide, self.col("bg_section", "accent"))
         w, h = self.sl["width"], self.sl["height"]
         self._add_text(slide, sp["title"], 1.0, h / 2 - 0.6, w - 2.0, 1.2,
-                       size=self.s["title"] + 4, color=self.c["on_primary"],
+                       size=self.s["title"] + 4, color=self.col("on_section", "on_primary"),
                        bold=True, anchor=MSO_ANCHOR.MIDDLE, font=self.f["heading"])
 
     def _l_title_body(self, slide, sp):
+        self._content_bg(slide)
         self._title_band(slide, sp["title"])
         m = self.sl["margin"]
         box = slide.shapes.add_textbox(Inches(m), Inches(1.7),
@@ -199,6 +212,7 @@ class Deck:
             para.space_after = Pt(8)
 
     def _l_title_chart(self, slide, sp):
+        self._content_bg(slide)
         self._title_band(slide, sp["title"])
         chart_path = sp.get("_chart_abspath")
         if not chart_path or not os.path.exists(chart_path):
@@ -217,6 +231,8 @@ class Deck:
             Inches(self.sl["width"] - 2 * self.sl["margin"]), Inches(4.6), data)
         chart = gframe.chart
         chart.has_title = False
+        # 다크 배경에서도 축·범례가 보이도록 차트 글자색을 text 토큰으로
+        chart.font.color.rgb = RGBColor.from_string(self.c["text"])
         for i, plot_series in enumerate(chart.series):
             palette = self.c["series"]
             plot_series.format.fill.solid()
@@ -224,6 +240,7 @@ class Deck:
                 RGBColor.from_string(palette[i % len(palette)])
 
     def _l_title_image(self, slide, sp):
+        self._content_bg(slide)
         self._title_band(slide, sp["title"])
         img = sp.get("_image_abspath")
         if img and os.path.exists(img):
