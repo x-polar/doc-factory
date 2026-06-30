@@ -23,6 +23,11 @@ colors:
   # 차트 시리즈 팔레트(오렌지 주도 + 중립)
   series: ["C04F15", "E0875A", "C9A227", "6E7B8B", "9AA0A6"]
 
+# 로고(브랜드 폴더 기준 상대경로). 다크 테마라 화이트 워드마크 사용.
+logo:
+  cover:  "assets/logos/xenoimpact_white_typo.png"   # 표지 상단
+  footer: "assets/logos/xenoimpact_white_typo.png"   # 나머지 슬라이드 푸터
+
 fonts:
   heading:  "Pretendard"   # 굵기는 bold 플래그로 처리
   body:     "Pretendard"

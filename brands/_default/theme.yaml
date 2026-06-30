@@ -25,6 +25,11 @@ colors:
   # on_section: "FFFFFF"   # 섹션 글자색     (폴백: on_primary)
   # background  는 콘텐츠 슬라이드 배경(위에 정의됨, 폴백: FFFFFF)
 
+# (선택) 로고 — 브랜드 폴더 기준 상대경로. 있으면 표지/푸터에 자동 삽입.
+# logo:
+#   cover:  "assets/logos/<brand>_typo.png"
+#   footer: "assets/logos/<brand>_typo.png"
+
 fonts:
   heading:  "Noto Sans KR"
   body:     "Noto Sans KR"

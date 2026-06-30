@@ -111,6 +111,8 @@ class Deck:
         self.f = theme["fonts"]
         self.s = theme["sizes"]
         self.sl = theme["slide"]
+        self.logo = theme.get("logo", {})   # {cover: path, footer: path} (브랜드 상대경로)
+        self.brand_dir = None               # build()에서 자산 해석 기준으로 설정
         self.prs = Presentation()
         self.prs.slide_width = Inches(self.sl["width"])
         self.prs.slide_height = Inches(self.sl["height"])
@@ -151,6 +153,21 @@ class Deck:
         if text:
             slide.notes_slide.notes_text_frame.text = text
 
+    def _add_logo(self, slide, kind):
+        """theme.logo[kind] 로고를 배치. cover=상단 크게, footer=하단 작게."""
+        rel = self.logo.get(kind)
+        if not rel or not self.brand_dir:
+            return
+        path = os.path.join(self.brand_dir, rel)
+        if not os.path.exists(path):
+            return
+        m = self.sl["margin"]
+        if kind == "cover":
+            slide.shapes.add_picture(path, Inches(m), Inches(m), width=Inches(3.4))
+        else:  # footer
+            slide.shapes.add_picture(path, Inches(m),
+                                     Inches(self.sl["height"] - 0.55), width=Inches(1.5))
+
     # --- layout 별 렌더 ---
     def render(self, sp):
         layout = sp.get("layout", "title+body")
@@ -159,6 +176,8 @@ class Deck:
             fn = self._l_title_body  # 알 수 없는 layout은 본문형으로 폴백
         slide = self.prs.slides.add_slide(self.blank)
         fn(slide, sp)
+        # 로고: 표지는 상단 크게, 나머지는 푸터에 작게
+        self._add_logo(slide, "cover" if layout == "title" else "footer")
         self._notes(slide, sp.get("notes", ""))
         return slide
 
