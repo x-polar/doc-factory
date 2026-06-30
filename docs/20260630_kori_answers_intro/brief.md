@@ -1,7 +1,7 @@
 ---
 title: "KORI Answers 소개"
 brand: kori-answers
-version: v1
+version: v2
 theme: {}
 ---
 

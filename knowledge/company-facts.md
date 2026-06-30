@@ -49,6 +49,42 @@
   컬러테일러, 합동참모본부 JFOS-K, 기상청 기상위성 영상분석, 인천국제공항 2단계
   건설 경비보안 등 다수.
 
+## 주요 수행 사례 (Recent Works — 매출/기간/구조)
+| 프로젝트 | 기간 | 매출 | 구조 | 핵심 |
+|----------|------|------|------|------|
+| 삼성전자 **MARU** (Marketing Intelligence Platform) | 2018~2025 | **260억원+** | 삼성전자–제노임펙트 | 메모리 전략마케팅실 인텔리전스 플랫폼, 단독 운영·고도화. Hybrid(키워드+벡터) 검색, 고도화 RAG, 정형·비정형+외부 크롤링 통합 Vault, 결정론적 보안 레이어 |
+| **KT 로봇 관제 플랫폼** | 2022~2023 | **25억원+** | KT–제노임펙트 | 실시간 로봇 모니터링·제어, 로그 분석, 방역로봇 대시보드, Master Data 관리 |
+| **IBK기업은행 AI 인사배치** | 2022~2023 | **18억원+** | IBK–제노임펙트 | 강화학습 기반 인원 순환배치 최적화, 직무 적합도 정량화 모델 |
+| 현대모비스 **AI HS Code 분류** | 2025~2026 | **9억원** | 현대모비스–현대오토에버–제노임펙트 | 생성형 AI+경량 ML(Boosting/신경망) HS코드 자동분류, Zero-shot, Agentic Harness 관세청 연동 |
+| 현대모비스 **RMS**(원자재 가격예측) | 2023~2024 | **3억원+** | 현대모비스–현대오토에버–제노임펙트 | Boosting+LSTM+앙상블 시계열 예측, Embedding 비정형 시각화 |
+| 현대모비스 **차세대 AMOS PI** | 2025~2026 | (비공개) | 현대모비스–제노임펙트 | 대화형 Agentic AI 시스템 분석, COBOL 코드 LLM 분석, **COBOL→Java 전환 자동화**(MiPlatform>Java>COBOL>DB/2) |
+| 현대모비스 **AI Code Assistant** (= Kori Code) | 2026 | (비공개) | 현대모비스–제노임펙트 | 폐쇄망 Agentic 코드 지원. 터미널 Bash/Zsh/CMD/Powershell, IDE VS Code/MATLAB, OSS LLM Qwen/Kimi/GLM/Gemma/Llama |
+
+## 수상 (Awards)
+- 삼성전자 메모리 경영혁신과제 동상 — **MARU** (2019, 2018)
+- 삼성그룹 2018 IT Fair DS부문 대표 — MARU (2018)
+- 삼성전자 메모리 전략마케팅 Best Innovation Achievement — MARU (2018, 2017)
+- 삼성전자 전사 경영혁신보고 해외부문 1위 — **SEA War-room** (2010)
+- 삼성전자 메모리 경영혁신대상 금상 — **SIM/SOM** (2009)
+- WEB AWARD KOREA 2015 최우수상 / THE & AWARD 2015 대상 — 캐논 플레이샷 콘테스트 (2015)
+- 삼성전자 LSI Work Smart 부문상 — Mid-Long Sales Plan System (2013)
+
+## 주요 고객 (Customers, ~25)
+삼성전자·삼성SDI, 현대모비스·현대트랜시스, 인천국제공항, KT, SK, LG, 아모레퍼시픽,
+볼보(VOLVO), 두산(DOOSAN), GS칼텍스, 금호타이어, 호텔신라, 웅진, Cisco, SECUI,
+incross, 티머니(T money) / 공공·국방: 방위사업청(DAPA), 합동참모본부, 국방과학연구원,
+한국표준과학연구원(KRISS), 한전 전력연구원(KEPRI), LH, 기상청(KMA), 행정안전부(MOIS).
+
+## Why XENOIMPACT? (3대 강점 — 소개서 핵심 메시지)
+- **20+ Years. Enterprise-Grade. Battle-Tested.** — 삼성전자 메모리, 현대모비스,
+  인천국제공항 등 최고 수준 엔터프라이즈 현장에서 20년+ 검증된 기술 경험.
+- **No cloud. No compromise.** — 클라우드 의존 없이 고객사 내부망에서 완전 작동,
+  가장 엄격한 보안 환경에서도 AI 도입 가능.
+- **Anyone can use – without technical barriers** — 기술 지식 없이도 누구나 사용 가능.
+
+## 연락처 (Contact)
+- 최재영 (Jaeyoung Choi) · jy.choi@xenoimpact.com · +82 10 3042 4611
+
 ## 보일러플레이트 문구
 - (표지/마무리용 회사 소개 한 줄) AX/DX와 On-Premise AI로 기업의 디지털 전환을
   설계·구현하는 기술 파트너. <확정 문구 필요 시 갱신>

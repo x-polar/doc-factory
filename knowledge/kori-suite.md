@@ -9,7 +9,7 @@
 | 제품 | 캐치프레이즈 | 요지 |
 |------|--------------|------|
 | **KORI Answers** | The Sovereign Intelligence Engine | 온프레미스 데이터(ERP·위키) + 실시간 외부 인사이트를 결합한 RAG 기반 의사결정/지식 어시스턴트. 상세: `knowledge/kori-answers/` |
-| **KORI Code** | The Context-Aware Development Foundry | 사내 코드베이스를 이해해 고품질 코드 생성, 의도를 인프라로 변환 |
+| **KORI Code** | The Context-Aware Development Foundry | 사내 코드베이스를 이해해 고품질 코드 생성. **현대모비스 AI Code Assistant로 실제 구축**(2026): 폐쇄망 Agentic 코드 지원, 터미널 Bash/Zsh/CMD/Powershell, IDE VS Code/MATLAB, OSS LLM Qwen·Kimi·GLM·Gemma·Llama |
 | **KORI CLI** | The Autonomous Execution Agent | CLI를 에이전트형 워크플로로 전환, 개발 파이프라인에 직접 통합 |
 | **KORI Blueprint** | The Legacy Intelligence Engine | 레거시 코드베이스를 분석해 숨은 아키텍처 복원·문서화, 질의 가능한 지식 레이어로 전환 |
 | **KORI CRM** | The Operating System for Commercial Dominance | 영업 데이터 구조화 + 고객 라이프사이클 가시성 |

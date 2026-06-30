@@ -231,13 +231,17 @@ class Deck:
         self._bg(slide, self.col("background", None) if "background" in self.c else "FFFFFF")
 
     def _title_band(self, slide, text):
-        """콘텐츠 제목 + 액센트 룰. 본문 시작 y(인치)를 반환(2줄 제목 여유 포함)."""
+        """콘텐츠 제목 + 액센트 룰. 본문 시작 y(인치)를 반환(2줄 제목이면 더 내림)."""
         m = self.sl["margin"]
         self._add_text(slide, text, m, m - 0.05, self.sl["width"] - 2 * m, 1.4,
                        size=self.s["title"], color=self.col("title_ink", "primary"),
                        bold=True, font=self._heading_font(text))
-        self._accent_rule(slide, 1.55)
-        return 1.85  # 본문 시작 y
+        # CJK는 폭 2로 환산해 줄바꿈 추정 → 2줄이면 룰/본문을 아래로
+        units = sum(2 if self._has_cjk(ch) else 1 for ch in text)
+        two_line = units > 56
+        rule_y = 1.95 if two_line else 1.55
+        self._accent_rule(slide, rule_y)
+        return rule_y + 0.3
 
     def _bullets(self, slide, items, top, *, left=None, width=None, size=None):
         """액센트 불릿 목록을 그린다."""

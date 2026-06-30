@@ -1,0 +1,13 @@
+---
+title: "전문가 SQL Tool로 정형 데이터를 정확·효율적으로 조회한다"
+layout: title+body
+source: [src-02]
+---
+
+- LLM은 SQL을 직접 생성하지 않는다 (환각에 의한 오류 원천 차단)
+- 전문가가 검수한 SQL을 MCP Tool로 제공 → LLM은 Tool 선택·파라미터만
+- 단순 조회는 Oracle(OLTP), 대용량 집계·분석은 ClickHouse(OLAP)로 분리
+- Context Aware Routing으로 최소 요청·빠른 응답
+
+## notes
+2축: 정확·효율. 차별점 "LLM이 SQL을 안 짠다".
