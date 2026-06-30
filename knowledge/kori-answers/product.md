@@ -11,6 +11,18 @@
 - 1차 적용처: **삼성전자 DS부문 전략마케팅실** — MARU 시스템에 유기적 통합
 - 영문 슬로건: "Next Technology for Human Race"
 
+## 웹사이트 포지셔닝 (www.xenoimpact.com)
+> KORI는 제품군이며 KORI Answers는 그 중 하나. 제품군 전체는 `knowledge/kori-suite.md`.
+
+- 제품 캐치프레이즈: **"The Sovereign Intelligence Engine"**
+- 상위 슬로건: **"Beyond Limits, Trusted AI in Your Private Network"**
+- 핵심 메시지: **"No cloud. No compromise."** (sovereignty·온프레미스 강조)
+- 설명: 온프레미스 데이터(ERP·내부 위키)와 **실시간 외부 인사이트**를 결합하는,
+  사내 프라이빗 네트워크에서 동작하는 의사결정 엔진.
+- ⚠️ **범위 차이 주의:** 기술 소개서(PDF)는 *사내 MARU 데이터* 중심인데, 웹사이트는
+  "+ 실시간 외부 인사이트"까지 포함한다고 표현(로드맵 3단계 Deep Research의 외부
+  Google 검색과 연결되는 마케팅 메시지로 보임). 외부 문서 작성 시 범위를 확인할 것.
+
 ## 3대 핵심 특징
 | 축 | 내용 |
 |----|------|

@@ -1,6 +1,6 @@
-# KORI Answers — 디자인 토큰.
-# 디자인은 아직 미확정(중립 기본값 유지). KORI Answers는 XENOIMPACT 제품이므로,
-# 필요 시 brands/xenoimpact의 토큰/로고를 복제해 적용하거나 자체 디자인을 정한다.
+# KORI Answers — 디자인 토큰 (www.xenoimpact.com 의 KORI/웹 아이덴티티 기반)
+# 다크(블랙) 베이스 + 네온 민트 포인트 + Tomorrow 디스플레이 폰트.
+# 회사 소개서(오렌지/Pretendard)와는 다른, 제품/웹 아이덴티티.
 # 색은 '#' 없는 6자리 HEX.
 
 meta:
@@ -8,32 +8,26 @@ meta:
   ratio: "16:9"
 
 colors:
-  primary:    "1F4E79"   # 메인(제목·강조)
-  secondary:  "2E75B6"
-  accent:     "C55A11"   # 포인트
-  text:       "262626"   # 본문
-  muted:      "808080"   # 캡션·보조
-  background: "FFFFFF"
-  on_primary: "FFFFFF"   # primary 배경 위 글자색
-  # 차트 시리즈 팔레트(순서대로 사용)
-  series: ["1F4E79", "2E75B6", "9DC3E6", "C55A11", "808080"]
-  # --- 선택 토큰(생략 시 아래 폴백). 다크 테마 브랜드는 이걸로 배경/글자색 제어. ---
-  # title_ink:  "1F4E79"   # 콘텐츠 슬라이드 제목색 (폴백: primary)
-  # bg_cover:   "1F4E79"   # 표지 배경       (폴백: primary)
-  # on_cover:   "FFFFFF"   # 표지 글자색     (폴백: on_primary)
-  # bg_section: "C55A11"   # 섹션 구분 배경  (폴백: accent)
-  # on_section: "FFFFFF"   # 섹션 글자색     (폴백: on_primary)
-  # background  는 콘텐츠 슬라이드 배경(위에 정의됨, 폴백: FFFFFF)
-
-# (선택) 로고 — 브랜드 폴더 기준 상대경로. 있으면 표지/푸터에 자동 삽입.
-# logo:
-#   cover:  "assets/logos/<brand>_typo.png"
-#   footer: "assets/logos/<brand>_typo.png"
+  primary:    "000000"   # 사이트 베이스 블랙
+  secondary:  "22FFBD"
+  accent:     "22FFBD"   # 네온 민트(사이트 포인트색)
+  text:       "EDEDED"   # 다크 배경 위 본문
+  muted:      "8A8A8A"   # 캡션·보조(사이트 그레이 계열)
+  background: "000000"   # 콘텐츠 슬라이드 배경(블랙)
+  on_primary: "FFFFFF"
+  # 다크 테마 토큰
+  title_ink:  "FFFFFF"   # 콘텐츠 제목(다크 위)
+  bg_cover:   "000000"   # 표지 배경(블랙)
+  on_cover:   "FFFFFF"
+  bg_section: "0A0A0B"   # 섹션 구분 배경
+  on_section: "22FFBD"   # 섹션 제목을 민트로(KORI 포인트)
+  # 차트 시리즈 팔레트(민트 주도 + 중립)
+  series: ["22FFBD", "6FE9CE", "2E9E86", "8A8A8A", "D5D5D5"]
 
 fonts:
-  heading:  "Noto Sans KR"
-  body:     "Noto Sans KR"
-  fallback: "Arial"       # 폰트 미설치 환경 폴백
+  heading:  "Tomorrow"      # 사이트 디스플레이 폰트(영문 테키). 한글은 폴백으로 렌더
+  body:     "Pretendard"    # 본문 한글 가독성(미설치 시 폴백). 사이트 본문은 Monda
+  fallback: "Noto Sans KR"
 
 sizes:        # pt
   title:    28
@@ -41,7 +35,7 @@ sizes:        # pt
   body:     16
   caption:  11
 
-slide:        # inches (16:9 = 13.333 x 7.5)
+slide:        # inches (16:9)
   width:  13.333
   height: 7.5
   margin: 0.7

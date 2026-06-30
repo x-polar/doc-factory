@@ -3,13 +3,17 @@
 XENOIMPACT 제품 **KORI Answers**(= MARU RAG)의 공유 사실·메시지. 이 제품 관련
 문서(`docs/...`)는 여기를 인용한다. 소스 원본은 `brands/kori-answers/refs/`(LFS).
 
+KORI는 제품군이며 KORI Answers는 그 중 하나 → 제품군 전체: `knowledge/kori-suite.md`.
+
 | 파일 | 내용 |
 |------|------|
-| `product.md` | 정의·3대 특징·기능·사용법·도입효과·PoC 결과(93.2%) |
+| `product.md` | 정의·웹 포지셔닝·3대 특징·기능·도입효과·PoC 결과(93.2%) |
 | `architecture.md` | Agent 설계·데이터 거버넌스·정형/비정형 응답·기술 스택 |
 | `roadmap.md` | 4단계 발전 로드맵 + STT 부록 |
 
 ## 핵심 메시지 (positioning)
+- 캐치프레이즈: **"The Sovereign Intelligence Engine"** / **"No cloud. No compromise."**
+  / 상위 슬로건 **"Beyond Limits, Trusted AI in Your Private Network"** (웹사이트).
 - **"안전하게, 정확하게, 사내에서."** 폐쇄망(온프레미스) RAG로 데이터 유출 없이
   정형·비정형 사내 데이터를 활용하는 대화형 AI.
 - **신뢰할 수 있는 답** — 모든 답변에 출처(인용)와 근거 문서를 함께 제시.
