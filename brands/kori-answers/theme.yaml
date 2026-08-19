@@ -1,3 +1,6 @@
+# KORI Answers — 디자인 토큰 (www.xenoimpact.com 웹 아이덴티티 기반)
+# 화면용 16:9. 인쇄가 필요하면 slide 를 A4(10.83x7.5)로 바꾼다.
+
 meta:
   name: KORI Answers
   ratio: '16:9'
@@ -23,7 +26,7 @@ colors:
 fonts:
   heading: Tomorrow
   body: Pretendard
-  fallback: Noto Sans KR
+  fallback: Noto Sans CJK KR
 sizes:
   title: 28
   subtitle: 18

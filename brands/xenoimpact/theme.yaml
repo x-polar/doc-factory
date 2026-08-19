@@ -1,10 +1,11 @@
 # XENOIMPACT — 디자인 토큰 (2026 Q2 회사소개서 실측 기반)
-# 비율/폰트/배경은 실물 덱(brands/xenoimpact/refs/*.pptx)에서 검증한 값이다.
+# 페이지 크기: 원본 pptx가 sldSz type="A4" 로 정의된 '인쇄용' 덱이다.
+#   → 배경 이미지도 300dpi(3300px, A4 폭 305dpi)로 유지한다. 함부로 줄이지 말 것.
 # 색은 '#' 없는 6자리 HEX.
 
 meta:
   name: XENOIMPACT
-  ratio: 10.83:7.5 (회사 실물 덱 실측)
+  ratio: A4 인쇄 프리셋 (PowerPoint sldSz type="A4", 10.83x7.5in) — 실물 덱 실측
 colors:
   primary: 0A0A0B
   secondary: C04F15

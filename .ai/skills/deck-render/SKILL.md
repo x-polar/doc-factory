@@ -42,3 +42,9 @@ python src/lib/render.py docs/20260630_proposal --brand xenoimpact
 ## 주의
 - Chromium 경로는 자동 탐색(`/opt/pw-browsers/...`). 못 찾으면 명확히 실패합니다.
 - 이미지는 `file://` 절대경로로 삽입되므로 **HTML만 따로 옮기면 이미지가 깨집니다**(PDF는 무관).
+
+## 인쇄(A4) 문서 주의
+- `xenoimpact`처럼 **A4 인쇄 전제** 브랜드는 배경·도판을 **300dpi 이상**으로 유지한다
+  (A4 폭 10.83in 기준 최소 3250px). 화면 기준으로 줄이면 인쇄 품질이 무너진다.
+- 자산 정리 시 원본을 그대로 두지 말고 JPEG q90·3300px 정도로 맞춘다
+  (원본 5K PNG 15MB → 약 0.2~1MB, 305dpi 유지).

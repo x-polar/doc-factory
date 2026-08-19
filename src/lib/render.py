@@ -143,11 +143,19 @@ FMT = {"ttf":"truetype","otf":"opentype","woff2":"woff2","woff":"woff"}
 
 
 def font_faces(brand_dir):
-    """브랜드 assets/fonts/<Family>/*.ttf 를 @font-face로 임베드.
-    시스템 폰트 설치에 의존하지 않게 해 렌더 결과를 환경 독립적으로 만든다."""
-    fd = os.path.join(brand_dir, "assets", "fonts")
-    if not os.path.isdir(fd):
-        return ""
+    """폰트를 @font-face로 임베드해 시스템 설치 의존을 없앤다.
+    공용(brands/_default/assets/fonts) → 브랜드 전용 순으로 적층(뒤가 우선)."""
+    dirs = [os.path.join(ROOT, "brands", "_default", "assets", "fonts"),
+            os.path.join(brand_dir, "assets", "fonts")]
+    out = []
+    for fd in dirs:
+        if not os.path.isdir(fd):
+            continue
+        out += _faces_in(fd)
+    return "\n".join(out)
+
+
+def _faces_in(fd):
     out = []
     for fam in sorted(os.listdir(fd)):
         famdir = os.path.join(fd, fam)
@@ -167,7 +175,7 @@ def font_faces(brand_dir):
                 f'src:url("file://{os.path.abspath(f)}") format("{FMT[ext]}");'
                 f'font-weight:{w};font-style:{"italic" if italic else "normal"};'
                 f'font-display:block;}}')
-    return "\n".join(out)
+    return out
 
 
 def css_vars(theme):
