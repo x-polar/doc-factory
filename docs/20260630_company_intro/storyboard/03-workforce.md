@@ -1,21 +1,35 @@
 ---
-title: "AI·데이터와 소프트웨어 엔지니어링을 함께 갖췄다"
-kicker: "Workforce"
-layout: stat
+title: "Workforce Composition"
+layout: pie
+bg: waves-dark
 source: [src-01]
-stats:
-  - value: "25"
-    label: "Software Engineers"
-    note: "정규직"
-  - value: "12"
-    label: "AI / Data Specialists"
-    note: "정규직"
-  - value: "13"
+pie:
+  label: "Full-time Employees"
+  slices:
+    - label: "Software Engineers"
+      note: "25 ppl."
+      value: 25
+    - label: "AI / Data Specialists"
+      note: "12 ppl."
+      value: 12
+    - label: "Mgmt. & Sales"
+      value: 4
+  satellite:
     label: "Contract Employees"
-    note: "프로젝트 단위 투입"
-body:
-  - "계열·협력사 — C&YOUNG(컨설팅) · mint(모바일) · ACROVERSE(UI/UX) · NTIP·TRiTO(기술 인력)"
+    value: "13 ppl."
+aside_title: "Affiliates"
+logos:
+  - image: aff-cyoung
+    caption: "Business Consulting · AX/DX Consulting"
+  - image: aff-mint
+    caption: "Mobile App. Development"
+  - image: aff-acroverse
+    caption: "UI/UX Design"
+  - image: aff-ntip
+    caption: "Technical Resource Outsourcing"
+  - image: aff-trito
+    caption: "Technical Resource Outsourcing"
 ---
 
 ## notes
-AI 전담 인력이 전체의 3분의 1.
+원본 회사소개서 3p 구성 그대로: 파이(정규직 구성) + 점선 원(계약직) + 계열사 로고.

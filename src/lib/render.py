@@ -367,16 +367,20 @@ def render_slide(sp, theme, ctx, page=None, total=None):
         paths = [ctx.asset(x, kind="screens") for x in (sp.get("images") or [])]
         inner = slide_head(sp) + strips_html(paths) + bullets(sp.get("body"))
     elif layout == "team":
+        shape = sp.get("shape", "banner")      # banner(기본) | circle
+        orient = sp.get("orient", "cols")      # cols(기본) | rows
         cards = ""
         for pr in sp.get("people", []) or []:
             ph = ctx.asset(pr.get("photo"), kind="screens")
-            cards += ('<div class="person">' +
+            cards += (f'<div class="person shape-{shape}">' +
                       (f'<div class="ph"><img src="{ph}"></div>' if ph else '<div class="ph"></div>') +
+                      '<div class="p-body">' +
                       f'<h3>{e(pr.get("name",""))}</h3>' +
                       (f'<p class="role">{e(pr["role"])}</p>' if pr.get("role") else "") +
-                      bullets(pr.get("items")) + "</div>")
+                      bullets(pr.get("items")) + "</div></div>")
         n = len(sp.get("people", []) or [])
-        inner = slide_head(sp) + f'<div class="people cols-{n}">{cards}</div>'
+        cls = f'people orient-{orient} ' + (f"cols-{n}" if orient == "cols" else "")
+        inner = slide_head(sp) + f'<div class="{cls}">{cards}</div>'
     elif layout == "process":
         steps = ""
         for i, st in enumerate(sp.get("steps", []) or [], 1):
@@ -439,6 +443,43 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                  f'<h2 class="sec-title">{e(sp.get("title",""))}</h2>' +
                  (f'<p class="lede">{e(sp["lede"])}</p>' if sp.get("lede") else "") +
                  f'<div class="contacts">{rows}</div></div>')
+    elif layout == "pie":
+        import math
+        pie = sp.get("pie", {}) or {}
+        sl = pie.get("slices", []) or []
+        total = sum(float(x.get("value", 0)) for x in sl) or 1.0
+        palette = theme.get("colors", {}).get("series", ["888888"])
+        stops, labels, acc = [], "", 0.0
+        for i, x in enumerate(sl):
+            frac = float(x.get("value", 0)) / total
+            col = "#" + palette[i % len(palette)]
+            stops.append(f"{col} {acc*100:.3f}% {(acc+frac)*100:.3f}%")
+            mid = (acc + frac / 2) * 360 - 90          # 12시 방향 기준
+            r = 33 if frac > 0.12 else 44             # 얇은 조각은 바깥에
+            lx = 50 + math.cos(math.radians(mid)) * r
+            ly = 50 + math.sin(math.radians(mid)) * r
+            labels += (f'<span class="pl" style="left:{lx:.2f}%;top:{ly:.2f}%">'
+                       f'<b>{e(x.get("label",""))}</b>'
+                       + (f'<i>{e(x["note"])}</i>' if x.get("note") else "") + "</span>")
+            acc += frac
+        sat = pie.get("satellite") or {}
+        satellite = ('<div class="pie-sat">'
+                     f'<span class="sat-l">{e(sat.get("label",""))}</span>'
+                     f'<span class="sat-v">{e(sat.get("value",""))}</span></div>') if sat else ""
+        left = ('<div class="pie-wrap">'
+                + (f'<span class="pie-label">{e(pie["label"])}</span>' if pie.get("label") else "")
+                + f'<div class="pie" style="background:conic-gradient({", ".join(stops)})">{labels}</div>'
+                + "</div>" + satellite)
+        # 우측: 로고 목록(선택)
+        logos = ""
+        for lg in sp.get("logos", []) or []:
+            src = ctx.asset(lg.get("image"), kind="logos")
+            logos += ('<div class="lg">' +
+                      (f'<img src="{src}">' if src else "") +
+                      (f'<span>{e(lg["caption"])}</span>' if lg.get("caption") else "") + "</div>")
+        right = (f'<div class="aside"><h3 class="aside-t">{e(sp.get("aside_title",""))}</h3>'
+                 f'<div class="logos">{logos}</div></div>') if logos else ""
+        inner = slide_head(sp) + f'<div class="pie-row">{left}{right}</div>'
     else:  # title+body
         inner = slide_head(sp) + bullets(sp.get("body"))
 

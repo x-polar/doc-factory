@@ -595,3 +595,82 @@ blockquote::before{
 /* 인물 사진: 얼굴이 잘리지 않도록 세로를 넉넉히 + 상단 기준 */
 .person .ph{ height: calc(var(--u) * 21); }
 .person .ph img{ object-position: center 22%; transform: skewX(9deg) scale(1.12); }
+
+/* ============================================================
+   pie — 파이 차트 + 점선 원(정규직/계약직) + 계열사 로고
+   ============================================================ */
+.pie-row{
+  margin: auto 0; display:grid; grid-template-columns: 1.15fr .85fr;
+  gap: calc(var(--u) * 3); align-items:center; position:relative;
+}
+.pie-wrap{
+  position:relative; width: calc(var(--u) * 34); aspect-ratio:1;
+  margin: 0 auto;
+  border: 2px dotted var(--accent); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+.pie-label{
+  position:absolute; top: calc(var(--u) * 3.2); left:50%; transform:translateX(-50%);
+  white-space:nowrap; font-size: calc(var(--u) * 1.6); color: var(--accent);
+}
+.pie{
+  width: 62%; aspect-ratio:1; border-radius:50%; position:relative;
+}
+.pl{
+  position:absolute; transform: translate(-50%,-50%);
+  text-align:center; white-space:nowrap; line-height:1.25;
+}
+.pl b{
+  display:block; font-size: calc(var(--u) * 1.12); font-weight:400;
+  color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.55);
+}
+.pl i{
+  display:block; font-style:normal; margin-top: calc(var(--u)*.2);
+  font-size: calc(var(--u) * 1.55); font-weight:700; color:#fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,.55);
+}
+/* 겹치는 두 번째 점선 원 = 계약직 */
+.pie-sat{
+  position:absolute; left: calc(var(--u) * 26); bottom: calc(var(--u) * -6);
+  width: calc(var(--u) * 19); aspect-ratio:1;
+  border: 2px dotted var(--accent); border-radius:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap: calc(var(--u) * 1.2);
+}
+.sat-l{ font-size: calc(var(--u) * 1.5); color: var(--accent); }
+.sat-v{ font-size: calc(var(--u) * 2.1); font-weight:700; color: var(--ink); }
+
+/* 우측 계열사 */
+.aside-t{
+  font-family: var(--font-heading); font-size: calc(var(--u) * 2);
+  font-weight:700; color: var(--accent);
+  padding-bottom: calc(var(--u) * .8);
+  border-bottom: 2px solid var(--accent);
+}
+.logos{
+  margin-top: calc(var(--u) * 2); display:grid;
+  grid-template-columns: repeat(2, 1fr); gap: calc(var(--u) * 2.2) calc(var(--u) * 1.6);
+}
+.lg{ display:flex; flex-direction:column; gap: calc(var(--u)*.6); }
+.lg img{ height: calc(var(--u) * 2.4); width:auto; max-width:100%; object-fit:contain; object-position:left; }
+.lg span{
+  font-size: calc(var(--u) * 1.05); font-weight:300; line-height:1.4;
+  color: color-mix(in srgb, var(--body-ink) 76%, transparent);
+}
+
+/* ============================================================
+   team 변형 — 원형 사진 / 세로 스택
+   ============================================================ */
+.people.orient-rows{ grid-template-columns: 1fr; gap: calc(var(--u) * 2.6); }
+.people.orient-rows .person{
+  display:grid; grid-template-columns: calc(var(--u) * 15) 1fr;
+  gap: calc(var(--u) * 2.6); align-items:center;
+}
+.person.shape-circle .ph{
+  width: calc(var(--u) * 14); height: calc(var(--u) * 14);
+  border-radius:50%; transform:none; border:none;
+  box-shadow: 0 0 0 2px var(--accent);
+  margin-bottom: 0;
+}
+.person.shape-circle .ph img{ transform:none; object-position:center 22%; }
+.people.orient-rows .p-body{ padding-top: calc(var(--u)*.2); }

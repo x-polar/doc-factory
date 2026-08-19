@@ -27,6 +27,7 @@ storyboard 슬라이드 파일(`storyboard/NN-*.md`)의 frontmatter `layout:` �
 | `quote` | 큰 인용문 | `quote`, `cite`(선택) | (미사용) |
 | `mosaic` | 이미지 그리드(첫 장 강조) | `title`, `images:` | 캡션 |
 | `contact` | 마무리 연락처 | `title`, `lede`, `contacts:`(label·value) | (미사용) |
+| `pie` | 파이 차트 + 점선 원 + 로고 목록 | `title`, `pie:`, `logos:`(선택), `aside_title` | (미사용) |
 
 구조화 필드(YAML frontmatter, 들여쓰기 주의):
 
@@ -69,11 +70,24 @@ steps:                          # process 에서 사용 (items 와 같은 형태
 images: [kori-code, amos-ai, kt-robot, hscode-result]
 
 # team — 인물 카드
+shape: circle        # 선택: banner(기본, 사선 배너) | circle(원형)
+orient: rows         # 선택: cols(기본, 가로 나열) | rows(세로 스택, 사진 좌·글 우)
 people:
   - photo: leader-byun
     name: "변정민"
     role: "AI Lead · Ph.D (KAIST)"
     items: ["Kori AI 제품 설계", "Elice 공동창업"]
+
+# pie — 파이 차트(+ 겹치는 점선 원) + 우측 로고 목록
+pie:
+  label: "Full-time Employees"      # 파이를 감싸는 점선 원의 라벨
+  slices:
+    - { label: "Software Engineers", note: "25 ppl.", value: 25 }
+    - { label: "Mgmt. & Sales", value: 4 }        # note 는 선택(큰 숫자)
+  satellite: { label: "Contract Employees", value: "13 ppl." }   # 선택: 겹치는 원
+aside_title: "Affiliates"
+logos:
+  - { image: aff-cyoung, caption: "Business Consulting" }
 
 # compare — 좌우 대비 (right 를 우리 쪽으로 두면 액센트 강조됨)
 left:  { tag: "기존 방식", heading: "클라우드 LLM", items: ["데이터 반출 필요"] }

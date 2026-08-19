@@ -1,6 +1,7 @@
 # XENOIMPACT — 디자인 토큰 (2026 Q2 회사소개서 실측 기반)
 # 페이지 크기: 원본 pptx가 sldSz type="A4" 로 정의된 '인쇄용' 덱이다.
 #   → 배경 이미지도 300dpi(3300px, A4 폭 305dpi)로 유지한다. 함부로 줄이지 말 것.
+# colors.series = 원본 덱의 파이 차트 실제 색(로즈/탄/슬레이트) — 눈으로 추출.
 # 색은 '#' 없는 6자리 HEX.
 
 meta:
@@ -20,11 +21,11 @@ colors:
   bg_section: 0A0A0B
   on_section: FFFFFF
   series:
+  - B5776B
+  - C9BC9C
+  - 8D9AA3
   - C04F15
   - E0875A
-  - C9A227
-  - 6E7B8B
-  - 9AA0A6
 logo:
   cover: assets/logos/xenoimpact_white_typo.png
   footer: assets/logos/xenoimpact_white_typo.png
