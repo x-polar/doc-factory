@@ -376,8 +376,35 @@ def html_to_pdf(html_path, pdf_path):
         raise SystemExit("PDF 생성 실패:\n" + r.stderr[-1500:])
 
 
-def build(doc_dir, brand=None, html_only=False, out=None):
+PAGE_PRESETS = {           # inch (width, height)
+    "a4":    (10.833, 7.5),    # PowerPoint A4 인쇄 프리셋 (sldSz type="A4")
+    "16:9":  (13.333, 7.5),
+    "4:3":   (10.0, 7.5),
+    "letter": (11.0, 8.5),
+}
+
+
+def parse_page(spec):
+    """--page a4 | 16:9 | 4:3 | letter | 12x7.5(inch) -> (w, h)"""
+    if not spec:
+        return None
+    key = spec.strip().lower()
+    if key in PAGE_PRESETS:
+        return PAGE_PRESETS[key]
+    m = re.match(r"^([\d.]+)\s*[x×]\s*([\d.]+)$", key)
+    if m:
+        return (float(m.group(1)), float(m.group(2)))
+    raise SystemExit(f"오류: --page 값을 해석할 수 없습니다: {spec}\n"
+                     f"  사용 가능: {', '.join(PAGE_PRESETS)} 또는 'WxH'(인치)")
+
+
+def build(doc_dir, brand=None, html_only=False, out=None, page=None):
     theme, brand_dir, meta = resolve_theme(doc_dir, brand)
+    # 일회성 페이지 규격 오버라이드(브랜드 파일은 건드리지 않음)
+    size = parse_page(page)
+    if size:
+        theme.setdefault("slide", {})
+        theme["slide"]["width"], theme["slide"]["height"] = size
     slides = load_slides(os.path.join(doc_dir, "storyboard"))
     ctx = Ctx(doc_dir, brand_dir)
     html_doc = build_html(slides, theme, ctx, brand_dir)
@@ -385,6 +412,8 @@ def build(doc_dir, brand=None, html_only=False, out=None):
     name = os.path.basename(os.path.normpath(doc_dir))
     ver = meta.get("version")
     stem = f"{name}_{ver}" if ver else name
+    if page:
+        stem += "_" + re.sub(r"[^a-z0-9]+", "", page.lower())
     outdir = os.path.join(doc_dir, "output")
     os.makedirs(outdir, exist_ok=True)
     hp = os.path.join(outdir, stem + ".html")
@@ -404,8 +433,9 @@ def main():
     ap.add_argument("--brand", help="brands/<NAME> 강제 지정")
     ap.add_argument("--html-only", action="store_true", help="PDF 없이 HTML만")
     ap.add_argument("-o", "--out", help="출력 PDF 경로")
+    ap.add_argument("--page", help="페이지 규격 일회성 오버라이드: a4 | 16:9 | 4:3 | letter | WxH(인치)")
     a = ap.parse_args()
-    build(a.doc_dir, a.brand, a.html_only, a.out)
+    build(a.doc_dir, a.brand, a.html_only, a.out, a.page)
 
 
 if __name__ == "__main__":

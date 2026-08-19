@@ -14,7 +14,20 @@ description: >
 python src/lib/render.py docs/20260630_proposal            # → output/*.html, *.pdf
 python src/lib/render.py docs/20260630_proposal --html-only # 빠른 확인용
 python src/lib/render.py docs/20260630_proposal --brand xenoimpact
+python src/lib/render.py docs/20260630_proposal --page a4        # 인쇄용 한 벌 더
 ```
+
+## 화면용 / 인쇄용 두 벌 만들기
+브랜드 기본 규격은 그대로 두고 **`--page`로 일회성 오버라이드**한다. 출력 파일명에
+규격 접미사가 붙어 두 벌이 공존한다.
+
+```bash
+python src/lib/render.py docs/<문서>              # 브랜드 기본(예: kori-answers = 16:9)
+python src/lib/render.py docs/<문서> --page a4     # → *_a4.pdf (인쇄용)
+```
+- 값: `a4`(10.83×7.5, PowerPoint A4 프리셋) · `16:9` · `4:3` · `letter` · `WxH`(인치)
+- 모든 치수가 슬라이드 폭 기준(`--u`)이라 **규격이 바뀌어도 레이아웃이 리플로우**된다.
+- 영구히 바꾸려면 `theme.yaml > slide` 또는 문서 `brief.md`의 `theme:` 오버라이드를 쓴다.
 
 ## 왜 HTML/CSS인가
 - 풀블리드 배경·그라디언트·정밀 그리드·웹폰트가 전부 CSS 한 줄. pptx 좌표 계산 불가능한 영역.
