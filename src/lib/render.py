@@ -127,7 +127,7 @@ class Ctx:
         cands = [os.path.join(self.doc_dir, ref), os.path.join(self.brand_dir, ref)]
         for base in (self.brand_dir, shared):      # 브랜드 우선, 없으면 공용
             cands += [os.path.join(base, "assets", k, ref) for k in kinds]
-        for ext in ("", ".jpg", ".png", ".webp"):
+        for ext in ("", ".svg", ".png", ".jpg", ".webp"):   # 벡터 우선
             for c in cands:
                 p = c + ext
                 if os.path.exists(p):
@@ -445,41 +445,76 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                  f'<div class="contacts">{rows}</div></div>')
     elif layout == "pie":
         import math
+        # 좌표계 = 슬라이드 자체(가로 100, 세로 100*h/w). 원본 회사소개서 3p를
+        # 실측한 값이라 그리드 폭에 흔들리지 않고 원본과 같은 크기로 나온다.
+        sl_ = theme.get("slide", {})
+        VBH = 100.0 * float(sl_.get("height", 7.5)) / float(sl_.get("width", 13.333))
         pie = sp.get("pie", {}) or {}
         sl = pie.get("slices", []) or []
         total = sum(float(x.get("value", 0)) for x in sl) or 1.0
         palette = theme.get("colors", {}).get("series", ["888888"])
-        stops, labels, acc = [], "", 0.0
-        for i, x in enumerate(sl):
+        acc_col = theme.get("colors", {}).get("accent", "888888")
+        g = pie.get("geometry", {}) or {}
+        RX, RY, RR = g.get("ring", [30.4, 34.2, 21.9])      # 정규직 점선 원
+        CX, CY, R = g.get("pie", [30.9, 33.7, 14.1])        # 파이
+        SX, SY, SR = g.get("satellite", [52.8, 47.8, 9.4])  # 계약직 점선 원
+        # 세로 비율이 다른 규격(16:9 등)에서도 화면 안에 들어오도록 y 를 스케일
+        ys = VBH / 69.26
+        RY, CY, SY = RY * ys, CY * ys, SY * ys
+
+        def pt(cx, cy, r, frac):
+            a = math.radians(frac * 360 - 90)
+            return cx + math.cos(a) * r, cy + math.sin(a) * r * (100.0 / VBH) * (VBH / 100.0)
+
+        paths, labels, acc = "", "", 0.0
+        for i2, x in enumerate(sl):
             frac = float(x.get("value", 0)) / total
-            col = "#" + palette[i % len(palette)]
-            stops.append(f"{col} {acc*100:.3f}% {(acc+frac)*100:.3f}%")
-            mid = (acc + frac / 2) * 360 - 90          # 12시 방향 기준
-            r = 33 if frac > 0.12 else 44             # 얇은 조각은 바깥에
-            lx = 50 + math.cos(math.radians(mid)) * r
-            ly = 50 + math.sin(math.radians(mid)) * r
-            labels += (f'<span class="pl" style="left:{lx:.2f}%;top:{ly:.2f}%">'
+            col = "#" + palette[i2 % len(palette)]
+            x1, y1 = pt(CX, CY, R, acc)
+            x2, y2 = pt(CX, CY, R, acc + frac)
+            large = 1 if frac > 0.5 else 0
+            if frac >= 0.999:
+                paths += f'<circle cx="{CX}" cy="{CY}" r="{R}" fill="{col}"/>'
+            else:
+                paths += (f'<path d="M{CX} {CY} L{x1:.3f} {y1:.3f} '
+                          f'A{R} {R} 0 {large} 1 {x2:.3f} {y2:.3f} Z" fill="{col}"/>')
+            mid = acc + frac / 2
+            lr = R * 0.62 if frac > 0.12 else R * 0.74
+            lx, ly = pt(CX, CY, lr, mid)
+            cls = "pl" + ("" if frac > 0.12 else " thin")
+            labels += (f'<span class="{cls}" style="left:{lx:.2f}%;top:{ly/VBH*100:.2f}%">'
                        f'<b>{e(x.get("label",""))}</b>'
                        + (f'<i>{e(x["note"])}</i>' if x.get("note") else "") + "</span>")
             acc += frac
+
+        dots = (f'stroke="#{acc_col}" stroke-width="0.32" fill="none" '
+                f'stroke-linecap="round" stroke-dasharray="0.01 1.5"')
         sat = pie.get("satellite") or {}
-        satellite = ('<div class="pie-sat">'
-                     f'<span class="sat-l">{e(sat.get("label",""))}</span>'
-                     f'<span class="sat-v">{e(sat.get("value",""))}</span></div>') if sat else ""
-        left = ('<div class="pie-wrap">'
-                + (f'<span class="pie-label">{e(pie["label"])}</span>' if pie.get("label") else "")
-                + f'<div class="pie" style="background:conic-gradient({", ".join(stops)})">{labels}</div>'
-                + "</div>" + satellite)
-        # 우측: 로고 목록(선택)
+        svg = (f'<svg class="pie-svg" viewBox="0 0 100 {VBH:.3f}" preserveAspectRatio="none">'
+               f'<circle cx="{RX}" cy="{RY}" r="{RR}" {dots}/>'
+               + (f'<circle cx="{SX}" cy="{SY}" r="{SR}" {dots}/>' if sat else "")
+               + paths + "</svg>")
+
+        over = ""
+        if pie.get("label"):
+            over += (f'<span class="pie-ring-label" style="left:{RX:.2f}%;'
+                     f'top:{(RY-RR+4.2)/VBH*100:.2f}%">{e(pie["label"])}</span>')
+        over += labels
+        if sat:
+            over += (f'<span class="sat-l" style="left:{SX:.2f}%;top:{(SY-3.2)/VBH*100:.2f}%">'
+                     f'{e(sat.get("label",""))}</span>'
+                     f'<span class="sat-v" style="left:{SX:.2f}%;top:{(SY+2.4)/VBH*100:.2f}%">'
+                     f'{e(sat.get("value",""))}</span>')
+
         logos = ""
         for lg in sp.get("logos", []) or []:
             src = ctx.asset(lg.get("image"), kind="logos")
             logos += ('<div class="lg">' +
                       (f'<img src="{src}">' if src else "") +
                       (f'<span>{e(lg["caption"])}</span>' if lg.get("caption") else "") + "</div>")
-        right = (f'<div class="aside"><h3 class="aside-t">{e(sp.get("aside_title",""))}</h3>'
+        aside = (f'<div class="aside"><h3 class="aside-t">{e(sp.get("aside_title",""))}</h3>'
                  f'<div class="logos">{logos}</div></div>') if logos else ""
-        inner = slide_head(sp) + f'<div class="pie-row">{left}{right}</div>'
+        inner = slide_head(sp) + f'<div class="pie-abs">{svg}{over}</div>{aside}'
     else:  # title+body
         inner = slide_head(sp) + bullets(sp.get("body"))
 

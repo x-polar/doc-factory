@@ -45,3 +45,41 @@
 파이 차트 색은 브랜드 기본 팔레트(오렌지 계열)가 아니라 **원본 덱이 실제로 쓴
 로즈/탄/슬레이트**였다. `theme.yaml`의 `colors.series`를 그 값으로 교체했다.
 "브랜드 색이니까 오렌지"라고 가정했으면 원본과 달라졌을 것이다.
+
+## 6. 도형은 그리드가 아니라 '슬라이드 절대좌표'로 배치한다
+
+원본 3p의 파이·점선 원을 CSS 그리드 칼럼 안에서 맞추려다 세 번 틀렸다.
+
+- `fr` 칼럼은 **min-content 아래로 안 줄어든다** → 옆 칼럼 텍스트가 길면 도형 칼럼이 좁아진다.
+  (`minmax(0, 1.35fr)` 로 풀린다)
+- viewBox를 좁히면 **가로는 커지지만 세로가 슬라이드를 넘겨** 잘린다.
+- 결국 정답은 **슬라이드 자체를 좌표계로 쓰는 것**:
+  `viewBox="0 0 100 {100*h/w}"` + `position:absolute; inset:0`.
+  원본에서 잰 비율(원 중심·반지름을 슬라이드 폭 %로)을 그대로 넣으면 한 번에 맞는다.
+
+`pie.geometry` 로 슬라이드별 미세조정도 가능하다:
+```yaml
+pie:
+  geometry:
+    ring:      [30.4, 34.2, 21.9]   # [중심x%, 중심y%, 반지름%]  ※ 슬라이드 폭 기준
+    pie:       [30.9, 33.7, 14.1]
+    satellite: [52.8, 47.8,  9.4]
+```
+
+## 7. 원본 pptx 안에 벡터가 있으면 벡터를 쓴다 ★
+
+PowerPoint는 SVG 이미지를 **`.svg` + `.png` 폴백 쌍**으로 저장한다.
+`ppt/media/` 에 `.svg` 가 있으면 PNG 대신 그걸 써야 인쇄·확대에서 깨지지 않는다.
+
+```bash
+unzip -p <deck>.pptx 'ppt/media/*' -d ./x     # 또는 unzip -o
+ls x/ppt/media/*.svg
+```
+실제로 계열사 로고 4종(mint·ACROVERSE·NTIP·TRiTO)과 XENOIMPACT 워드마크가
+SVG로 들어 있었다. 렌더러의 자산 탐색도 `.svg` 를 최우선으로 본다.
+
+## 8. 차트는 CSS 그라디언트가 아니라 SVG로 그린다
+
+`conic-gradient` 파이는 PDF에서 **래스터로 구워져** 가장자리가 지저분해진다.
+CSS `border: dotted` 도 원에서 점 간격이 뭉갠다. 둘 다 SVG로 바꾸면 벡터로 남는다
+(파이는 `<path>` 아크, 점선 원은 `stroke-dasharray` + `stroke-linecap="round"`).

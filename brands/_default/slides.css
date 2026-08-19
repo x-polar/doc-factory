@@ -597,64 +597,45 @@ blockquote::before{
 .person .ph img{ object-position: center 22%; transform: skewX(9deg) scale(1.12); }
 
 /* ============================================================
-   pie — 파이 차트 + 점선 원(정규직/계약직) + 계열사 로고
+   pie — 슬라이드 절대좌표 SVG(원본 실측) + 계열사 로고
    ============================================================ */
-.pie-row{
-  margin: auto 0; display:grid; grid-template-columns: 1.15fr .85fr;
-  gap: calc(var(--u) * 3); align-items:center; position:relative;
+/* 도형은 슬라이드 전체를 좌표계로 쓴다 → 그리드 폭에 흔들리지 않음 */
+.pie-abs{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+.pie-svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+
+/* 오버레이 텍스트 — 배경/그림자 없이 원본과 동일 */
+.pie-abs span{
+  position:absolute; transform:translate(-50%,-50%);
+  white-space:nowrap; text-align:center; line-height:1.25;
 }
-.pie-wrap{
-  position:relative; width: calc(var(--u) * 34); aspect-ratio:1;
-  margin: 0 auto;
-  border: 2px dotted var(--accent); border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-}
-.pie-label{
-  position:absolute; top: calc(var(--u) * 3.2); left:50%; transform:translateX(-50%);
-  white-space:nowrap; font-size: calc(var(--u) * 1.6); color: var(--accent);
-}
-.pie{
-  width: 62%; aspect-ratio:1; border-radius:50%; position:relative;
-}
-.pl{
-  position:absolute; transform: translate(-50%,-50%);
-  text-align:center; white-space:nowrap; line-height:1.25;
-}
-.pl b{
-  display:block; font-size: calc(var(--u) * 1.12); font-weight:400;
-  color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.55);
-}
+.pie-ring-label{ font-size: calc(var(--u) * 1.55); color: var(--accent); }
+.pl b{ display:block; font-size: calc(var(--u) * 1.18); font-weight:400; color:#fff; }
 .pl i{
-  display:block; font-style:normal; margin-top: calc(var(--u)*.2);
-  font-size: calc(var(--u) * 1.55); font-weight:700; color:#fff;
-  text-shadow: 0 1px 3px rgba(0,0,0,.55);
+  display:block; font-style:normal; margin-top: calc(var(--u)*.15);
+  font-size: calc(var(--u) * 1.65); font-weight:700; color:#fff;
 }
-/* 겹치는 두 번째 점선 원 = 계약직 */
-.pie-sat{
-  position:absolute; left: calc(var(--u) * 26); bottom: calc(var(--u) * -6);
-  width: calc(var(--u) * 19); aspect-ratio:1;
-  border: 2px dotted var(--accent); border-radius:50%;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap: calc(var(--u) * 1.2);
-}
+.pl.thin b{ font-size: calc(var(--u) * 1.02); white-space:normal; max-width: calc(var(--u)*6.5); margin:0 auto; }
 .sat-l{ font-size: calc(var(--u) * 1.5); color: var(--accent); }
 .sat-v{ font-size: calc(var(--u) * 2.1); font-weight:700; color: var(--ink); }
 
-/* 우측 계열사 */
+/* 우측 계열사 — 원본 위치(좌 61%, 상 38%) */
+.l-pie .aside{
+  position:absolute; left:63.5%; right: var(--pad); top:36%; z-index:1;
+}
 .aside-t{
   font-family: var(--font-heading); font-size: calc(var(--u) * 2);
   font-weight:700; color: var(--accent);
-  padding-bottom: calc(var(--u) * .8);
+  padding-bottom: calc(var(--u) * .7);
   border-bottom: 2px solid var(--accent);
 }
 .logos{
-  margin-top: calc(var(--u) * 2); display:grid;
-  grid-template-columns: repeat(2, 1fr); gap: calc(var(--u) * 2.2) calc(var(--u) * 1.6);
+  margin-top: calc(var(--u) * 1.8); display:grid;
+  grid-template-columns: repeat(2, 1fr); gap: calc(var(--u) * 2.1) calc(var(--u) * 1.4);
 }
-.lg{ display:flex; flex-direction:column; gap: calc(var(--u)*.6); }
-.lg img{ height: calc(var(--u) * 2.4); width:auto; max-width:100%; object-fit:contain; object-position:left; }
+.lg{ display:flex; flex-direction:column; gap: calc(var(--u)*.5); }
+.lg img{ height: calc(var(--u) * 2.2); width:auto; max-width:100%; object-fit:contain; object-position:left; }
 .lg span{
-  font-size: calc(var(--u) * 1.05); font-weight:300; line-height:1.4;
+  font-size: calc(var(--u) * 1.0); font-weight:300; line-height:1.4;
   color: color-mix(in srgb, var(--body-ink) 76%, transparent);
 }
 
