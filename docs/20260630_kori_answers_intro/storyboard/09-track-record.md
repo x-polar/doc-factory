@@ -1,5 +1,7 @@
 ---
 title: "삼성·현대모비스 등 최고 보안 현장에서 검증된 기술이다"
+kicker: "Track Record"
+lede: "KORI Answers는 20년간 검증된 엔터프라이즈 구축 경험 위에 있습니다."
 layout: table
 source: [src-06]
 table:

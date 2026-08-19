@@ -1,5 +1,7 @@
 ---
 title: "PoC에서 예상질문의 93.2%를 만족시켰다"
+kicker: "Proof"
+lede: "삼성전자 DS부문 전략마케팅실 PoC 실측 결과입니다."
 layout: stat
 source: [src-05]
 stats:

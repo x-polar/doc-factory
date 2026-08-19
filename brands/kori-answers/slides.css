@@ -1,0 +1,25 @@
+/* KORI Answers — 블랙 + 네온민트 + Tomorrow 디스플레이(웹 아이덴티티).
+   사진 배경 대신 미묘한 방사 그라디언트로 깊이만 준다. */
+
+.slide{
+  background:
+    radial-gradient(120% 80% at 18% 0%, color-mix(in srgb, var(--accent) 9%, transparent) 0%, transparent 58%),
+    var(--paper);
+}
+.veil{ background: none; }
+
+/* 표지: 민트 글로우 */
+.l-title .slide, .l-title{ }
+.l-title .body::before{
+  content:""; position:absolute; right:-12%; top:-18%;
+  width:58%; aspect-ratio:1; border-radius:50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent) 0%, transparent 65%);
+}
+
+/* 카드: 얇은 민트 보더 */
+.card{
+  background: color-mix(in srgb, #FFFFFF 3.5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  border-top: 2px solid var(--accent);
+}
+.tbl th{ color: var(--accent); }

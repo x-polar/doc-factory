@@ -1,5 +1,7 @@
 ---
 title: "KORI Answers는 클라우드 없이 사내 폐쇄망에서 동작하는 RAG AI다"
+kicker: "The Solution"
+lede: "데이터를 내보내지 않고, 사내에서 RAG를 완결시킵니다."
 layout: title+body
 source: [src-01, src-02]
 ---

@@ -1,5 +1,7 @@
 ---
 title: "개인화·능동지원·정밀분석·콘텐츠작성으로 AI 비서로 확장된다"
+kicker: "Roadmap"
+lede: "단순 질의응답에서 업무 비서로 단계적으로 확장합니다."
 layout: columns
 source: [src-03]
 columns:

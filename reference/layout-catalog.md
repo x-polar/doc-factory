@@ -2,7 +2,7 @@
 
 storyboard 슬라이드 파일(`storyboard/NN-*.md`)의 frontmatter `layout:` 필드가
 가질 수 있는 값과, 각 layout이 사용하는 필드를 정의한다. 이 문서는 storyboard와
-`deckbuilder`(`src/lib/deckbuilder.py`) 사이의 **계약**이다. 값을 추가/변경하면
+렌더러(`src/lib/render.py`) + 디자인 시스템(`brands/*/slides.css`) 사이의 **계약**이다. 값을 추가/변경하면
 양쪽을 함께 고친다(AGENTS.md §6 교차 검증).
 
 | layout | 용도 | 사용 필드 | 본문(`-` 불릿) |
@@ -22,7 +22,8 @@ storyboard 슬라이드 파일(`storyboard/NN-*.md`)의 frontmatter `layout:` �
 ```yaml
 # columns — 카드 묶음
 columns:
-  - heading: "하이브리드 검색"
+  - num: "01"                    # 선택: 카드 번호
+    heading: "하이브리드 검색"
     items: ["벡터+키워드", "출처 표기"]
   - heading: "결정론적 보안"
     items: ["권한 밖 차단"]
@@ -34,10 +35,11 @@ table:
     - ["삼성 MARU", "2018~2025", "260억+"]
     - ["KT 로봇", "2022~2023", "25억+"]
 
-# stat — 큰 숫자
+# stat — 큰 숫자 (note는 선택)
 stats:
   - value: "93.2%"
     label: "요구사항 만족도"
+    note: "예상질문 44종 기준"
   - value: "41/44"
     label: "응답 성공"
 
@@ -50,6 +52,10 @@ right: ["비정형: ElasticSearch", "벡터: Milvus"]
 공통 필드(모든 layout):
 
 - `title` — action title(결론을 말하는 제목). **필수.**
+- `kicker` — 제목 위 작은 라벨(섹션/축 표시). 액센트색·대문자. 권장.
+- `lede` — 제목 아래 한 줄 요약. 슬라이드 밀도를 올려준다. 권장.
+- `bg` — 배경 이미지 이름(브랜드 `assets/backgrounds/`) 또는 문서 상대경로.
+  미지정 시 `theme.backgrounds`의 레이아웃별 기본값. 끄려면 `bg: none`.
 - `source` — 근거 출처 ID 목록(`research/sources.md`와 일치). 권장.
 - `## notes` — 스피커 노트(본문 아래 별도 섹션).
 

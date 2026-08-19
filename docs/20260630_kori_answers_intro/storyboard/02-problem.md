@@ -1,5 +1,7 @@
 ---
 title: "사내 지식을 AI로 쓰고 싶지만, 클라우드는 보안이 걸림돌이다"
+kicker: "The Problem"
+lede: "AI를 쓰고 싶은 데이터일수록 밖으로 내보낼 수 없습니다."
 layout: title+body
 source: [src-01, src-04]
 ---

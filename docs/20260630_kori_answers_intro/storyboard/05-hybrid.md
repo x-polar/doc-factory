@@ -1,5 +1,6 @@
 ---
 title: "하이브리드 검색과 출처 표기로 '신뢰할 수 있는 답'을 만든다"
+kicker: "Pillar 1 · 정확성"
 layout: title+body
 source: [src-01, src-02]
 ---

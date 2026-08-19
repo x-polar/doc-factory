@@ -1,5 +1,7 @@
 ---
 title: "정확성·효율·보안을 세 개의 기둥으로 동시에 해결한다"
+kicker: "Why KORI Answers"
+lede: "클라우드 없이도 정확하고 빠르며 안전한 답을 만드는 세 가지 축입니다."
 layout: columns
 source: [src-01, src-02]
 columns:

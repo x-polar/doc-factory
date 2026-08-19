@@ -1,5 +1,6 @@
 ---
 title: "결정론적 보안 레이어가 권한 밖 데이터를 LLM 입력 전에 차단한다"
+kicker: "Pillar 3 · 보안"
 layout: two-col
 source: [src-02]
 left:

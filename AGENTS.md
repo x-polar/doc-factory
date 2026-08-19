@@ -18,8 +18,9 @@
 | 스킬 | 위치 | 언제 사용 |
 |------|------|-----------|
 | `doc-scaffold` | `.ai/skills/doc-scaffold/SKILL.md` | 새 문서 작업 폴더(brief/research/…) 생성 |
-| `pptx-builder` | `.ai/skills/pptx-builder/SKILL.md` | 슬라이드 덱(.pptx) 생성·수정 |
-| `pdf-export` | `.ai/skills/pdf-export/SKILL.md` | pptx → pdf(또는 기타 포맷) 변환 |
+| **`deck-render`** | `.ai/skills/deck-render/SKILL.md` | **덱 렌더(주력): storyboard → HTML/CSS → PDF** |
+| `pptx-builder` | `.ai/skills/pptx-builder/SKILL.md` | (보조) 편집 가능한 .pptx가 필요할 때 |
+| `pdf-export` | `.ai/skills/pdf-export/SKILL.md` | (보조) pptx → pdf 변환 |
 
 > 새 스킬을 추가하면 위 표와 `.ai/skills/`에 함께 갱신하세요.
 
@@ -74,7 +75,8 @@ storyboard는 **슬라이드 1장 = 파일 1개**(`storyboard/NN-slug.md`)로 �
 
 ## 3. 출력 기본값
 
-- 슬라이드 비율: **16:9** (와이드스크린)
+- 슬라이드 비율: **브랜드가 결정**(`theme.yaml > slide`). 임의 가정 금지 —
+  `xenoimpact`는 실물 회사 덱 실측값 **10.83×7.5in**, `kori-answers`는 16:9.
 - 문서 작업 폴더: `docs/YYYYMMDD_프로젝트명/` (`doc-scaffold`로 생성)
 - 산출물 위치 (2단 분리):
   - `output/` — 작업 중 막 뽑는 **임시본**. git 추적 **제외**.
@@ -96,11 +98,17 @@ storyboard는 **슬라이드 1장 = 파일 1개**(`storyboard/NN-slug.md`)로 �
 ## 5. 도구 스택 · 공유 리소스
 
 도구:
-- `.pptx` 생성: **python-pptx** (공유 빌더 `src/lib/deckbuilder.py`가 storyboard +
-  문서 `brief.md` frontmatter가 고른 브랜드 테마를 읽어 자동 생성)
-- `.pptx → .pdf` 변환: **LibreOffice headless** (`libreoffice-impress` 필요)
-- 차트: python-pptx 네이티브 차트(편집 가능) 또는 이미지 삽입
+- **주력 — 덱 렌더:** `src/lib/render.py` (storyboard + 브랜드 테마 → **HTML/CSS →
+  헤드리스 Chromium → PDF**). 디자인은 CSS(`brands/*/slides.css`)가 담당하고 파이썬은
+  좌표를 계산하지 않는다. 의존성은 Chromium(사전 설치) + PyYAML.
+- **보조 — 편집 가능한 pptx:** `src/lib/deckbuilder.py`(python-pptx). 품질 상한이
+  낮으므로 **편집본이 꼭 필요할 때만** 쓴다. 고품질 pptx 경로(실물 슬라이드 복제·치환)는
+  아직 미구현(TODO).
+- 차트: CSS 막대 차트(렌더러 내장). 복잡한 도식은 SVG/이미지.
 - 의존성은 `requirements.txt`로 관리
+
+> **검증 원칙:** 비율·폰트·색은 **실물 자산에서 실측**해 `theme.yaml`에 넣는다.
+> (과거 오류: 16:9와 Pretendard를 검증 없이 가정 → 실물은 1.444:1, 폰트는 미설치 폴백)
 
 문서 횡단 공유 리소스(모든 문서가 참조):
 - `brands/` — **브랜드 레지스트리**. 브랜드마다 1폴더(`theme.yaml`·`brand-guide.md`·
@@ -109,7 +117,9 @@ storyboard는 **슬라이드 1장 = 파일 1개**(`storyboard/NN-slug.md`)로 �
 - `reference/` — 에이전트가 읽는 표준: `style-guide.md`, `layout-catalog.md`(★
   storyboard `layout:` 정의), `chart-style.md`, `examples/`(골드스탠다드).
 - `knowledge/` — 여러 문서가 인용하는 사실·메시지(`company-facts.md`, `messaging.md`).
-- `src/lib/` — 공유 빌더 코드.
+- `src/lib/` — `render.py`(주력, HTML/CSS→PDF) · `deckbuilder.py`(보조, pptx).
+- `brands/*/slides.css` — 브랜드 디자인 시스템. `_default`가 base, 브랜드가 오버라이드.
+- `brands/*/assets/backgrounds/` — 실물 덱에서 추출한 풀블리드 배경.
 
 ## 6. 일관성 규칙 (파일 수정 후 교차 검증)
 
@@ -123,7 +133,9 @@ storyboard는 **슬라이드 1장 = 파일 1개**(`storyboard/NN-slug.md`)로 �
 | `.ai/skills/` 추가·삭제·개명 | AGENTS.md §1 스킬 표, §8 폴더 구조 |
 | 폴더 구조·산출물 규칙 | AGENTS.md(§2/§3/§8), 관련 SKILL, `.gitignore` |
 | storyboard 파일 형식/필드 | `pptx-builder` SKILL 파싱 로직, `deckbuilder.py`, `_template` 예시 |
-| `layout:` 값 추가/변경 | `reference/layout-catalog.md` ↔ `src/lib/deckbuilder.py`(렌더 함수) |
+| `layout:` 값 추가/변경 | `reference/layout-catalog.md` ↔ `src/lib/render.py`(`render_slide`) ↔ `brands/_default/slides.css` |
+| `slides.css` 클래스명 | `render.py`가 실제로 뱉는 클래스와 일치하는지 |
+| 브랜드 비율·폰트 변경 | 실물 자산 실측값과 일치하는지(가정 금지) |
 | 브랜드 `theme.yaml` 토큰 키 | `deckbuilder.py`가 참조하는 키, `reference/chart-style.md` |
 | `brands/` 구조·새 브랜드 추가 | `brands/README.md`, `deckbuilder.py` 해석 로직, AGENTS.md §5/§8 |
 | `brief.md` frontmatter(brand/theme/version) | `deckbuilder.py` 해석 로직, `_template/brief.md`, `doc-scaffold` SKILL |
@@ -166,15 +178,16 @@ doc-factory/
 ├── .ai/
 │   └── skills/          # 재사용 작업 절차 (doc-scaffold/pptx-builder/pdf-export)
 ├── brands/              # 브랜드 레지스트리 (브랜드마다 1폴더)
-│   └── _default/        # 폴백 브랜드
-│       ├── theme.yaml   #   디자인 토큰 (색·폰트·여백)
+│   └── _default/        # 폴백 브랜드 (+ 공통 디자인 시스템)
+│       ├── theme.yaml   #   디자인 토큰 (색·폰트·비율·로고·배경)
+│       ├── slides.css   #   ★ 디자인 시스템(브랜드는 이걸 상속·오버라이드)
 │       ├── brand-guide.md
-│       ├── assets/      #   fonts / logos / icons
-│       └── templates/   #   마스터 pptx (브랜드 확정 시)
+│       ├── assets/      #   fonts(@font-face 자동임베드) / logos / backgrounds
+│       └── refs/        #   실물 원본(LFS) — 실측·자산 추출의 근거
 ├── reference/           # 표준·예시 (style-guide / layout-catalog / chart-style / examples)
 ├── knowledge/           # 공유 사실·메시지 (company-facts / messaging)
 ├── src/
-│   └── lib/             # 공유 빌더 (deckbuilder.py)
+│   └── lib/             # render.py(주력) · deckbuilder.py(보조)
 └── docs/                # 문서별 작업 폴더 (문서 1개 = 폴더 1개)
     ├── _template/       # 새 문서 골격 (doc-scaffold가 복제)
     │   ├── brief.md     # frontmatter(brand·theme·version) + 본문(대상·목적…)

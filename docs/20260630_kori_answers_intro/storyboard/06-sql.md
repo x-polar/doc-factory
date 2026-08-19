@@ -1,5 +1,6 @@
 ---
 title: "전문가 SQL Tool로 정형 데이터를 정확·효율적으로 조회한다"
+kicker: "Pillar 2 · 효율"
 layout: title+body
 source: [src-02]
 ---
