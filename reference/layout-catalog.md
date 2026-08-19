@@ -21,6 +21,12 @@ storyboard 슬라이드 파일(`storyboard/NN-*.md`)의 frontmatter `layout:` �
 | `process` | 단계 진행(셰브론 연결) | `title`, `steps:` | (미사용) |
 | `gallery` | 사선 이미지 스트립 | `title`, `images:`(2~4) | 캡션 |
 | `team` | 인물 카드 | `title`, `people:` | (미사용) |
+| `device` | 브라우저 프레임 속 스크린샷 | `title`, `image`, `url`(선택), `side`(선택) | 캡션 |
+| `compare` | 좌우 대비 (VS) | `title`, `left:`/`right:`(각 tag·heading·items) | (미사용) |
+| `timeline` | 가로 연혁 | `title`, `events:`(when·heading·text) | (미사용) |
+| `quote` | 큰 인용문 | `quote`, `cite`(선택) | (미사용) |
+| `mosaic` | 이미지 그리드(첫 장 강조) | `title`, `images:` | 캡션 |
+| `contact` | 마무리 연락처 | `title`, `lede`, `contacts:`(label·value) | (미사용) |
 
 구조화 필드(YAML frontmatter, 들여쓰기 주의):
 
@@ -68,6 +74,25 @@ people:
     name: "변정민"
     role: "AI Lead · Ph.D (KAIST)"
     items: ["Kori AI 제품 설계", "Elice 공동창업"]
+
+# compare — 좌우 대비 (right 를 우리 쪽으로 두면 액센트 강조됨)
+left:  { tag: "기존 방식", heading: "클라우드 LLM", items: ["데이터 반출 필요"] }
+right: { tag: "KORI Answers", heading: "온프레미스 RAG", items: ["폐쇄망 내 완결"] }
+
+# timeline — 가로 연혁 (3~5개 권장)
+events:
+  - when: "2018"
+    heading: "삼성전자 MARU 착수"
+    text: "메모리 전략마케팅실 플랫폼"
+
+# device — 브라우저 프레임. side 를 주면 텍스트와 2단으로 배치
+image: maru-platform
+url: "maru.samsung.net"      # 선택: 주소창 텍스트
+side: right                  # 선택: left|right (없으면 전체 폭)
+
+# contact — 마무리
+contacts:
+  - { label: "Email", value: "jy.choi@xenoimpact.com" }
 
 # two-col — 2단(불릿 좌/우, 또는 우측 이미지)
 left:  ["정형: Oracle", "분석: ClickHouse"]

@@ -383,6 +383,59 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                       (f'<p>{e(st["text"])}</p>' if st.get("text") else "") + "</div>")
         n = len(sp.get("steps", []) or [])
         inner = slide_head(sp) + f'<div class="steps cols-{n}">{steps}</div>'
+    elif layout == "device":
+        img = ctx.asset(sp.get("image"), kind="screens")
+        frame = (f'<div class="device"><div class="chrome">'
+                 f'<span></span><span></span><span></span>'
+                 + (f'<em>{e(sp["url"])}</em>' if sp.get("url") else "") +
+                 f'</div><div class="screen"><img src="{img}"></div></div>'
+                 ) if img else f'<p class="missing">[이미지 없음: {e(sp.get("image"))}]</p>'
+        side = sp.get("side")
+        if side in ("left", "right"):   # 텍스트와 나란히
+            txt = f'<div class="col">{numbered_html(sp["items"]) if sp.get("items") else bullets(sp.get("body"))}</div>'
+            cells = (f'<div class="col">{frame}</div>' + txt) if side == "left" else (txt + f'<div class="col">{frame}</div>')
+            inner = slide_head(sp) + f'<div class="two dev-two">{cells}</div>'
+        else:
+            inner = slide_head(sp) + frame + bullets(sp.get("body"))
+    elif layout == "compare":
+        def _panel(d, cls):
+            return ('<div class="cmp ' + cls + '">' +
+                    (f'<span class="cmp-tag">{e(d.get("tag"))}</span>' if d.get("tag") else "") +
+                    f'<h3>{e(d.get("heading",""))}</h3>' + bullets(d.get("items")) + "</div>")
+        a, b = sp.get("left", {}) or {}, sp.get("right", {}) or {}
+        inner = (slide_head(sp) + '<div class="compare">' +
+                 _panel(a, "cmp-a") + '<div class="vs">VS</div>' + _panel(b, "cmp-b") +
+                 "</div>")
+    elif layout == "timeline":
+        pts = ""
+        for i, ev in enumerate(sp.get("events", []) or []):
+            pts += ('<li>' +
+                    f'<span class="tl-when">{e(ev.get("when",""))}</span>'
+                    '<span class="tl-dot"></span>'
+                    f'<div class="tl-body"><b>{e(ev.get("heading",""))}</b>' +
+                    (f'<span>{e(ev["text"])}</span>' if ev.get("text") else "") +
+                    "</div></li>")
+        n = len(sp.get("events", []) or [])
+        inner = slide_head(sp) + f'<ul class="timeline cols-{n}">{pts}</ul>'
+    elif layout == "quote":
+        inner = ('<div class="quote-wrap">'
+                 f'<blockquote>{e(sp.get("quote") or sp.get("title",""))}</blockquote>' +
+                 (f'<p class="cite">{e(sp["cite"])}</p>' if sp.get("cite") else "") +
+                 "</div>")
+    elif layout == "mosaic":
+        imgs = [ctx.asset(x, kind="screens") for x in (sp.get("images") or [])]
+        cells = "".join(f'<div class="tile"><img src="{p}"></div>' for p in imgs if p)
+        inner = slide_head(sp) + f'<div class="mosaic">{cells}</div>' + bullets(sp.get("body"))
+    elif layout == "contact":
+        rows = ""
+        for c in sp.get("contacts", []) or []:
+            rows += ('<div class="ct">' +
+                     f'<span class="ct-k">{e(c.get("label",""))}</span>' +
+                     f'<span class="ct-v">{e(c.get("value",""))}</span></div>')
+        inner = ('<div class="contact-wrap">'
+                 f'<h2 class="sec-title">{e(sp.get("title",""))}</h2>' +
+                 (f'<p class="lede">{e(sp["lede"])}</p>' if sp.get("lede") else "") +
+                 f'<div class="contacts">{rows}</div></div>')
     else:  # title+body
         inner = slide_head(sp) + bullets(sp.get("body"))
 
