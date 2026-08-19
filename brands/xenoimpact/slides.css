@@ -1,12 +1,12 @@
 /* XENOIMPACT — 다크 + 번트오렌지 + 풀블리드 우주 배경.
    base(_default/slides.css) 위에 브랜드 고유 처리만 얹는다. */
 
-/* 사진 배경 위 가독성 확보용 베일 (base보다 진하게, 좌→우 그라디언트) */
-.veil{
+/* 표지는 배경(은하)이 보이도록 옅게 — 원본 소개서와 같은 인상 */
+.l-title .veil{
   background: linear-gradient(100deg,
-    color-mix(in srgb, var(--paper) 94%, transparent) 0%,
-    color-mix(in srgb, var(--paper) 74%, transparent) 46%,
-    color-mix(in srgb, var(--paper) 30%, transparent) 100%);
+    color-mix(in srgb, var(--paper) 72%, transparent) 0%,
+    color-mix(in srgb, var(--paper) 42%, transparent) 45%,
+    color-mix(in srgb, var(--paper) 8%, transparent) 100%);
 }
 /* 콘텐츠 슬라이드는 위아래로 눌러 텍스트 영역을 안정시킴 */
 .slide:not(.l-title) .veil{

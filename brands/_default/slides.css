@@ -137,7 +137,7 @@ body{
 
 /* ---------- 카드(columns) ---------- */
 .cards{
-  margin-top: calc(var(--u) * 4); margin-bottom: auto;
+  margin: auto 0;
   display: grid; gap: calc(var(--u) * 2.0);
 }
 .cols-2{ grid-template-columns: repeat(2,1fr); }
@@ -175,7 +175,7 @@ body{
 
 /* ---------- 큰 숫자(stat) ---------- */
 .stats{
-  margin: calc(var(--u) * 5) 0 auto; display:grid; gap: calc(var(--u) * 2);
+  margin: auto 0; display:grid; gap: calc(var(--u) * 2);
   text-align: center;
 }
 .stat-v{
@@ -216,7 +216,7 @@ body{
 
 /* ---------- 2단 ---------- */
 .two{
-  margin-top: calc(var(--u) * 2.2);
+  margin: auto 0;
   display:grid; grid-template-columns:1fr 1fr; gap: calc(var(--u) * 3.4);
 }
 .two .bullets{ margin-top:0; }
@@ -373,7 +373,7 @@ body{
 }
 
 /* ---------- team : 인물 카드 ---------- */
-.people{ margin: calc(var(--u) * 3.5) 0 auto; display:grid; gap: calc(var(--u) * 2.2); }
+.people{ margin: auto 0; display:grid; gap: calc(var(--u) * 2.2); }
 .person .ph{
   height: calc(var(--u) * 16); overflow:hidden; margin-bottom: calc(var(--u) * 1.2);
   transform: skewX(-9deg);
@@ -397,7 +397,7 @@ body{
 .person .bullets li::before{ width: calc(var(--u)*.38); height: calc(var(--u)*.38); top: calc(var(--u)*.58); }
 
 /* ---------- process : 단계 카드(진행 방향 표시) ---------- */
-.steps{ margin: calc(var(--u) * 4.5) 0 auto; display:grid; gap: calc(var(--u) * 1.5); }
+.steps{ margin: auto 0; display:grid; gap: calc(var(--u) * 1.5); }
 .step{
   position:relative;
   padding: calc(var(--u) * 1.9) calc(var(--u) * 1.6);
@@ -459,7 +459,7 @@ body{
 
 /* ---------- compare : 좌우 대비 ---------- */
 .compare{
-  margin: calc(var(--u) * 3.4) 0 auto;
+  margin: auto 0;
   display:grid; grid-template-columns: 1fr auto 1fr; align-items:stretch;
   gap: calc(var(--u) * 1.6);
 }
@@ -496,7 +496,7 @@ body{
 
 /* ---------- timeline : 가로 연혁 ---------- */
 .timeline{
-  list-style:none; margin: calc(var(--u) * 5) 0 auto;
+  list-style:none; margin: auto 0;
   display:grid; gap: calc(var(--u) * 1.4); position:relative;
 }
 .timeline::before{           /* 축 */
@@ -573,3 +573,25 @@ blockquote::before{
   letter-spacing:.18em; text-transform:uppercase; color: var(--accent);
 }
 .ct-v{ font-size: calc(var(--u)*1.55); color: var(--c-on-section, var(--ink)); }
+
+/* title+image : 이미지를 화면에 맞춰 중앙 배치(원본 비율 유지) */
+.l-title-image .fig{
+  margin: calc(var(--u) * 3) auto auto;
+  width: auto; max-width: 100%;
+  max-height: calc(var(--u) * 38);
+  object-fit: contain;
+}
+
+/* 이미지가 왼쪽일 때 푸터가 이미지 위에 겹치지 않도록 우측으로 */
+.slide.img-left .ftr{ justify-content:flex-end; }
+.slide.img-left .ftr .logo-sm,
+.slide.img-left .ftr .ftr-txt{ display:none; }
+
+/* 표지에서 제목을 생략하면 로고가 표제 역할 */
+.logo-hero{
+  display:block; height: calc(var(--u) * 5.4); width:auto;
+  margin-bottom: calc(var(--u) * .4);
+}
+/* 인물 사진: 얼굴이 잘리지 않도록 세로를 넉넉히 + 상단 기준 */
+.person .ph{ height: calc(var(--u) * 21); }
+.person .ph img{ object-position: center 22%; transform: skewX(9deg) scale(1.12); }

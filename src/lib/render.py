@@ -291,10 +291,13 @@ def render_slide(sp, theme, ctx, page=None, total=None):
     inner = ""
     if layout == "title":
         sub = "<br>".join(e(x) for x in sp.get("free", []))
+        # 제목이 없으면 로고 자체가 표제 역할(회사명 중복 방지)
+        hero = not sp.get("title")
         inner = (
-            (f'<img class="logo" src="{cover_logo}">' if cover_logo else "") +
+            ("" if hero or not cover_logo else f'<img class="logo" src="{cover_logo}">') +
             '<div class="cover-mid">' +
-            f'<h1 class="cover-title">{e(sp.get("title",""))}</h1>' +
+            (f'<img class="logo-hero" src="{cover_logo}">' if hero and cover_logo else "") +
+            (f'<h1 class="cover-title">{e(sp["title"])}</h1>' if sp.get("title") else "") +
             '<div class="rule"></div>' +
             (f'<p class="cover-sub">{sub}</p>' if sub else "") +
             "</div>" +
@@ -446,7 +449,8 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                 else f'<span class="ftr-txt">{e(theme.get("footer") or theme.get("meta",{}).get("name",""))}</span>')
         pg = f'<span class="pg">{page:02d}</span>' if page else ""
         foot = f'<footer class="ftr">{mark}{pg}</footer>'
-    return (f'<section class="slide l-{layout}">{bg_div}{veil}'
+    extra = f" img-{sp.get('side','right')}" if layout in ("image-split", "device") else ""
+    return (f'<section class="slide l-{layout}{extra}">{bg_div}{veil}'
             f'<div class="body">{inner}{foot}</div></section>')
 
 
