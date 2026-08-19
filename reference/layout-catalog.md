@@ -16,6 +16,11 @@ storyboard 슬라이드 파일(`storyboard/NN-*.md`)의 frontmatter `layout:` �
 | `table` | 표 | `title`, `table:`(아래) | (미사용) |
 | `stat` | 큰 숫자 강조 | `title`, `stats:`(아래) | 불릿 = 보조 설명(선택) |
 | `two-col` | 2단 구성 | `title`, `left:`/`right:` 또는 `right_image:` | (미사용) |
+| `image-split` | 사선 이미지 패널 + 텍스트 | `title`, `image`, `side`(left/right), `items:` 또는 본문 | 불릿(=items 없을 때) |
+| `numbered` | 01/02/03 번호 리스트 | `title`, `items:` | (미사용) |
+| `process` | 단계 진행(셰브론 연결) | `title`, `steps:` | (미사용) |
+| `gallery` | 사선 이미지 스트립 | `title`, `images:`(2~4) | 캡션 |
+| `team` | 인물 카드 | `title`, `people:` | (미사용) |
 
 구조화 필드(YAML frontmatter, 들여쓰기 주의):
 
@@ -43,6 +48,27 @@ stats:
   - value: "41/44"
     label: "응답 성공"
 
+# image-split / numbered / process — 번호 항목 공통 형태
+items:                          # numbered, image-split 에서 사용
+  - heading: "온프레미스 운영"
+    text: "외부 전송 0건, SSO 연동"     # text 는 선택
+  - num: "05"                   # num 은 선택(기본은 자동 01,02,…)
+    heading: "…"
+steps:                          # process 에서 사용 (items 와 같은 형태)
+  - num: "01"
+    heading: "세션 권한 확인"
+    text: "Role / Level 기반 접근 제어"
+
+# gallery — 사선 이미지 스트립 (2~4장 권장)
+images: [kori-code, amos-ai, kt-robot, hscode-result]
+
+# team — 인물 카드
+people:
+  - photo: leader-byun
+    name: "변정민"
+    role: "AI Lead · Ph.D (KAIST)"
+    items: ["Kori AI 제품 설계", "Elice 공동창업"]
+
 # two-col — 2단(불릿 좌/우, 또는 우측 이미지)
 left:  ["정형: Oracle", "분석: ClickHouse"]
 right: ["비정형: ElasticSearch", "벡터: Milvus"]
@@ -56,6 +82,10 @@ right: ["비정형: ElasticSearch", "벡터: Milvus"]
 - `lede` — 제목 아래 한 줄 요약. 슬라이드 밀도를 올려준다. 권장.
 - `bg` — 배경 이미지 이름(브랜드 `assets/backgrounds/`) 또는 문서 상대경로.
   미지정 시 `theme.backgrounds`의 레이아웃별 기본값. 끄려면 `bg: none`.
+
+이미지 참조(`image`, `images`, `photo`, `bg`)는 확장자 없이 이름만 적으면 된다.
+탐색 순서: 문서 폴더 → 브랜드 `assets/{screens,backgrounds,logos,images}` →
+공용 `brands/_default/assets/…`. 제품 스크린샷은 공용에 있다.
 - `source` — 근거 출처 ID 목록(`research/sources.md`와 일치). 권장.
 - `## notes` — 스피커 노트(본문 아래 별도 섹션).
 

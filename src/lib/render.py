@@ -91,8 +91,12 @@ def load_slides(storyboard_dir):
         body = [l.strip()[1:].strip() for l in lines if l.strip().startswith("- ")]
         free = [l.strip() for l in lines if l.strip() and not l.strip().startswith("- ")]
         notes = parts[1].strip() if len(parts) > 1 else ""
-        slides.append({**meta, "body": body, "free": free, "notes": notes,
-                       "_file": os.path.basename(path)})
+        # 마크다운 본문이 비어 있으면 frontmatter의 body/free 를 그대로 쓴다
+        # (구조화 레이아웃은 body를 frontmatter에 적는 경우가 많다)
+        slides.append({**meta,
+                       "body": body or meta.get("body") or [],
+                       "free": free or meta.get("free") or [],
+                       "notes": notes, "_file": os.path.basename(path)})
     return slides
 
 
@@ -117,11 +121,12 @@ class Ctx:
     def asset(self, ref, kind="backgrounds"):
         if not ref:
             return None
-        cands = [
-            os.path.join(self.doc_dir, ref),
-            os.path.join(self.brand_dir, ref),
-            os.path.join(self.brand_dir, "assets", kind, ref),
-        ]
+        kinds = [kind] + [k for k in ("screens", "backgrounds", "logos", "images")
+                          if k != kind]
+        shared = os.path.join(ROOT, "brands", "_default")
+        cands = [os.path.join(self.doc_dir, ref), os.path.join(self.brand_dir, ref)]
+        for base in (self.brand_dir, shared):      # 브랜드 우선, 없으면 공용
+            cands += [os.path.join(base, "assets", k, ref) for k in kinds]
         for ext in ("", ".jpg", ".png", ".webp"):
             for c in cands:
                 p = c + ext
@@ -248,6 +253,27 @@ def chart_html(path, theme):
     return f'<div class="chart">{legend}<div class="plot">{"".join(groups)}</div></div>'
 
 
+def numbered_html(items):
+    """01/02/03 번호 리스트. items: [str] 또는 [{num,heading,text}]"""
+    out = []
+    for i, it in enumerate(items or [], 1):
+        if isinstance(it, dict):
+            num = it.get("num") or f"{i:02d}"
+            head = it.get("heading", "")
+            text = it.get("text", "")
+        else:
+            num, head, text = f"{i:02d}", str(it), ""
+        out.append(f'<li><span class="n">{e(num)}</span>'
+                   f'<div class="t"><b>{e(head)}</b>'
+                   + (f'<span>{e(text)}</span>' if text else "") + "</div></li>")
+    return f'<ol class="numbered">{"".join(out)}</ol>' if out else ""
+
+
+def strips_html(paths):
+    cells = "".join(f'<div class="strip"><img src="{p}"></div>' for p in paths if p)
+    return f'<div class="strips">{cells}</div>' if cells else ""
+
+
 def render_slide(sp, theme, ctx, page=None, total=None):
     layout = (sp.get("layout") or "title+body").replace("+", "-")
     # 배경: 슬라이드가 지정하면 그것, 없으면 브랜드 기본값(레이아웃별)
@@ -324,6 +350,39 @@ def render_slide(sp, theme, ctx, page=None, total=None):
         body = (f'<img class="fig" src="{img}">' if img
                 else f'<p class="missing">[이미지 없음: {e(sp.get("image"))}]</p>')
         inner = slide_head(sp) + body + bullets(sp.get("body"))
+    elif layout == "image-split":
+        img = ctx.asset(sp.get("image"), kind="screens")
+        side = sp.get("side", "right")
+        content = slide_head(sp)
+        content += numbered_html(sp["items"]) if sp.get("items") else bullets(sp.get("body"))
+        panel = (f'<div class="split-img side-{side}"><img src="{img}"></div>'
+                 if img else "")
+        inner = f'{panel}<div class="split-text side-{side}">{content}</div>'
+    elif layout == "numbered":
+        inner = slide_head(sp) + numbered_html(sp.get("items"))
+    elif layout == "gallery":
+        paths = [ctx.asset(x, kind="screens") for x in (sp.get("images") or [])]
+        inner = slide_head(sp) + strips_html(paths) + bullets(sp.get("body"))
+    elif layout == "team":
+        cards = ""
+        for pr in sp.get("people", []) or []:
+            ph = ctx.asset(pr.get("photo"), kind="screens")
+            cards += ('<div class="person">' +
+                      (f'<div class="ph"><img src="{ph}"></div>' if ph else '<div class="ph"></div>') +
+                      f'<h3>{e(pr.get("name",""))}</h3>' +
+                      (f'<p class="role">{e(pr["role"])}</p>' if pr.get("role") else "") +
+                      bullets(pr.get("items")) + "</div>")
+        n = len(sp.get("people", []) or [])
+        inner = slide_head(sp) + f'<div class="people cols-{n}">{cards}</div>'
+    elif layout == "process":
+        steps = ""
+        for i, st in enumerate(sp.get("steps", []) or [], 1):
+            steps += ('<div class="step">' +
+                      f'<span class="s-num">{e(st.get("num") or f"{i:02d}")}</span>' +
+                      f'<h3>{e(st.get("heading",""))}</h3>' +
+                      (f'<p>{e(st["text"])}</p>' if st.get("text") else "") + "</div>")
+        n = len(sp.get("steps", []) or [])
+        inner = slide_head(sp) + f'<div class="steps cols-{n}">{steps}</div>'
     else:  # title+body
         inner = slide_head(sp) + bullets(sp.get("body"))
 

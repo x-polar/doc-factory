@@ -1,14 +1,19 @@
 ---
-title: "전문가 SQL Tool로 정형 데이터를 정확·효율적으로 조회한다"
-kicker: "Pillar 2 · 효율"
-layout: title+body
+title: "LLM은 SQL을 쓰지 않는다 — 전문가가 검수한 쿼리를 호출할 뿐"
+kicker: "Pillar 02 · 효율"
+lede: "환각이 만든 잘못된 SQL이 DB에 닿을 경로 자체를 없앴습니다."
+layout: numbered
 source: [src-02]
+items:
+  - heading: "필요한 Tool 판별"
+    text: "질의를 이해해 어떤 조회 도구가 필요한지 결정"
+  - heading: "Parameter 생성 · 호출 검증"
+    text: "LLM의 역할은 여기까지 — 쿼리문 자체는 만들지 않는다"
+  - heading: "MCP Tool 호출"
+    text: "전문가가 작성·검증한 SQL이 실행. 단순 조회는 Oracle, 대용량 분석은 ClickHouse"
+  - heading: "조회 후처리"
+    text: "Relevance 검증과 사용자 권한 필터링을 거쳐 시각화 데이터로 전달"
 ---
 
-- LLM은 SQL을 직접 생성하지 않는다 (환각에 의한 오류 원천 차단)
-- 전문가가 검수한 SQL을 MCP Tool로 제공 → LLM은 Tool 선택·파라미터만
-- 단순 조회는 Oracle(OLTP), 대용량 집계·분석은 ClickHouse(OLAP)로 분리
-- Context Aware Routing으로 최소 요청·빠른 응답
-
 ## notes
-2축: 정확·효율. 차별점 "LLM이 SQL을 안 짠다".
+Context Aware Routing으로 최소 요청·빠른 응답. Oracle 부하도 최소화.

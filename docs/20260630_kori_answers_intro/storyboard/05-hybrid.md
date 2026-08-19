@@ -1,14 +1,18 @@
 ---
-title: "하이브리드 검색과 출처 표기로 '신뢰할 수 있는 답'을 만든다"
-kicker: "Pillar 1 · 정확성"
-layout: title+body
+title: "의미와 키워드를 동시에 검색해 근거를 고른다"
+kicker: "Pillar 01 · 정확성"
+lede: "두 검색을 병렬로 돌린 뒤 Relevance 평가로 통합해 최적의 배경지식만 남깁니다."
+layout: two-col
 source: [src-01, src-02]
+left:
+  - "벡터 검색 — 의미·문맥 기반 유사도"
+  - "Milvus, 문서 Chunk 단위 저장"
+  - "메타데이터 필터로 후보군 축소"
+right:
+  - "키워드 검색 — 정확한 용어 매칭"
+  - "ElasticSearch, 전체 문서 단위"
+  - "1차 후보군 확보에 강함"
 ---
 
-- 의미(벡터) + 키워드 검색을 병렬 수행하는 Hybrid Retrieval
-- 결과를 Relevance 평가 → Filtering → Reranking으로 정밀 선별
-- 답변 문장에 In-line 출처 표기, Post Validation Chain으로 검증
-- 비정형: ElasticSearch(전체 문서) + Milvus(Chunk 단위 벡터)
-
 ## notes
-1축: 정확성·신뢰성.
+두 축을 병렬 수행 → Relevance 평가 → Filtering → Reranking → In-line 출처 + Post Validation Chain.
