@@ -1,6 +1,5 @@
 ---
-title: "왜 제노임펙트인가"
-kicker: "Why XENOIMPACT"
+title: "Why XENOIMPACT?"
 layout: columns
 source: [src-01]
 columns:

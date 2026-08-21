@@ -1,7 +1,7 @@
 ---
-title: "삼성전자 MARU — 8년간 단독 운영해 온 인텔리전스 플랫폼"
+title: "삼성전자 MARU"
 kicker: "Recent Works · 260억원+"
-lede: "초기 구축 이후 매년 고도화와 운영을 단독으로 수행하고 있습니다."
+lede: "메모리 전략마케팅실 인텔리전스 플랫폼 — 8년간 고도화·운영을 단독 수행."
 layout: device
 image: maru-platform
 url: "Marketing Intelligence Platform"

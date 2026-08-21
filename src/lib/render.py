@@ -221,16 +221,26 @@ def bullets(items, cls="bullets"):
     return f'<ul class="{cls}">{li}</ul>'
 
 
-def slide_head(sp):
-    """kicker / title / lede 헤더 블록."""
+def slide_head(sp, theme=None, ctx=None, narrow=False):
+    """kicker / title / lede 헤더 블록.
+    theme.header.logo 가 켜져 있으면 제목 왼쪽에 워드마크를 둔다(원본 소개서 방식).
+    narrow=True(좁은 단 안의 헤더)면 워드마크를 생략한다 — 제목이 밀려 넘친다."""
+    theme = theme or {}
+    hdr = theme.get("header", {}) or {}
+    logo = None
+    if hdr.get("logo") and ctx is not None and not narrow:
+        logo = ctx.asset((theme.get("logo", {}) or {}).get("cover"), kind="logos")
     h = []
     if sp.get("kicker"):
         h.append(f'<p class="kicker">{e(sp["kicker"])}</p>')
     if sp.get("title"):
-        h.append(f'<h2 class="title">{e(sp["title"])}</h2>')
+        t = f'<h2 class="title">{e(sp["title"])}</h2>'
+        h.append(f'<div class="head-row"><img class="head-logo" src="{logo}">{t}</div>'
+                 if logo else t)
     if sp.get("lede"):
         h.append(f'<p class="lede">{e(sp["lede"])}</p>')
-    return f'<header class="head">{"".join(h)}</header>' if h else ""
+    cls = "head with-logo" if logo else "head"
+    return f'<header class="{cls}">{"".join(h)}</header>' if h else ""
 
 
 def chart_html(path, theme):
@@ -318,7 +328,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                       f'<h3>{e(c.get("heading",""))}</h3>' +
                       bullets(c.get("items")) + "</div>")
         n = len(sp.get("columns", []) or [])
-        inner = slide_head(sp) + f'<div class="cards cols-{n}">{cards}</div>'
+        inner = slide_head(sp, theme, ctx) + f'<div class="cards cols-{n}">{cards}</div>'
     elif layout == "stat":
         cells = ""
         for s in sp.get("stats", []) or []:
@@ -327,7 +337,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                       f'<div class="stat-l">{e(s.get("label",""))}</div>' +
                       (f'<div class="stat-n">{e(s["note"])}</div>' if s.get("note") else "") +
                       "</div>")
-        inner = (slide_head(sp) +
+        inner = (slide_head(sp, theme, ctx) +
                  f'<div class="stats cols-{len(sp.get("stats",[]) or [])}">{cells}</div>' +
                  bullets(sp.get("body")))
     elif layout == "table":
@@ -335,37 +345,37 @@ def render_slide(sp, theme, ctx, page=None, total=None):
         th = "".join(f"<th>{e(x)}</th>" for x in t.get("headers", []))
         tr = "".join("<tr>" + "".join(f"<td>{e(c)}</td>" for c in row) + "</tr>"
                      for row in t.get("rows", []))
-        inner = (slide_head(sp) +
+        inner = (slide_head(sp, theme, ctx) +
                  f'<table class="tbl"><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table>')
     elif layout == "two-col":
         rimg = ctx.asset(sp.get("right_image"))
         right = (f'<div class="col"><img class="fig" src="{rimg}"></div>' if rimg
                  else f'<div class="col">{bullets(sp.get("right"))}</div>')
-        inner = (slide_head(sp) + '<div class="two">' +
+        inner = (slide_head(sp, theme, ctx) + '<div class="two">' +
                  f'<div class="col">{bullets(sp.get("left"))}</div>' + right + "</div>")
     elif layout == "title-chart":
         cp = os.path.join(ctx.doc_dir, sp.get("chart", ""))
         body = chart_html(cp, theme) if os.path.exists(cp) else \
             f'<p class="missing">[차트 없음: {e(sp.get("chart"))}]</p>'
-        inner = slide_head(sp) + body + bullets(sp.get("body"))
+        inner = slide_head(sp, theme, ctx) + body + bullets(sp.get("body"))
     elif layout == "title-image":
         img = ctx.asset(sp.get("image"))
         body = (f'<img class="fig" src="{img}">' if img
                 else f'<p class="missing">[이미지 없음: {e(sp.get("image"))}]</p>')
-        inner = slide_head(sp) + body + bullets(sp.get("body"))
+        inner = slide_head(sp, theme, ctx) + body + bullets(sp.get("body"))
     elif layout == "image-split":
         img = ctx.asset(sp.get("image"), kind="screens")
         side = sp.get("side", "right")
-        content = slide_head(sp)
+        content = slide_head(sp, theme, ctx, narrow=True)
         content += numbered_html(sp["items"]) if sp.get("items") else bullets(sp.get("body"))
         panel = (f'<div class="split-img side-{side}"><img src="{img}"></div>'
                  if img else "")
         inner = f'{panel}<div class="split-text side-{side}">{content}</div>'
     elif layout == "numbered":
-        inner = slide_head(sp) + numbered_html(sp.get("items"))
+        inner = slide_head(sp, theme, ctx) + numbered_html(sp.get("items"))
     elif layout == "gallery":
         paths = [ctx.asset(x, kind="screens") for x in (sp.get("images") or [])]
-        inner = slide_head(sp) + strips_html(paths) + bullets(sp.get("body"))
+        inner = slide_head(sp, theme, ctx) + strips_html(paths) + bullets(sp.get("body"))
     elif layout == "team":
         shape = sp.get("shape", "banner")      # banner(기본) | circle
         orient = sp.get("orient", "cols")      # cols(기본) | rows
@@ -380,7 +390,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                       bullets(pr.get("items")) + "</div></div>")
         n = len(sp.get("people", []) or [])
         cls = f'people orient-{orient} ' + (f"cols-{n}" if orient == "cols" else "")
-        inner = slide_head(sp) + f'<div class="{cls}">{cards}</div>'
+        inner = slide_head(sp, theme, ctx) + f'<div class="{cls}">{cards}</div>'
     elif layout == "process":
         steps = ""
         for i, st in enumerate(sp.get("steps", []) or [], 1):
@@ -389,7 +399,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                       f'<h3>{e(st.get("heading",""))}</h3>' +
                       (f'<p>{e(st["text"])}</p>' if st.get("text") else "") + "</div>")
         n = len(sp.get("steps", []) or [])
-        inner = slide_head(sp) + f'<div class="steps cols-{n}">{steps}</div>'
+        inner = slide_head(sp, theme, ctx) + f'<div class="steps cols-{n}">{steps}</div>'
     elif layout == "device":
         img = ctx.asset(sp.get("image"), kind="screens")
         frame = (f'<div class="device"><div class="chrome">'
@@ -401,16 +411,16 @@ def render_slide(sp, theme, ctx, page=None, total=None):
         if side in ("left", "right"):   # 텍스트와 나란히
             txt = f'<div class="col">{numbered_html(sp["items"]) if sp.get("items") else bullets(sp.get("body"))}</div>'
             cells = (f'<div class="col">{frame}</div>' + txt) if side == "left" else (txt + f'<div class="col">{frame}</div>')
-            inner = slide_head(sp) + f'<div class="two dev-two">{cells}</div>'
+            inner = slide_head(sp, theme, ctx) + f'<div class="two dev-two">{cells}</div>'
         else:
-            inner = slide_head(sp) + frame + bullets(sp.get("body"))
+            inner = slide_head(sp, theme, ctx) + frame + bullets(sp.get("body"))
     elif layout == "compare":
         def _panel(d, cls):
             return ('<div class="cmp ' + cls + '">' +
                     (f'<span class="cmp-tag">{e(d.get("tag"))}</span>' if d.get("tag") else "") +
                     f'<h3>{e(d.get("heading",""))}</h3>' + bullets(d.get("items")) + "</div>")
         a, b = sp.get("left", {}) or {}, sp.get("right", {}) or {}
-        inner = (slide_head(sp) + '<div class="compare">' +
+        inner = (slide_head(sp, theme, ctx) + '<div class="compare">' +
                  _panel(a, "cmp-a") + '<div class="vs">VS</div>' + _panel(b, "cmp-b") +
                  "</div>")
     elif layout == "timeline":
@@ -423,7 +433,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                     (f'<span>{e(ev["text"])}</span>' if ev.get("text") else "") +
                     "</div></li>")
         n = len(sp.get("events", []) or [])
-        inner = slide_head(sp) + f'<ul class="timeline cols-{n}">{pts}</ul>'
+        inner = slide_head(sp, theme, ctx) + f'<ul class="timeline cols-{n}">{pts}</ul>'
     elif layout == "quote":
         inner = ('<div class="quote-wrap">'
                  f'<blockquote>{e(sp.get("quote") or sp.get("title",""))}</blockquote>' +
@@ -432,7 +442,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
     elif layout == "mosaic":
         imgs = [ctx.asset(x, kind="screens") for x in (sp.get("images") or [])]
         cells = "".join(f'<div class="tile"><img src="{p}"></div>' for p in imgs if p)
-        inner = slide_head(sp) + f'<div class="mosaic">{cells}</div>' + bullets(sp.get("body"))
+        inner = slide_head(sp, theme, ctx) + f'<div class="mosaic">{cells}</div>' + bullets(sp.get("body"))
     elif layout == "contact":
         rows = ""
         for c in sp.get("contacts", []) or []:
@@ -514,9 +524,9 @@ def render_slide(sp, theme, ctx, page=None, total=None):
                       (f'<span>{e(lg["caption"])}</span>' if lg.get("caption") else "") + "</div>")
         aside = (f'<div class="aside"><h3 class="aside-t">{e(sp.get("aside_title",""))}</h3>'
                  f'<div class="logos">{logos}</div></div>') if logos else ""
-        inner = slide_head(sp) + f'<div class="pie-abs">{svg}{over}</div>{aside}'
+        inner = slide_head(sp, theme, ctx) + f'<div class="pie-abs">{svg}{over}</div>{aside}'
     else:  # title+body
-        inner = slide_head(sp) + bullets(sp.get("body"))
+        inner = slide_head(sp, theme, ctx) + bullets(sp.get("body"))
 
     # 푸터: 로고(있으면) + 브랜드/문서명 + 페이지 번호 → 하단을 시각적으로 고정
     foot = ""

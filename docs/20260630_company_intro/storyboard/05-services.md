@@ -1,6 +1,6 @@
 ---
-title: "진단부터 구축·운영까지 네 가지 축으로 제공한다"
-kicker: "Services"
+title: "Services"
+lede: "현황 진단부터 구축·운영까지, 네 가지 축으로 제공합니다."
 layout: columns
 source: [src-01]
 columns:

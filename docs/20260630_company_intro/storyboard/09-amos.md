@@ -1,5 +1,6 @@
 ---
-title: "AMOS PI — COBOL 레거시를 AI로 분석하고 전환한다"
+title: "현대모비스 AMOS PI"
+lede: "COBOL 레거시를 AI로 분석하고 Java로 전환합니다."
 kicker: "Recent Works · 2025~2026"
 layout: image-split
 side: right

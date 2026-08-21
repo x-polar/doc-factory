@@ -1,5 +1,6 @@
 ---
-title: "Kori Code — 폐쇄망에서 동작하는 AI 코드 어시스턴트"
+title: "현대모비스 Kori Code"
+lede: "폐쇄망에서 동작하는 Agentic AI 코드 어시스턴트."
 kicker: "Recent Works · 2026"
 layout: image-split
 side: left

@@ -1,6 +1,6 @@
 ---
-title: "고객사 내부 혁신상으로 검증된 결과"
-kicker: "Awards"
+title: "Awards"
+lede: "고객사 내부 혁신상으로 검증된 결과입니다."
 layout: numbered
 source: [src-01]
 items:

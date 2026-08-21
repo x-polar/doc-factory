@@ -1,6 +1,6 @@
 ---
-title: "20년간 엔터프라이즈 현장에서 축적해 왔다"
-kicker: "History"
+title: "History"
+lede: "2002년 설립 이후 20년간 엔터프라이즈 현장에서 축적해 왔습니다."
 layout: timeline
 source: [src-01]
 events:

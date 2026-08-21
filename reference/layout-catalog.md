@@ -119,6 +119,9 @@ right: ["비정형: ElasticSearch", "벡터: Milvus"]
 - `title` — action title(결론을 말하는 제목). **필수.**
 - `kicker` — 제목 위 작은 라벨(섹션/축 표시). 액센트색·대문자. 권장.
 - `lede` — 제목 아래 한 줄 요약. 슬라이드 밀도를 올려준다. 권장.
+- 브랜드 `theme.yaml`에 `header: {logo: true}`를 두면 제목 왼쪽에 워드마크가 붙는다
+  (원본 회사소개서 헤더 방식: `XENOIMPACT  Services`). `image-split`처럼 헤더가 **좁은
+  단 안에** 들어가는 레이아웃에서는 제목이 밀리므로 워드마크를 자동 생략한다.
 - `bg` — 배경 이미지 이름(브랜드 `assets/backgrounds/`) 또는 문서 상대경로.
   미지정 시 `theme.backgrounds`의 레이아웃별 기본값. 끄려면 `bg: none`.
 

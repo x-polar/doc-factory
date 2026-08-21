@@ -11,9 +11,9 @@
 /* 콘텐츠 슬라이드는 위아래로 눌러 텍스트 영역을 안정시킴 */
 .slide:not(.l-title) .veil{
   background: linear-gradient(180deg,
-    color-mix(in srgb, var(--paper) 93%, transparent) 0%,
-    color-mix(in srgb, var(--paper) 84%, transparent) 55%,
-    color-mix(in srgb, var(--paper) 96%, transparent) 100%);
+    color-mix(in srgb, var(--paper) 86%, transparent) 0%,
+    color-mix(in srgb, var(--paper) 73%, transparent) 55%,
+    color-mix(in srgb, var(--paper) 90%, transparent) 100%);
 }
 
 /* 글래스 카드 */
@@ -26,3 +26,14 @@
 /* 표 헤더는 배경 대신 하단 룰로 (다크에서 더 정갈) */
 .tbl th{ color: var(--accent); }
 .tbl td{ border-bottom-color: color-mix(in srgb, #FFFFFF 12%, transparent); }
+
+/* 콘텐츠 슬라이드 헤더 = 워드마크 + 가벼운 제목 (원본 소개서 방식) */
+.head-row{ display:flex; align-items:center; gap: calc(var(--u) * 2.2); }
+.head-logo{ height: calc(var(--u) * 3.0); width:auto; flex:0 0 auto; }
+.with-logo .title{
+  font-weight: 400;                      /* 원본은 굵지 않다 */
+  font-size: calc(var(--u) * 2.5);
+  color: color-mix(in srgb, var(--c-title-ink) 92%, transparent);
+  letter-spacing: 0;
+}
+.with-logo .lede{ margin-top: calc(var(--u) * 1.0); }

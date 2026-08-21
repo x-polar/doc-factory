@@ -46,3 +46,5 @@ backgrounds:
   cover: cosmos-network
   content: waves-dark
   section: cosmos-deep
+header:
+  logo: true
