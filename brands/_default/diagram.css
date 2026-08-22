@@ -209,3 +209,96 @@ svg.dg-edges text {
   padding: 0.2in;
   border-radius: 8px;
 }
+
+/* ============================================================
+   아이소메트릭 모드 (.dg-iso-*)
+   ------------------------------------------------------------
+   레퍼런스: 03(Alcion) 08(Isoflow). 2:1 iso — x축→(0.866,0.5),
+   y축→(-0.866,0.5) matrix 변환. 평면·큐브는 iso로 눕히고,
+   라벨은 평면 밖에 '서 있는' 흰색 필로 둔다(Isoflow 문법).
+   좌표: 부모 dg-canvas 기준 %/in. 크기는 --s(한 변), --h(높이).
+   ============================================================ */
+
+/* ---- 존 평면: 색조 다이아몬드 (레퍼런스 08) ---- */
+.dg-iso-plane {
+  position: absolute;
+  transform-origin: 0 0;
+  transform: matrix(0.866, 0.5, -0.866, 0.5, 0, 0);
+  border: 1.2px dashed color-mix(in srgb, var(--iso-tint, var(--c-accent)) 55%, transparent);
+  background: color-mix(in srgb, var(--iso-tint, var(--c-accent)) 10%, transparent);
+  border-radius: 4px;
+}
+
+/* ---- 큐브: 3면 블록 (자식 .f-top/.f-left/.f-right 필수) ----
+   사용: <div class="dg-iso-cube" style="left:..;top:..;--s:0.5in;--h:0.35in">
+           <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+         </div>
+   left/top 앵커 = 큐브 윗면 다이아몬드의 '위쪽 꼭짓점'. */
+.dg-iso-cube { position: absolute; width: 0; height: 0; --s: 0.5in; --h: 0.3in;
+  --iso-c: var(--c-accent); }
+.dg-iso-cube > div { position: absolute; transform-origin: 0 0; box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--iso-c) 60%, #000 12%); }
+.dg-iso-cube > .f-top {
+  width: var(--s); height: var(--s);
+  transform: matrix(0.866, 0.5, -0.866, 0.5, 0, 0);
+  background: color-mix(in srgb, var(--iso-c) 28%, var(--c-background));
+  display: flex; align-items: center; justify-content: center;
+}
+.dg-iso-cube > .f-left {
+  width: var(--s); height: var(--h);
+  transform: translate(calc(-0.866 * var(--s)), calc(0.5 * var(--s)))
+             matrix(0.866, 0.5, 0, 1, 0, 0);
+  background: color-mix(in srgb, var(--iso-c) 52%, var(--c-background));
+}
+.dg-iso-cube > .f-right {
+  width: var(--s); height: var(--h);
+  transform: translate(0, var(--s)) matrix(0.866, -0.5, 0, 1, 0, 0);
+  background: color-mix(in srgb, var(--iso-c) 74%, #000 10%);
+}
+/* 윗면 아이콘: iso로 눕지 않고 서 있게(가독성) — f-top 안에 넣고 역변환 */
+.dg-iso-cube .f-top > .dg-ico {
+  width: 55%; height: 55%;
+  transform: matrix(0.577, -0.333, 0.577, 0.333, 0, 0) scale(1.2);
+  color: color-mix(in srgb, var(--c-text) 80%, var(--iso-c));
+}
+.dg-iso-cube .f-top > .dg-ico svg { width: 100%; height: 100%; display: block; }
+
+/* 낮은 타일(플랫폼): 큐브와 같은 마크업, --h만 작게 쓰면 됨 */
+
+/* ---- 라벨 필: 평면 밖에 서 있는 콜아웃 (레퍼런스 08) ---- */
+.dg-iso-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 0.02in 0.09in;
+  border-radius: 6px;
+  font-size: 8pt;
+  font-weight: 600;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--c-background) 85%, #000);
+  background: color-mix(in srgb, var(--c-text) 96%, transparent);
+  box-shadow: 0 1px 5px color-mix(in srgb, #000 30%, transparent);
+  z-index: 3;
+}
+.dg-iso-label small {
+  display: block;
+  font-size: 6.5pt;
+  font-weight: 400;
+  opacity: 0.65;
+}
+/* 존 이름표: 평면 모서리에 붙는 각진 라벨 (다크에선 반전) */
+.dg-iso-zonetag {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 0.015in 0.08in;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  color: var(--c-background);
+  background: var(--iso-tint, var(--c-accent));
+  z-index: 3;
+}
+
+/* 콜아웃/연결선은 기존 svg.dg-edges를 그대로 쓴다.
+   iso 흐름선은 iso 축 방향(기울기 ±30°≈0.577)을 따라 그릴 것. */
+

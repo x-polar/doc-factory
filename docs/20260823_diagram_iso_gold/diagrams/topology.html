@@ -1,0 +1,79 @@
+<!-- KORI Answers 온프레미스 배포 토폴로지 — 아이소메트릭 골드스탠다드
+     좌표: in 단위 (canvas 약 11.9in x 5.4in). 큐브 앵커 = 윗면 위쪽 꼭짓점. -->
+<div class="dg-canvas dg-canvas--dots">
+
+  <!-- ===== 존 평면 3개 ===== -->
+  <!-- 사용자망 (블루) : 좌상 -->
+  <div class="dg-iso-plane" style="left:2.6in;top:0.55in;width:2.0in;height:1.5in;--iso-tint:#5B8DEF"></div>
+  <div class="dg-iso-zonetag" style="left:2.6in;top:0.5in;--iso-tint:#5B8DEF">사용자망</div>
+
+  <!-- 서비스망 (민트/액센트) : 중앙 -->
+  <div class="dg-iso-plane" style="left:6.3in;top:1.45in;width:2.9in;height:2.2in"></div>
+  <div class="dg-iso-zonetag" style="left:6.3in;top:1.4in">KORI Answers 서비스망</div>
+
+  <!-- 데이터망 (오렌지) : 우하 -->
+  <div class="dg-iso-plane" style="left:9.7in;top:2.9in;width:2.3in;height:1.7in;--iso-tint:#E8A33D"></div>
+  <div class="dg-iso-zonetag" style="left:10.25in;top:5.05in;--iso-tint:#E8A33D">데이터망 · AI/LLM Free Zone</div>
+
+  <!-- ===== 연결선 (iso 축 방향) ===== -->
+  <svg class="dg-edges" viewBox="0 0 1000 560" preserveAspectRatio="none">
+    <defs>
+      <marker id="iah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#22FFBD" stroke-width="1.8"/>
+      </marker>
+    </defs>
+    <!-- 사용자망 -> 서비스망 -->
+    <path class="e e--accent e--flow" d="M290,190 L420,265" marker-end="url(#iah)"/>
+    <!-- 서비스망 -> 데이터망 -->
+    <path class="e e--accent e--flow" d="M700,390 L800,445" marker-end="url(#iah)"/>
+  </svg>
+
+  <!-- ===== 사용자망 큐브 ===== -->
+  <div class="dg-iso-cube" style="left:2.55in;top:0.95in;--s:0.42in;--h:0.26in;--iso-c:#5B8DEF">
+    <div class="f-top"><span class="dg-ico">{{icon:lucide/users}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:1.5in;top:1.05in">임직원 PC<small>사내망 브라우저</small></div>
+
+  <div class="dg-iso-cube" style="left:3.45in;top:1.45in;--s:0.42in;--h:0.26in;--iso-c:#5B8DEF">
+    <div class="f-top"><span class="dg-ico">{{icon:lucide/fingerprint}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:4.55in;top:1.55in">SSO / 권한관리</div>
+
+  <!-- ===== 서비스망 큐브 ===== -->
+  <div class="dg-iso-cube" style="left:6.25in;top:1.85in;--s:0.46in;--h:0.3in">
+    <div class="f-top"><span class="dg-ico">{{icon:lucide/shield-check}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:5.15in;top:1.95in">Compliance Gateway<small>Java · 질의+권한 수집</small></div>
+
+  <div class="dg-iso-cube" style="left:7.25in;top:2.4in;--s:0.46in;--h:0.3in">
+    <div class="f-top"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:8.5in;top:2.35in">Agent / RAG Server<small>Python · MCP Tool</small></div>
+
+  <div class="dg-iso-cube" style="left:6.7in;top:2.95in;--s:0.46in;--h:0.3in">
+    <div class="f-top"><span class="dg-ico">{{icon:lucide/funnel}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:5.5in;top:3.15in">결정론적 보안 레이어<small>권한 밖 데이터 차단</small></div>
+
+  <div class="dg-iso-cube" style="left:8.25in;top:3.0in;--s:0.46in;--h:0.3in">
+    <div class="f-top"><span class="dg-ico">{{icon:lucide/sparkles}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:9.4in;top:2.95in">LLM / SLM<small>GPU 서버 · 사내 배포</small></div>
+
+  <!-- ===== 데이터망 큐브 ===== -->
+  <div class="dg-iso-cube" style="left:9.65in;top:3.3in;--s:0.42in;--h:0.26in;--iso-c:#E8A33D">
+    <div class="f-top"><span class="dg-ico">{{icon:lucide/database}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:8.8in;top:3.75in">Oracle<small>OLTP</small></div>
+
+  <div class="dg-iso-cube" style="left:10.55in;top:3.8in;--s:0.42in;--h:0.26in;--iso-c:#E8A33D">
+    <div class="f-top"><span class="dg-ico">{{icon:brands/clickhouse}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:11.5in;top:3.8in">ClickHouse<small>OLAP</small></div>
+
+  <div class="dg-iso-cube" style="left:10.0in;top:4.35in;--s:0.42in;--h:0.26in;--iso-c:#E8A33D">
+    <div class="f-top"><span class="dg-ico">{{icon:brands/elasticsearch}}</span></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:11.2in;top:4.55in">ES + Milvus<small>하이브리드 검색</small></div>
+
+</div>
