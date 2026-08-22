@@ -107,7 +107,7 @@
   --iso-c: var(--kori-store);
   width: var(--d);
 }
-.dg-iso-cyl > .top {
+.dg-iso-cyl > .cyl-top {
   position: absolute; z-index: 2;
   width: var(--d); height: calc(var(--d) / 2);
   border-radius: 50%;
@@ -116,7 +116,7 @@
   box-sizing: border-box;
   display: flex; align-items: center; justify-content: center;
 }
-.dg-iso-cyl > .body {
+.dg-iso-cyl > .cyl-body {
   position: absolute; top: calc(var(--d) / 4);
   width: var(--d); height: calc(var(--h) + var(--d) / 4);
   box-sizing: border-box;
@@ -129,12 +129,12 @@
   border-radius: 0 0 50% 50% / 0 0 25% 25%;
 }
 /* 원기둥 윗면 글리프: 타원에 맞춰 납작하게(평면 눕힘 근사) */
-.dg-iso-cyl > .top > .dg-glyph {
+.dg-iso-cyl > .cyl-top > .dg-glyph {
   width: 44%; height: 88%;
   transform: scaleY(0.5) rotate(-15deg);
   color: color-mix(in srgb, #fff 55%, var(--iso-c));
 }
-.dg-iso-cyl > .top > .dg-glyph svg { width: 100%; height: 100%; display: block; }
+.dg-iso-cyl > .cyl-top > .dg-glyph svg { width: 100%; height: 100%; display: block; }
 
 /* ============================================================
    3) cross-cutting = 앰버 반투명 평면 (C14) — dg-iso-plane 변형

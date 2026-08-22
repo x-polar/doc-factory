@@ -1,0 +1,192 @@
+<!-- KORI Answers 메인 아키텍처 — 2.5D 아이소메트릭 (v7.7 기준)
+     컴포넌트: C1~C17 (R15 미표기, D14). 선은 바닥 평면 직각(Manhattan) 라우팅.
+     아이콘: kori-icon-style-tokens.html 토큰 소스. 교차 0 설계. -->
+<div class="dg-canvas">
+
+  <!-- ══ C14 Deterministic Security Layer — 배경 레이어 (z0) ══ -->
+  <div style="position:absolute; left:1.65in; top:2.28in; width:6.65in; height:2.14in;
+              border:1.2px dashed color-mix(in srgb, var(--kori-xcut) 65%, transparent);
+              background:color-mix(in srgb, var(--kori-xcut) 7%, transparent);
+              border-radius:10px; z-index:0;"></div>
+  <div class="dg-iso-zonetag" style="left:3.05in; top:2.28in; --iso-tint:var(--kori-xcut);">C14 · DETERMINISTIC SECURITY LAYER</div>
+  <div style="position:absolute; left:2.2in; top:2.06in; transform:translate(-50%,-50%); z-index:3;
+              font-size:6.5pt; font-weight:600; color:var(--kori-xcut); white-space:nowrap;">UI 권한 정보</div>
+  <div style="position:absolute; left:5.45in; top:2.06in; transform:translate(-50%,-50%); z-index:3;
+              font-size:6.5pt; font-weight:600; color:var(--kori-xcut); white-space:nowrap;">플랜·답변 검증 기준</div>
+  <div style="position:absolute; left:7.55in; top:2.32in; transform:translate(-50%,-50%); z-index:3;
+              font-size:6.5pt; font-weight:600; color:var(--kori-xcut); white-space:nowrap;">ACL pre-filter 기준</div>
+
+  <!-- ══ 연결선 (z1) — 좌표 = in×100, viewBox 1190×540 ══ -->
+  <svg class="dg-edges" viewBox="0 0 1190 540" preserveAspectRatio="none">
+    <defs>
+      <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L8 4 L0 8 z" fill="#22FFBD"/>
+      </marker>
+      <marker id="ahn" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0 0 L8 4 L0 8 z" fill="#8fb8ab"/>
+      </marker>
+    </defs>
+
+    <!-- 사용자 경로 R1~R4 (accent) -->
+    <path class="e e--accent" d="M92 283 H170" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M176 308 H98"  marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M266 282 H364" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M366 307 H268" marker-end="url(#ah)"/>
+    <!-- R5: C2 → C7 fetch.document (전면 바닥 라우팅) -->
+    <path class="e e--accent" d="M220 364 V520 H590 V392" marker-end="url(#ah)"/>
+
+    <!-- 모델 경로 R6/R7 (수직 = 높이축) + R9 폴백(점선) -->
+    <path class="e" d="M410 242 V154" marker-end="url(#ahn)"/>
+    <path class="e" d="M435 152 V240" marker-end="url(#ahn)"/>
+    <path class="e e--flow" d="M460 256 V152"/>
+    <!-- R8: C16 ↔ C5 / R9: C16 ↔ C6 (C5 위로 우회) -->
+    <path class="e" d="M472 133 H552 V148" marker-end="url(#ahn)"/>
+    <path class="e" d="M470 76 H760 V145" marker-end="url(#ahn)"/>
+
+    <!-- 검색 경로 R10/R11 (accent) -->
+    <path class="e e--accent" d="M455 290 H594" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M547 320 H457" marker-end="url(#ah)"/>
+
+    <!-- 스토어 경로 R12/R13/R14/R16 -->
+    <path class="e" d="M700 278 H960 V105 H1026" marker-end="url(#ahn)"/>
+    <path class="e" d="M745 304 H985 V225 H1026" marker-end="url(#ahn)"/>
+    <path class="e" d="M807 345 H1026" marker-end="url(#ahn)"/>
+    <path class="e" d="M755 375 H1005 V460 H1026" marker-end="url(#ahn)"/>
+
+    <!-- R20: C15 ⇢ 저장소 4곳 (점선 트렁크+탭) -->
+    <path class="e e--flow" d="M890 512 H1170 V115"/>
+    <path class="e e--flow" d="M1170 115 H1096"/>
+    <path class="e e--flow" d="M1170 235 H1096"/>
+    <path class="e e--flow" d="M1170 355 H1096"/>
+    <path class="e e--flow" d="M1170 475 H1096"/>
+
+    <!-- R21: C17 ⇢ C7 · C15 (점선) -->
+    <path class="e e--flow" d="M922 393 V360 H784"/>
+    <path class="e e--flow" d="M893 442 H870 V476"/>
+
+    <!-- 레이블 -->
+    <text x="130" y="271" text-anchor="middle">Chat Query</text>
+    <text x="138" y="336" text-anchor="middle">Resp.+Refs</text>
+    <text x="315" y="270" text-anchor="middle">Query + Principal</text>
+    <text x="312" y="324" text-anchor="middle">Validated Answer</text>
+    <text x="402" y="186" text-anchor="end">Planning/Answer Prompt ▸</text>
+    <text x="402" y="206" text-anchor="end">◂ Plan/Draft + Citations</text>
+    <text x="468" y="248">SLM 폴백(캐시 미스)</text>
+    <text x="610" y="66">요약 요청/응답 (배치·폴백)</text>
+    <text x="524" y="279" text-anchor="middle">Tool Invocation</text>
+    <text x="455" y="367" text-anchor="end">Context Slots ①문서 ②정형+출처</text>
+    <text x="400" y="512" text-anchor="middle">fetch.document — 참조 문서 온디맨드</text>
+    <text x="1128" y="505" text-anchor="middle">적재</text>
+    <text x="850" y="353" text-anchor="middle">용어 참조</text>
+  </svg>
+
+  <!-- ══ 컴포넌트 (z2) ══ -->
+
+  <!-- C1 End User -->
+  <div style="position:absolute; left:0.55in; top:2.62in; width:0.34in; height:0.34in; z-index:2;
+              border-radius:50%; border:1.4px solid var(--c-accent);
+              display:flex; align-items:center; justify-content:center; color:var(--c-accent);">
+    <svg viewBox="0 0 24 24" width="70%" height="70%" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg>
+  </div>
+  <div class="dg-iso-label" style="left:0.55in; top:3.55in;">End User</div>
+
+  <!-- C2 Compliance Gateway Server (서버=세로 박스) -->
+  <div class="dg-iso-box dg-iso-box--server" style="left:2.2in; top:2.5in; z-index:2;">
+    <div class="f-top"><div class="dg-glyph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+    </div></div>
+    <div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:2.2in; top:3.92in;">Compliance Gateway<small>Java · SSO·권한관리 사내 통합</small></div>
+
+  <!-- C3 Agent Orchestrator (서버=세로 박스) -->
+  <div class="dg-iso-box dg-iso-box--server" style="left:4.1in; top:2.5in; z-index:2;">
+    <div class="f-top"><div class="dg-glyph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5.6 5.6l2.2 2.2M16.2 16.2l2.2 2.2M18.4 5.6l-2.2 2.2M7.8 16.2l-2.2 2.2"/></svg>
+    </div></div>
+    <div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:4.1in; top:3.92in;">Agent Orchestrator<small>Python · Plan→Tool→Answer</small></div>
+
+  <!-- C16 Model Gateway (슬롯 박스) -->
+  <div class="dg-iso-box dg-iso-box--gateway" style="left:4.35in; top:0.55in; z-index:2;">
+    <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:4.35in; top:0.3in;">Model Gateway ⇄<small>LiteLLM · 라우팅·인증·로깅</small></div>
+
+  <!-- C5 LLM (적층 슬래브 L ×3) -->
+  <div class="dg-iso-box dg-iso-slab" style="left:6.2in; top:1.35in; --sx:0.72in; --sy:0.72in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-box dg-iso-slab" style="left:6.2in; top:1.21in; --sx:0.72in; --sy:0.72in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-box dg-iso-slab" style="left:6.2in; top:1.07in; --sx:0.72in; --sy:0.72in; z-index:2;">
+    <div class="f-top"><div class="dg-glyph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
+    </div></div>
+    <div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:5.95in; top:0.78in;">LLM ⇄<small>온프렘·외부 API</small></div>
+
+  <!-- C6 SLM (적층 슬래브 S ×2) -->
+  <div class="dg-iso-box dg-iso-slab" style="left:7.6in; top:1.5in; --sx:0.5in; --sy:0.5in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-box dg-iso-slab" style="left:7.6in; top:1.36in; --sx:0.5in; --sy:0.5in; z-index:2;">
+    <div class="f-top"><div class="dg-glyph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6l1.2 3.5L17 11l-3.8 1.5L12 16l-1.2-3.5L7 11l3.8-1.5z"/></svg>
+    </div></div>
+    <div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:8.45in; top:1.06in;">SLM ⇄<small>요약 전용</small></div>
+
+  <!-- C7 Retrieval Layer (플랫폼 + 모듈 큐브 5) -->
+  <div class="dg-iso-box dg-iso-box--layer" style="left:6.6in; top:2.55in; --sx:1.75in; --sy:1.75in; z-index:2;">
+    <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-cube" style="left:6.6in; top:2.72in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:6.17in; top:2.97in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:5.74in; top:3.22in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:7.03in; top:2.97in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:7.46in; top:3.22in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <!-- 모듈 라벨 (수평 빌보드, 소형) -->
+  <div style="position:absolute; left:6.6in; top:2.62in; transform:translate(-50%,-100%); z-index:3; font-size:6pt; font-weight:600; color:#9beed8; white-space:nowrap;">Lexical</div>
+  <div style="position:absolute; left:6.0in; top:2.92in; transform:translate(-100%,-50%); z-index:3; font-size:6pt; font-weight:600; color:#9beed8; white-space:nowrap;">Semantic</div>
+  <div style="position:absolute; left:5.57in; top:3.2in; transform:translate(-100%,-50%); z-index:3; font-size:6pt; font-weight:600; color:#9beed8; white-space:nowrap;">Quantitative</div>
+  <div style="position:absolute; left:7.25in; top:2.9in; transform:translate(0,-50%); z-index:3; font-size:6pt; font-weight:600; color:#9beed8; white-space:nowrap;">Fusion&amp;Rank</div>
+  <div style="position:absolute; left:7.68in; top:3.18in; transform:translate(0,-50%); z-index:3; font-size:6pt; font-weight:600; color:#9beed8; white-space:nowrap;">Doc Provider</div>
+  <div class="dg-iso-label" style="left:6.6in; top:4.52in;">Retrieval Layer<small>search.hybrid/lexical/semantic · query.quantitative · fetch.document</small></div>
+
+  <!-- 저장소 컬럼 (원기둥) : C10 / C11 / C9 / C12 -->
+  <div class="dg-iso-cyl" style="left:10.3in; top:0.6in; --d:0.62in; --h:0.3in; z-index:2;">
+    <div class="cyl-top"><div class="dg-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div></div><div class="cyl-body"></div>
+  </div>
+  <div class="dg-iso-label" style="left:10.61in; top:1.62in;">Keyword Store ⇄<small>색인 + 요약 필드</small></div>
+
+  <div class="dg-iso-cyl" style="left:10.3in; top:1.8in; --d:0.62in; --h:0.3in; z-index:2;">
+    <div class="cyl-top"><div class="dg-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="10" cy="17" r="2"/><path d="M7.7 7.2L16 8M7.4 7.8l2 7.4M16.4 9.7l-5 5.8"/></svg></div></div><div class="cyl-body"></div>
+  </div>
+  <div class="dg-iso-label" style="left:10.61in; top:2.82in;">Vector Store ⇄<small>벡터 색인</small></div>
+
+  <div class="dg-iso-cyl" style="left:10.3in; top:3.0in; --d:0.62in; --h:0.3in; z-index:2;">
+    <div class="cyl-top"><div class="dg-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 10h16M10 5v14"/></svg></div></div><div class="cyl-body"></div>
+  </div>
+  <div class="dg-iso-label" style="left:10.61in; top:4.02in;">Structured Store ⇄<small>RDB + ClickHouse · 권한·파일 메타</small></div>
+
+  <div class="dg-iso-cyl" style="left:10.3in; top:4.2in; --d:0.62in; --h:0.3in; z-index:2;">
+    <div class="cyl-top"><div class="dg-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg></div></div><div class="cyl-body"></div>
+  </div>
+  <div class="dg-iso-label" style="left:10.55in; top:5.22in;">File Store ⇄<small>원본 · 메타 경유 접근</small></div>
+
+  <!-- C15 Ingestion Pipeline (덕트) -->
+  <div class="dg-iso-box dg-iso-box--duct" style="left:7.5in; top:4.15in; --sx:1.6in; --sy:0.35in; --h:0.18in; z-index:2;">
+    <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+  </div>
+  <div class="dg-iso-label" style="left:7.55in; top:4.06in;">Ingestion Pipeline<small>등록 시 사전 요약·캐싱 → 응답 시간 단축</small></div>
+
+  <!-- C17 Domain Dictionary (원기둥, 지원 컴포넌트) -->
+  <div class="dg-iso-cyl" style="left:8.95in; top:3.95in; --d:0.55in; --h:0.26in; --iso-c:#B5A46A; z-index:2;">
+    <div class="cyl-top"><div class="dg-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17h11"/></svg></div></div><div class="cyl-body"></div>
+  </div>
+  <div class="dg-iso-label" style="left:9.35in; top:5.12in;">Domain Dict. ⇄</div>
+
+  <!-- 주석 · 범례 -->
+  <div class="dg-chip" style="left:8.95in; top:0.42in;">온프렘/외부 API 선택 배포 — Model Gateway 라우팅</div>
+  <div style="position:absolute; left:0.55in; top:5.18in; z-index:3; font-size:7pt;
+              color:color-mix(in srgb, var(--c-text) 55%, transparent);">⇄ 교체 가능 (구현 교체·플러그인)</div>
+</div>
