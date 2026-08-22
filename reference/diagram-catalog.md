@@ -40,7 +40,7 @@ diagram: diagrams/architecture.html      # 문서 폴더 기준 상대경로
 | `dg-zone` | 점선 그룹핑 존 | `--solid`(실선) `--accent`(강조색) 변형 |
 | `dg-zone-label` | 존 라벨 | 존의 첫 자식으로. 배경이 선을 가림(z2) |
 | `dg-node` | 카드 노드 | `--accent`(강조) `--ghost`(외부 시스템) `--danger` |
-| `dg-head` / `dg-ico` / `dg-t` | 노드 헤더 행 / 아이콘 / 제목 | 아이콘은 인라인 SVG |
+| `dg-head` / `dg-ico` / `dg-t` | 노드 헤더 행 / 아이콘 / 제목 | 아이콘: `{{icon:lucide/database}}` 치환 문법 — `brands/_default/assets/icons/README.md` 참고 |
 | `dg-s` | 노드 서브텍스트 | |
 | `dg-items` | 노드 내 체크리스트 | `<ul class="dg-items"><li>` |
 | `dg-chip` | 프로토콜/기술 칩 | 좌표=칩 중심. `--muted` 변형 |

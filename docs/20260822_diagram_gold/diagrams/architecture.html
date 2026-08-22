@@ -34,17 +34,17 @@
 
   <!-- 한 행 흐름: 사용자 → Gateway → Agent → 보안 → LLM -->
   <div class="dg-node dg-node--ghost" style="left:2%;top:30%;width:12%">
-    <div class="dg-head"><span class="dg-t">사용자</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/user}}</span><span class="dg-t">사용자</span></div>
     <p class="dg-s">사내망 · SSO 인증</p>
   </div>
 
   <div class="dg-node" style="left:18%;top:30%;width:15%">
-    <div class="dg-head"><span class="dg-t">Compliance Gateway</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/shield-check}}</span><span class="dg-t">Compliance Gateway</span></div>
     <p class="dg-s">Java · 질의+권한 정보 수집</p>
   </div>
 
   <div class="dg-node dg-node--accent" style="left:38%;top:30%;width:20%">
-    <div class="dg-head"><span class="dg-t">Agent / RAG Server</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent / RAG Server</span></div>
     <p class="dg-s">Python</p>
     <ul class="dg-items">
       <li>Tool Call Plan 수립·검증</li>
@@ -53,12 +53,12 @@
   </div>
 
   <div class="dg-node dg-node--accent" style="left:62%;top:30%;width:12%">
-    <div class="dg-head"><span class="dg-t">결정론적 보안 레이어</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/funnel}}</span><span class="dg-t">결정론적 보안 레이어</span></div>
     <p class="dg-s">권한 밖 데이터 사전 차단</p>
   </div>
 
   <div class="dg-node" style="left:80%;top:30%;width:15%">
-    <div class="dg-head"><span class="dg-t">LLM</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkles}}</span><span class="dg-t">LLM</span></div>
     <p class="dg-s">필터링된 Prompt+Context만 입력 · 데이터 직접 접근 없음</p>
   </div>
 
@@ -67,15 +67,15 @@
     <span class="dg-zone-label">사내 데이터 — AI/LLM Free Zone</span>
   </div>
   <div class="dg-node" style="left:38.5%;top:78.5%;width:12%">
-    <div class="dg-head"><span class="dg-t">Oracle</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">Oracle</span></div>
     <p class="dg-s">OLTP · Source of Truth</p>
   </div>
   <div class="dg-node" style="left:53%;top:78.5%;width:12%">
-    <div class="dg-head"><span class="dg-t">ClickHouse</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:brands/clickhouse}}</span><span class="dg-t">ClickHouse</span></div>
     <p class="dg-s">OLAP · 대용량 집계</p>
   </div>
   <div class="dg-node" style="left:67.5%;top:78.5%;width:12%">
-    <div class="dg-head"><span class="dg-t">ES + Milvus</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:brands/elasticsearch}}</span><span class="dg-t">ES + Milvus</span></div>
     <p class="dg-s">비정형 · 하이브리드 검색</p>
   </div>
 

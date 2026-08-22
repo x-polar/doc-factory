@@ -275,6 +275,21 @@ def strips_html(paths):
     return f'<div class="strips">{cells}</div>' if cells else ""
 
 
+def inline_icons(frag, ctx):
+    """fragment 내 {{icon:<set>/<name>}} 을 아이콘 SVG 내용으로 치환.
+    탐색: 브랜드 assets/icons/ → _default assets/icons/ (브랜드 오버라이드 가능).
+    SVG는 currentColor를 쓰므로 부모의 CSS color를 상속한다."""
+    def _sub(m):
+        rel = m.group(1).strip()
+        for base in (ctx.brand_dir, os.path.join(ROOT, "brands", "_default")):
+            p = os.path.join(base, "assets", "icons", rel + ".svg")
+            if os.path.exists(p):
+                s = open(p, encoding="utf-8").read()
+                return re.sub(r"<\?xml[^>]*\?>|<!--.*?-->", "", s, flags=re.S).strip()
+        return f'<span class="dg-missing">icon? {H.escape(rel)}</span>'
+    return re.sub(r"\{\{icon:([^}]+)\}\}", _sub, frag)
+
+
 def render_slide(sp, theme, ctx, page=None, total=None):
     layout = (sp.get("layout") or "title+body").replace("+", "-")
     # 배경: 슬라이드가 지정하면 그것, 없으면 브랜드 기본값(레이아웃별)
@@ -519,6 +534,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
     elif layout == "diagram":
         # 다이어그램: 별도 파일(HTML fragment 또는 SVG)을 인라인으로 삽입.
         # 파일 안에서 diagram.css 클래스(.dg-*)와 CSS 변수(--c-*)를 그대로 쓴다.
+        # {{icon:lucide/database}} / {{icon:brands/python}} 은 아이콘 SVG로 치환.
         ref = sp.get("diagram")
         frag = ""
         if ref:
@@ -526,7 +542,7 @@ def render_slide(sp, theme, ctx, page=None, total=None):
             if not os.path.exists(p):
                 p = os.path.join(ctx.brand_dir, ref)
             if os.path.exists(p):
-                frag = open(p, encoding="utf-8").read()
+                frag = inline_icons(open(p, encoding="utf-8").read(), ctx)
             else:
                 frag = f'<p class="dg-missing">diagram not found: {e(ref)}</p>'
         inner = slide_head(sp) + f'<div class="dg-stage">{frag}</div>'
