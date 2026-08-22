@@ -1,0 +1,211 @@
+/* ============================================================
+   diagram.css — 기술 다이어그램 디자인 시스템 (공통 base)
+   ------------------------------------------------------------
+   layout: diagram 슬라이드에서 삽입되는 fragment(HTML/SVG)가 쓰는
+   .dg-* 컴포넌트. 색·폰트는 브랜드 CSS 변수(--c-*, --font-*)를
+   따르므로 브랜드를 바꾸면 다이어그램도 함께 리스킨된다.
+   레퍼런스: reference/diagram-refs/ (01 존 그룹핑, 02 글래스 카드)
+   ============================================================ */
+
+/* ---- 스테이지: 슬라이드 본문을 채우는 다이어그램 영역 ---- */
+.l-diagram .dg-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  margin-top: 0.12in;
+}
+
+/* ---- 캔버스: 좌표 기준 컨테이너 (fragment 루트) ----
+   fragment는 <div class="dg-canvas">...</div> 를 루트로 쓰고
+   내부 요소를 % 좌표(absolute)로 배치한다. */
+.dg-canvas {
+  position: relative;
+  flex: 1;
+  font-family: var(--font-body);
+}
+.dg-canvas--dots {           /* 도트 그리드 배경 (레퍼런스 05/08) */
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--c-text) 14%, transparent) 1px, transparent 1px);
+  background-size: 0.16in 0.16in;
+  border-radius: 8px;
+}
+
+/* ---- 존: 점선 그룹핑 박스 (레퍼런스 01 Cloudflare) ---- */
+.dg-zone {
+  position: absolute;
+  border: 1.2px dashed color-mix(in srgb, var(--c-text) 32%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--c-text) 3.5%, transparent);
+}
+.dg-zone--solid {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--c-text) 18%, transparent);
+}
+.dg-zone--accent {
+  border-color: color-mix(in srgb, var(--c-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--c-accent) 4%, transparent);
+}
+.dg-zone-label {
+  position: absolute;
+  top: -0.09in;
+  left: 0.14in;
+  z-index: 2;              /* 연결선(svg, z1)이 라벨 뒤로 지나가게 */
+  padding: 0.01in 0.08in;
+  font-size: 8.5pt;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--c-text) 72%, transparent);
+  background: var(--c-background);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.dg-zone--accent > .dg-zone-label { color: var(--c-accent); }
+
+/* ---- 노드: 카드 (레퍼런스 02 Vercel 글래스 카드) ---- */
+.dg-node {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 0.09in 0.12in;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--c-text) 16%, transparent);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--c-text) 9%, var(--c-background)),
+    color-mix(in srgb, var(--c-text) 4%, var(--c-background)));
+  box-shadow: 0 2px 10px color-mix(in srgb, #000 22%, transparent);
+  color: var(--c-text);
+}
+.dg-node--accent {
+  border-color: color-mix(in srgb, var(--c-accent) 65%, transparent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--c-accent) 18%, transparent);
+}
+.dg-node--ghost {            /* 외부 시스템/서드파티: 낮은 위계 */
+  background: transparent;
+  border-style: dashed;
+  box-shadow: none;
+}
+.dg-node--danger { border-color: color-mix(in srgb, #e5484d 60%, transparent); }
+
+/* 노드 내부 구성: 아이콘 행 / 제목 / 서브텍스트 / 항목 리스트 */
+.dg-node .dg-head {
+  display: flex;
+  align-items: center;
+  gap: 0.07in;
+  min-height: 0.16in;
+}
+.dg-node .dg-ico {
+  width: 0.17in;
+  height: 0.17in;
+  flex: none;
+}
+.dg-node .dg-ico svg { width: 100%; height: 100%; display: block; }
+.dg-node .dg-t {
+  font-size: 9.5pt;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+.dg-node .dg-s {
+  margin-top: 0.02in;
+  font-size: 7.5pt;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--c-text) 62%, transparent);
+}
+.dg-node ul.dg-items {
+  margin: 0.05in 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 7.5pt;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--c-text) 78%, transparent);
+}
+.dg-node ul.dg-items li { padding-left: 0.13in; position: relative; }
+.dg-node ul.dg-items li::before {
+  content: "";
+  position: absolute;
+  left: 0.02in;
+  top: 0.055in;
+  width: 0.055in;
+  height: 0.03in;
+  border-left: 1.4px solid var(--c-accent);
+  border-bottom: 1.4px solid var(--c-accent);
+  transform: rotate(-50deg);
+}
+
+/* ---- 칩/뱃지: 프로토콜·기술 라벨 ---- */
+.dg-chip {
+  position: absolute;
+  padding: 0.015in 0.07in;
+  border-radius: 99px;
+  font-size: 7pt;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--c-accent);
+  border: 1px solid color-mix(in srgb, var(--c-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--c-accent) 8%, var(--c-background));
+  white-space: nowrap;
+  transform: translate(-50%, -50%);   /* 좌표 = 칩 중심 */
+}
+.dg-chip--muted {
+  color: color-mix(in srgb, var(--c-text) 62%, transparent);
+  border-color: color-mix(in srgb, var(--c-text) 25%, transparent);
+  background: var(--c-background);
+}
+
+/* ---- 스텝 번호: 흐름 순서 주석 (레퍼런스 01) ---- */
+.dg-step {
+  position: absolute;
+  width: 0.17in;
+  height: 0.17in;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--c-background);
+  background: var(--c-accent);
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+/* ---- 연결선 레이어: fragment 안의 <svg class="dg-edges"> ----
+   viewBox="0 0 1000 620" 고정 좌표계를 권장(슬라이드 본문 비율과
+   유사). 선·화살표는 아래 클래스를 preset으로 쓴다. */
+svg.dg-edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+}
+.dg-node, .dg-chip, .dg-step { z-index: 2; }
+svg.dg-edges .e {                    /* 기본 연결선 */
+  fill: none;
+  stroke: color-mix(in srgb, var(--c-text) 45%, transparent);
+  stroke-width: 1.6;
+}
+svg.dg-edges .e--accent { stroke: var(--c-accent); }
+svg.dg-edges .e--flow {              /* 데이터 흐름: 대시 */
+  stroke-dasharray: 6 5;
+}
+svg.dg-edges .e--wide { stroke-width: 5; opacity: 0.85; }
+svg.dg-edges text {
+  font-family: var(--font-body);
+  font-size: 13px;
+  fill: color-mix(in srgb, var(--c-text) 62%, transparent);
+}
+
+/* 화살촉 marker: fragment의 <defs>에 아래 id로 정의해 두면
+   브랜드 색을 따른다(예시는 diagram-catalog.md 템플릿 참고). */
+
+/* ---- 누락 경고 ---- */
+.dg-missing {
+  color: #e5484d;
+  font-size: 12pt;
+  border: 1px dashed #e5484d;
+  padding: 0.2in;
+  border-radius: 8px;
+}

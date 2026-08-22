@@ -28,6 +28,7 @@ storyboard 슬라이드 파일(`storyboard/NN-*.md`)의 frontmatter `layout:` �
 | `mosaic` | 이미지 그리드(첫 장 강조) | `title`, `images:` | 캡션 |
 | `contact` | 마무리 연락처 | `title`, `lede`, `contacts:`(label·value) | (미사용) |
 | `pie` | 파이 차트 + 점선 원 + 로고 목록 | `title`, `pie:`, `logos:`(선택), `aside_title` | (미사용) |
+| `diagram` | 기술 다이어그램(별도 fragment 삽입) | `title`, `diagram`(HTML fragment 경로) — ★ `reference/diagram-catalog.md` 참고 | (미사용) |
 
 구조화 필드(YAML frontmatter, 들여쓰기 주의):
 

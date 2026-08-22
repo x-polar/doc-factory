@@ -516,6 +516,20 @@ def render_slide(sp, theme, ctx, page=None, total=None):
         aside = (f'<div class="aside"><h3 class="aside-t">{e(sp.get("aside_title",""))}</h3>'
                  f'<div class="logos">{logos}</div></div>') if logos else ""
         inner = slide_head(sp) + f'<div class="pie-abs">{svg}{over}</div>{aside}'
+    elif layout == "diagram":
+        # 다이어그램: 별도 파일(HTML fragment 또는 SVG)을 인라인으로 삽입.
+        # 파일 안에서 diagram.css 클래스(.dg-*)와 CSS 변수(--c-*)를 그대로 쓴다.
+        ref = sp.get("diagram")
+        frag = ""
+        if ref:
+            p = os.path.join(ctx.doc_dir, ref)
+            if not os.path.exists(p):
+                p = os.path.join(ctx.brand_dir, ref)
+            if os.path.exists(p):
+                frag = open(p, encoding="utf-8").read()
+            else:
+                frag = f'<p class="dg-missing">diagram not found: {e(ref)}</p>'
+        inner = slide_head(sp) + f'<div class="dg-stage">{frag}</div>'
     else:  # title+body
         inner = slide_head(sp) + bullets(sp.get("body"))
 
@@ -535,7 +549,9 @@ def build_html(slides, theme, ctx, brand_dir):
     # 공통 디자인 시스템(_default) + 브랜드 오버라이드 순으로 적층
     css = ""
     for cp in (os.path.join(ROOT, "brands", "_default", "slides.css"),
-               os.path.join(brand_dir, "slides.css")):
+               os.path.join(ROOT, "brands", "_default", "diagram.css"),
+               os.path.join(brand_dir, "slides.css"),
+               os.path.join(brand_dir, "diagram.css")):
         if os.path.exists(cp) and os.path.abspath(cp) not in (os.path.abspath(x) for x in []):
             css += "\n/* ---- " + os.path.relpath(cp, ROOT) + " ---- */\n"
             css += open(cp, encoding="utf-8").read()
