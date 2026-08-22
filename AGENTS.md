@@ -119,7 +119,8 @@ storyboard는 **슬라이드 1장 = 파일 1개**(`storyboard/NN-slug.md`)로 �
   `assets/`·`templates/`). 문서는 `brief.md` frontmatter의 `brand:`로 선택, `theme:`로 오버라이드.
   색·폰트의 **단일 진실원천**(브랜드별). 구조·해석 순서는 `brands/README.md`.
 - `reference/` — 에이전트가 읽는 표준: `style-guide.md`, `layout-catalog.md`(★
-  storyboard `layout:` 정의), `chart-style.md`, `examples/`(골드스탠다드).
+  storyboard `layout:` 정의), `chart-style.md`, `examples/`(골드스탠다드),
+  `diagram-refs/`(기술 다이어그램 디자인 레퍼런스 — 다이어그램 작업 전 필독).
 - `knowledge/` — 여러 문서가 인용하는 사실·메시지(`company-facts.md`, `messaging.md`).
 - `src/lib/` — `render.py`(주력, HTML/CSS→PDF) · `deckbuilder.py`(보조, pptx).
 - `brands/*/slides.css` — 브랜드 디자인 시스템. `_default`가 base, 브랜드가 오버라이드.
