@@ -1,0 +1,169 @@
+/* ============================================================
+   KORI Answers — diagram.css (브랜드 오버라이드)
+   ------------------------------------------------------------
+   v7.7 §3 아이콘 시스템: 형태 = 유형, 글리프 = 개체.
+   토큰 단일 소스: brands/kori-answers/kori-icon-style-tokens.html
+   base(_default/diagram.css)의 .dg-iso-* 위에 유형별 형태를 추가한다.
+   투영 2:1 (matrix 0.866,0.5,-0.866,0.5) · 광원 좌상단
+   (top 최명 → left 중간 → right 최암) · 스트로크 1px 60% mix.
+   ============================================================ */
+
+/* ---- KORI 팔레트 토큰 (유형별 기본색) ---- */
+.dg-canvas {
+  --kori-server:  #8A8A8A;   /* 서버(애플리케이션) — 중립 그레이 */
+  --kori-gateway: #22FFBD;   /* 게이트웨이 — 민트 액센트 */
+  --kori-layer:   #2E9E86;   /* 계층 플랫폼 — 딥 틸 */
+  --kori-store:   #6FE9CE;   /* 저장소 — 라이트 민트 */
+  --kori-model:   #D5D5D5;   /* 모델 슬래브 — 실버 */
+  --kori-xcut:    #FFB224;   /* cross-cutting — 앰버 */
+  --kori-duct:    #5A6B66;   /* 파이프라인 덕트 — 그레이 그린 */
+}
+
+/* ============================================================
+   1) 일반화 박스 .dg-iso-box — 직사각 윗면 (--sx × --sy) + 높이 --h
+   앵커 = 윗면 다이아몬드의 '위쪽 꼭짓점'(top vertex).
+   서버 = 세로 박스(--h 크게) · 덕트 = --sy 길게.
+   마크업: <div class="dg-iso-box" style="--sx:..;--sy:..;--h:..">
+            <div class="f-top">[글리프]</div><div class="f-left"></div>
+            <div class="f-right"></div></div>
+   ============================================================ */
+.dg-iso-box {
+  position: absolute; width: 0; height: 0;
+  --sx: 0.6in; --sy: 0.6in; --h: 0.3in;
+  --iso-c: var(--c-accent);
+}
+.dg-iso-box > div {
+  position: absolute; transform-origin: 0 0; box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--iso-c) 60%, #000 12%);
+}
+.dg-iso-box > .f-top {
+  width: var(--sx); height: var(--sy);
+  transform: matrix(0.866, 0.5, -0.866, 0.5, 0, 0);
+  background: color-mix(in srgb, var(--iso-c) 28%, var(--c-background));
+  display: flex; align-items: center; justify-content: center;
+}
+.dg-iso-box > .f-left {
+  width: var(--sx); height: var(--h);
+  transform: translate(calc(-0.866 * var(--sy)), calc(0.5 * var(--sy)))
+             matrix(0.866, 0.5, 0, 1, 0, 0);
+  background: color-mix(in srgb, var(--iso-c) 52%, var(--c-background));
+}
+.dg-iso-box > .f-right {
+  width: var(--sy); height: var(--h);
+  transform: translate(calc(0.866 * var(--sx) - 0.866 * var(--sy)),
+                       calc(0.5 * var(--sx) + 0.5 * var(--sy)))
+             matrix(0.866, -0.5, 0, 1, 0, 0);
+  background: color-mix(in srgb, var(--iso-c) 74%, #000 10%);
+}
+
+/* 윗면 평면 글리프 (v7.7: 개체 구분은 윗면 글리프로만 — 눕혀서 배치)
+   f-top이 이미 iso 변환되어 있으므로 내부 svg는 자동으로 평면에 눕는다. */
+.dg-iso-box .f-top > .dg-glyph,
+.dg-iso-cube .f-top > .dg-glyph {
+  width: 52%; height: 52%;
+  color: color-mix(in srgb, #fff 55%, var(--iso-c));
+}
+.dg-iso-box .f-top > .dg-glyph svg,
+.dg-iso-cube .f-top > .dg-glyph svg { width: 100%; height: 100%; display: block; }
+
+/* ---- 유형 프리셋 ---- */
+/* 서버 = 세로 박스 */
+.dg-iso-box--server { --iso-c: var(--kori-server); --sx: 0.5in; --sy: 0.5in; --h: 0.62in; }
+
+/* 게이트웨이 = 슬롯 박스: 윗면에 가로 슬롯 홈 */
+.dg-iso-box--gateway { --iso-c: var(--kori-gateway); --sx: 0.6in; --sy: 0.6in; --h: 0.34in; }
+.dg-iso-box--gateway > .f-top::after {
+  content: ""; position: absolute; left: 14%; right: 14%; top: 40%; height: 20%;
+  background: color-mix(in srgb, #000 55%, var(--iso-c));
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px color-mix(in srgb, #000 60%, transparent);
+}
+.dg-iso-box--gateway > .f-top > .dg-glyph { display: none; } /* 슬롯이 글리프 대체 */
+
+/* 계층 = 플랫폼(낮은 타일) — 위에 모듈 큐브(.dg-iso-cube)를 얹는다 */
+.dg-iso-box--layer { --iso-c: var(--kori-layer); --h: 0.12in; }
+
+/* 파이프라인 = 덕트(길쭉한 저상 박스 + 윗면 흐름 대시) */
+.dg-iso-box--duct { --iso-c: var(--kori-duct); --sx: 0.42in; --sy: 1.5in; --h: 0.2in; }
+.dg-iso-box--duct > .f-top::after {
+  content: ""; position: absolute; top: 46%; left: 6%; right: 6%; height: 0;
+  border-top: 2px dashed color-mix(in srgb, #fff 55%, var(--iso-c));
+}
+
+/* 모델 = 적층 슬래브: 얇은 박스를 위로 쌓는다(마크업 반복).
+   .dg-iso-slab 하나 = 슬래브 1층. 층 배치는 top을 --h만큼씩 감소.
+   크기·층수 = L/S 구분 (L: --sx/--sy 0.72in × 3층, S: 0.5in × 2층) */
+.dg-iso-slab { --iso-c: var(--kori-model); --h: 0.11in; }
+
+/* ============================================================
+   2) 저장소 = 원기둥 .dg-iso-cyl (--d 지름, --h 몸통 높이)
+   앵커 = 바운딩 박스 좌상단(윗면 타원의 좌상단).
+   마크업: <div class="dg-iso-cyl" style="--d:..;--h:..">
+            <div class="top">[글리프]</div><div class="body"></div></div>
+   ============================================================ */
+.dg-iso-cyl {
+  position: absolute;
+  --d: 0.72in; --h: 0.4in;
+  --iso-c: var(--kori-store);
+  width: var(--d);
+}
+.dg-iso-cyl > .top {
+  position: absolute; z-index: 2;
+  width: var(--d); height: calc(var(--d) / 2);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--iso-c) 30%, var(--c-background));
+  border: 1px solid color-mix(in srgb, var(--iso-c) 60%, #000 12%);
+  box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center;
+}
+.dg-iso-cyl > .body {
+  position: absolute; top: calc(var(--d) / 4);
+  width: var(--d); height: calc(var(--h) + var(--d) / 4);
+  box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--iso-c) 60%, #000 12%);
+  border-top: none;
+  /* 광원 좌상단: 왼쪽 밝고 오른쪽 어둡게 */
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--iso-c) 52%, var(--c-background)),
+    color-mix(in srgb, var(--iso-c) 74%, #000 10%));
+  border-radius: 0 0 50% 50% / 0 0 25% 25%;
+}
+/* 원기둥 윗면 글리프: 타원에 맞춰 납작하게(평면 눕힘 근사) */
+.dg-iso-cyl > .top > .dg-glyph {
+  width: 44%; height: 88%;
+  transform: scaleY(0.5) rotate(-15deg);
+  color: color-mix(in srgb, #fff 55%, var(--iso-c));
+}
+.dg-iso-cyl > .top > .dg-glyph svg { width: 100%; height: 100%; display: block; }
+
+/* ============================================================
+   3) cross-cutting = 앰버 반투명 평면 (C14) — dg-iso-plane 변형
+   ============================================================ */
+.dg-iso-plane--xcut {
+  --iso-tint: var(--kori-xcut);
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--kori-xcut) 70%, transparent);
+  background: color-mix(in srgb, var(--kori-xcut) 16%, transparent);
+}
+
+/* ============================================================
+   4) 전면 하단 고정 배지 — 기술 로고 · swappable 마커 (D12·D20)
+   아이콘이 아니라 '서 있는' 배지. 앵커 = 배지 중심.
+   ============================================================ */
+.dg-iso-badge {
+  position: absolute; z-index: 3;
+  transform: translate(-50%, -50%);
+  display: inline-flex; align-items: center; gap: 0.03in;
+  padding: 0.012in 0.055in;
+  border-radius: 4px;
+  font-size: 6pt; font-weight: 700; letter-spacing: 0.03em;
+  color: color-mix(in srgb, var(--c-text) 85%, transparent);
+  background: color-mix(in srgb, var(--c-background) 88%, var(--c-text));
+  border: 1px solid color-mix(in srgb, var(--c-text) 30%, transparent);
+  white-space: nowrap;
+}
+.dg-iso-badge img, .dg-iso-badge svg { width: 0.09in; height: 0.09in; display: block; }
+.dg-iso-badge--swap {
+  color: var(--c-accent);
+  border-color: color-mix(in srgb, var(--c-accent) 55%, transparent);
+}

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8">
+<title>KORI Answers — Icon Style Tokens</title>
+<!-- ============================================================
+     kori-icon-style-tokens.html — 아이콘 스타일 토큰 단일 소스 (v7.7 §3)
+     형태 = 유형, 글리프 = 개체. 모든 다이어그램 아이콘은 이 시트의
+     토큰·마크업 레시피에서 생성한다. CSS 구현: ./diagram.css (+base)
+     ============================================================ -->
+<style>
+  :root {
+    --c-background:#000000; --c-text:#EDEDED; --c-accent:#22FFBD;
+    --font-body:'Pretendard','Noto Sans CJK KR',sans-serif;
+    --font-heading:'Tomorrow',var(--font-body);
+  }
+  body { margin:0; background:var(--c-background); color:var(--c-text);
+         font-family:var(--font-body); padding:0.4in; }
+  h1 { font-family:var(--font-heading); font-size:16pt; margin:0 0 0.05in;
+       color:var(--c-accent); }
+  .sub { font-size:8pt; color:#8A8A8A; margin-bottom:0.25in; }
+  .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0.28in; }
+  .cell { position:relative; height:2.1in; border:1px dashed #333;
+          border-radius:8px; }
+  .cell .cap { position:absolute; left:0.1in; bottom:0.07in; font-size:7.5pt;
+               color:#8A8A8A; z-index:5; }
+  .cell .cap b { display:block; color:var(--c-text); font-size:8.5pt; }
+  .tokens { margin-top:0.3in; font-size:8pt; color:#B5B5B5;
+            border-collapse:collapse; width:100%; }
+  .tokens td, .tokens th { border:1px solid #2A2A2A; padding:0.04in 0.09in;
+                           text-align:left; }
+  .tokens th { color:var(--c-accent); font-weight:600; }
+  .sw { display:inline-block; width:0.12in; height:0.12in; border-radius:3px;
+        vertical-align:-2px; margin-right:0.05in; border:1px solid #333; }
+</style>
+<link rel="stylesheet" href="../_default/diagram.css">
+<link rel="stylesheet" href="./diagram.css">
+<body>
+<h1>KORI Answers — Icon Style Tokens</h1>
+<div class="sub">투영 2:1 (matrix 0.866 0.5 / −0.866 0.5) · 광원 좌상단 (top 최명 → left → right 최암) · 스트로크 1px color-mix(--iso-c 60%, #000 12%) · 글리프는 윗면 평면 배치 · 로고/swappable은 전면 하단 배지</div>
+
+<div class="dg-canvas grid">
+
+  <!-- 1. 서버 = 세로 박스 (C2 · C3) -->
+  <div class="cell">
+    <div class="dg-iso-box dg-iso-box--server" style="left:1.05in; top:0.55in;">
+      <div class="f-top"><div class="dg-glyph">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="7" rx="1"/><rect x="4" y="13" width="16" height="7" rx="1"/><circle cx="8" cy="7.5" r="0.8" fill="currentColor"/><circle cx="8" cy="16.5" r="0.8" fill="currentColor"/></svg>
+      </div></div>
+      <div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="cap"><b>서버 = 세로 박스</b>.dg-iso-box--server · 글리프=개체</div>
+  </div>
+
+  <!-- 2. 게이트웨이 = 슬롯 박스 (C16) -->
+  <div class="cell">
+    <div class="dg-iso-box dg-iso-box--gateway" style="left:1.05in; top:0.65in;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="dg-iso-badge" style="left:1.05in; top:1.72in;">LiteLLM</div>
+    <div class="cap"><b>게이트웨이 = 슬롯 박스</b>.dg-iso-box--gateway + 로고 배지</div>
+  </div>
+
+  <!-- 3. 계층 = 플랫폼 + 모듈 큐브 (C7) -->
+  <div class="cell">
+    <div class="dg-iso-box dg-iso-box--layer" style="left:1.05in; top:0.72in; --sx:1.15in; --sy:1.15in;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="dg-iso-cube" style="left:1.05in; top:0.49in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="dg-iso-cube" style="left:0.72in; top:0.68in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="dg-iso-cube" style="left:1.38in; top:0.68in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="cap"><b>계층 = 플랫폼</b>.dg-iso-box--layer + 모듈 큐브 탑재</div>
+  </div>
+
+  <!-- 4. 저장소 = 원기둥 (C9~C12 · C17) -->
+  <div class="cell">
+    <div class="dg-iso-cyl" style="left:0.75in; top:0.5in;">
+      <div class="top"><div class="dg-glyph">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      </div></div>
+      <div class="body"></div>
+    </div>
+    <div class="dg-iso-badge dg-iso-badge--swap" style="left:1.11in; top:1.72in;">⇄ SWAPPABLE</div>
+    <div class="cap"><b>저장소 = 원기둥</b>.dg-iso-cyl + swappable 배지</div>
+  </div>
+
+  <!-- 5. 모델 L = 적층 슬래브 3층 (C5) -->
+  <div class="cell">
+    <div class="dg-iso-box dg-iso-slab" style="left:1.05in; top:1.05in; --sx:0.72in; --sy:0.72in;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="dg-iso-box dg-iso-slab" style="left:1.05in; top:0.91in; --sx:0.72in; --sy:0.72in;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="dg-iso-box dg-iso-slab" style="left:1.05in; top:0.77in; --sx:0.72in; --sy:0.72in;">
+      <div class="f-top"><div class="dg-glyph">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.8 2.8M16.2 16.2L19 19M19 5l-2.8 2.8M7.8 16.2L5 19"/></svg>
+      </div></div>
+      <div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="cap"><b>모델 L = 슬래브 3층</b>.dg-iso-slab ×3 (0.72in)</div>
+  </div>
+
+  <!-- 6. 모델 S = 적층 슬래브 2층 (C6) -->
+  <div class="cell">
+    <div class="dg-iso-box dg-iso-slab" style="left:1.05in; top:1.0in; --sx:0.5in; --sy:0.5in;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="dg-iso-box dg-iso-slab" style="left:1.05in; top:0.86in; --sx:0.5in; --sy:0.5in;">
+      <div class="f-top"><div class="dg-glyph">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
+      </div></div>
+      <div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="cap"><b>모델 S = 슬래브 2층</b>.dg-iso-slab ×2 (0.5in)</div>
+  </div>
+
+  <!-- 7. cross-cutting = 앰버 반투명 평면 (C14) -->
+  <div class="cell">
+    <div class="dg-iso-plane dg-iso-plane--xcut" style="left:1.15in; top:0.42in; width:1.5in; height:0.85in;"></div>
+    <div class="dg-iso-zonetag" style="left:1.15in; top:1.35in; --iso-tint:#FFB224;">C14</div>
+    <div class="cap"><b>cross-cutting = 앰버 반투명 평면</b>.dg-iso-plane--xcut</div>
+  </div>
+
+  <!-- 8. 파이프라인 = 덕트 (C15) -->
+  <div class="cell">
+    <div class="dg-iso-box dg-iso-box--duct" style="left:1.6in; top:0.5in;">
+      <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+    </div>
+    <div class="cap"><b>파이프라인 = 덕트</b>.dg-iso-box--duct (윗면 흐름 대시)</div>
+  </div>
+
+</div>
+
+<table class="tokens">
+  <tr><th>토큰</th><th>값</th></tr>
+  <tr><td>투영</td><td>2:1 아이소메트릭 — top: matrix(0.866, 0.5, −0.866, 0.5) · left: translate(−0.866·sy, 0.5·sy) matrix(0.866, 0.5, 0, 1) · right: translate(0.866(sx−sy), 0.5(sx+sy)) matrix(0.866, −0.5, 0, 1)</td></tr>
+  <tr><td>광원</td><td>좌상단 — 명도: f-top 28% &gt; f-left 52% &gt; f-right 74%+#000 10% (color-mix, --iso-c 기준)</td></tr>
+  <tr><td>스트로크</td><td>1px solid color-mix(--iso-c 60%, #000 12%)</td></tr>
+  <tr><td>팔레트</td><td>
+    <span class="sw" style="background:#8A8A8A"></span>server #8A8A8A ·
+    <span class="sw" style="background:#22FFBD"></span>gateway #22FFBD ·
+    <span class="sw" style="background:#2E9E86"></span>layer #2E9E86 ·
+    <span class="sw" style="background:#6FE9CE"></span>store #6FE9CE ·
+    <span class="sw" style="background:#D5D5D5"></span>model #D5D5D5 ·
+    <span class="sw" style="background:#FFB224"></span>x-cut #FFB224 ·
+    <span class="sw" style="background:#5A6B66"></span>duct #5A6B66</td></tr>
+  <tr><td>글리프</td><td>윗면 평면 배치(iso 변환 상속, 52%). 원기둥은 scaleY(0.5) rotate(−15°) 근사. 게이트웨이는 슬롯 홈이 글리프 대체</td></tr>
+  <tr><td>배지</td><td>전면 하단 고정 — 기술 로고(.dg-iso-badge) / 교체 가능(.dg-iso-badge--swap). 아이콘 아님, 수직 빌보드</td></tr>
+  <tr><td>모델 층수</td><td>L = 0.72in × 3층 · S = 0.5in × 2층 (크기·층수 = L/S)</td></tr>
+</table>
+</body></html>
