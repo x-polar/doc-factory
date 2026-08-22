@@ -167,3 +167,61 @@
   color: var(--c-accent);
   border-color: color-mix(in srgb, var(--c-accent) 55%, transparent);
 }
+
+/* ============================================================
+   5) B-스타일 (Alcion 미니멀) — 저상 블록 + 수직 리더 콜아웃
+   레퍼런스 03: 노드는 조연(낮고 작게), 정보는 콜아웃이 주연.
+   관계선은 핵심 흐름만. 상세는 드릴다운 슬라이드가 담당.
+   ============================================================ */
+
+/* 저상 블록: dg-iso-box 변형 — 낮은 슬래브, 절제된 셰이딩 */
+.dg-iso-box--low  { --h: 0.14in; }
+.dg-iso-box--mid  { --h: 0.26in; }
+/* 뮤트 블록: 배경에 가라앉는 회색 블록 (조연) */
+.dg-iso-box--muted { --iso-c: #4A4F4D; }
+/* 액센트 블록: 민트 발광 엣지 (주연 소수만) */
+.dg-iso-box--hero { --iso-c: var(--c-accent); }
+.dg-iso-box--hero > div {
+  border-color: color-mix(in srgb, var(--c-accent) 85%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--c-accent) 22%, transparent);
+}
+
+/* 수직 리더 라인: 블록 위 꼭짓점 → 콜아웃까지 세로선
+   앵커 = 라인 하단(블록 쪽). --len = 라인 길이 */
+.dg-iso-leader {
+  position: absolute; z-index: 3;
+  width: 0; --len: 0.55in;
+  height: var(--len);
+  transform: translateY(calc(-1 * var(--len)));
+  border-left: 1px solid color-mix(in srgb, var(--c-text) 45%, transparent);
+}
+.dg-iso-leader::after {          /* 하단 접점 도트 */
+  content: ""; position: absolute; left: -2.5px; bottom: -2.5px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: color-mix(in srgb, var(--c-text) 70%, transparent);
+}
+
+/* 각진 콜아웃: 리더 라인 상단에 얹는 텍스트 블록 (필 아님 — 오픈 텍스트)
+   앵커 = 좌하단(리더 라인 상단과 만나는 점) */
+.dg-iso-callout {
+  position: absolute; z-index: 3;
+  transform: translateY(-100%);
+  padding: 0 0 0.03in 0.07in;
+  border-left: 1px solid color-mix(in srgb, var(--c-text) 45%, transparent);
+  white-space: nowrap;
+}
+.dg-iso-callout .co-t {
+  font-size: 8.5pt; font-weight: 700; letter-spacing: 0.01em;
+  color: var(--c-text);
+}
+.dg-iso-callout .co-s {
+  font-size: 6.8pt; line-height: 1.4;
+  color: color-mix(in srgb, var(--c-text) 58%, transparent);
+}
+.dg-iso-callout--accent .co-t { color: var(--c-accent); }
+.dg-iso-callout--right {         /* 오른쪽으로 여는 변형 */
+  border-left: none;
+  border-right: 1px solid color-mix(in srgb, var(--c-text) 45%, transparent);
+  padding: 0 0.07in 0.03in 0;
+  text-align: right;
+}
