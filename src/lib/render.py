@@ -25,6 +25,7 @@ CHROME_CANDIDATES = [
     "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
     "/opt/pw-browsers/chromium/chrome-linux/chrome",
     "chromium", "chromium-browser", "google-chrome",
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",  # macOS
 ]
 
 
