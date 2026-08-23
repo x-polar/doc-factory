@@ -1,14 +1,31 @@
-<!-- KORI Answers HERO — G-level flow (v7.8 D24)
-     Grammar: B-style iso (low blocks + leader callouts), English labels only.
-     Boxes: G1~G6 + X band. Flow: User → G1 → G2 ⇄ (G3 / G4) · G4 → G5 · G6 ⇢ G5 -->
+<!-- KORI Answers HERO v2 — G-level flow (v7.8 D24)
+     Revision: person icon user · Layer groups as background planes with
+     children on top · Inference zone (gateway front, models behind) ·
+     Ingestion as long pipe cylinder · thin arrows. English labels only. -->
 <div class="dg-canvas">
 
-  <!-- X · Deterministic Security — amber plane under G1·G2·G4 -->
+  <!-- ══ Background planes (z0) ══ -->
+  <!-- X · Deterministic Security — amber, under G1·G2·G4 -->
   <div class="dg-iso-plane dg-iso-plane--xcut"
-       style="left:5.3in; top:2.3in; width:3.35in; height:3.75in; z-index:0;"></div>
-  <div class="dg-iso-zonetag" style="left:2.35in; top:4.55in; --iso-tint:var(--kori-xcut);">DETERMINISTIC SECURITY</div>
+       style="left:5.45in; top:2.78in; width:2.3in; height:2.3in; z-index:0;"></div>
+  <div class="dg-iso-zonetag" style="left:3.35in; top:4.15in; --iso-tint:var(--kori-xcut);">DETERMINISTIC SECURITY</div>
 
-  <!-- Flow edges (core only) -->
+  <!-- G3 Inference Serving — silver plane, top -->
+  <div class="dg-iso-plane" style="left:5.4in; top:0.62in; width:2.1in; height:1.5in;
+       --iso-tint:#D5D5D5; z-index:0;"></div>
+  <div class="dg-iso-zonetag" style="left:4.4in; top:1.4in; --iso-tint:#8A8A8A;">INFERENCE SERVING</div>
+
+  <!-- G4 Tool Layer — teal plane -->
+  <div class="dg-iso-plane" style="left:7.35in; top:3.14in; width:1.7in; height:1.7in;
+       --iso-tint:#2E9E86; z-index:0;"></div>
+  <div class="dg-iso-zonetag" style="left:6.55in; top:4.28in; --iso-tint:#2E9E86;">TOOL LAYER</div>
+
+  <!-- G5 Data Layer — mint plane, right -->
+  <div class="dg-iso-plane" style="left:10.0in; top:2.55in; width:2.0in; height:2.3in;
+       --iso-tint:#6FE9CE; z-index:0;"></div>
+  <div class="dg-iso-zonetag" style="left:9.55in; top:4.35in; --iso-tint:#2E9E86;">DATA LAYER</div>
+
+  <!-- ══ Flow edges (thin) ══ -->
   <svg class="dg-edges" viewBox="0 0 1190 540" preserveAspectRatio="none">
     <defs>
       <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -16,94 +33,103 @@
       </marker>
     </defs>
     <!-- User → G1 → G2 -->
-    <path class="e e--accent e--wide" d="M120 342 H222" marker-end="url(#ah)"/>
-    <path class="e e--accent e--wide" d="M300 352 H408" marker-end="url(#ah)"/>
-    <!-- G2 ↕ G3 (vertical inference axis) -->
-    <path class="e e--accent" d="M420 336 V190" marker-end="url(#ah)"/>
-    <path class="e" d="M441 192 V334"/>
+    <path class="e e--accent" d="M100 338 H218" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M298 348 H398" marker-end="url(#ah)"/>
+    <!-- G2 ↕ G3 -->
+    <path class="e e--accent" d="M422 334 V206" marker-end="url(#ah)"/>
+    <path class="e" d="M438 208 V330"/>
     <!-- G2 → G4 -->
-    <path class="e e--accent e--wide" d="M492 368 H638" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M488 366 H700" marker-end="url(#ah)"/>
     <!-- G4 → G5 -->
-    <path class="e e--accent e--wide" d="M810 372 H948" marker-end="url(#ah)"/>
-    <!-- G6 ⇢ G5 (ingestion, dashed) -->
-    <path class="e e--flow" d="M900 478 H1010 V432" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M872 368 H988" marker-end="url(#ah)"/>
+    <!-- G6 ⇢ G5 (dashed) -->
+    <path class="e e--flow" d="M730 529 H1046 V440" marker-end="url(#ah)"/>
   </svg>
 
-  <!-- C1 End User — small muted cube -->
-  <div class="dg-iso-cube" style="left:0.95in; top:3.2in; --s:0.36in; --h:0.22in; --iso-c:#4A4F4D; z-index:2;">
-    <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
+  <!-- ══ Components (z2) ══ -->
+
+  <!-- C1 End User — person icon -->
+  <div style="position:absolute; left:0.55in; top:3.08in; width:0.4in; height:0.5in; z-index:2;
+              color:var(--c-accent);">
+    <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="12" cy="6.5" r="3.5"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/>
+    </svg>
   </div>
-  <div class="dg-iso-leader" style="left:0.95in; top:3.2in; --len:0.5in;"></div>
-  <div class="dg-iso-callout" style="left:0.95in; top:2.7in;">
-    <div class="co-t">End User</div>
-    <div class="co-s">Chat query · cited answer</div>
-  </div>
+  <div style="position:absolute; left:0.75in; top:3.75in; transform:translateX(-50%); z-index:2;
+              font-size:8pt; font-weight:600; color:var(--c-text); white-space:nowrap;">End User</div>
 
   <!-- G1 Service Gateway -->
-  <div class="dg-iso-box dg-iso-box--muted dg-iso-box--mid" style="left:2.6in; top:3.28in; --sx:0.6in; --sy:0.6in; z-index:2;">
+  <div class="dg-iso-box dg-iso-box--muted dg-iso-box--mid" style="left:2.55in; top:3.25in; --sx:0.6in; --sy:0.6in; z-index:2;">
     <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
   </div>
-  <div class="dg-iso-leader" style="left:2.6in; top:3.28in; --len:0.9in;"></div>
-  <div class="dg-iso-callout" style="left:2.6in; top:2.38in;">
+  <div class="dg-iso-leader" style="left:2.55in; top:3.25in; --len:0.85in;"></div>
+  <div class="dg-iso-callout" style="left:2.55in; top:2.4in;">
     <div class="co-t">Service Gateway</div>
-    <div class="co-s">SSO · entitlements · reference docs</div>
   </div>
 
   <!-- G2 Agent Core — hero mint block -->
-  <div class="dg-iso-box dg-iso-box--hero dg-iso-box--mid" style="left:4.5in; top:3.42in; --sx:0.72in; --sy:0.72in; z-index:2;">
+  <div class="dg-iso-box dg-iso-box--hero dg-iso-box--mid" style="left:4.35in; top:3.4in; --sx:0.72in; --sy:0.72in; z-index:2;">
     <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
   </div>
-  <div class="dg-iso-leader" style="left:4.62in; top:3.42in; --len:0.62in;"></div>
-  <div class="dg-iso-callout dg-iso-callout--accent" style="left:4.62in; top:2.8in;">
+  <div class="dg-iso-leader" style="left:4.55in; top:3.46in; --len:0.6in;"></div>
+  <div class="dg-iso-callout dg-iso-callout--accent" style="left:4.55in; top:2.86in;">
     <div class="co-t">Agent Core</div>
-    <div class="co-s">Plan → tools → answer · tool registry</div>
   </div>
 
-  <!-- G3 Inference Serving — gateway slot box + slabs, top -->
-  <div class="dg-iso-box dg-iso-box--gateway" style="left:4.1in; top:1.35in; --sx:0.55in; --sy:0.55in; --h:0.26in; z-index:2;">
+  <!-- G3 children: LLM/SLM slabs BEHIND (upper), Model Gateway slot box FRONT -->
+  <div class="dg-iso-box dg-iso-slab" style="left:6.5in; top:0.98in; --sx:0.5in; --sy:0.5in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-box dg-iso-slab" style="left:6.5in; top:0.86in; --sx:0.5in; --sy:0.5in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-box dg-iso-slab" style="left:6.5in; top:0.74in; --sx:0.5in; --sy:0.5in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div style="position:absolute; left:7.05in; top:0.62in; z-index:3; font-size:7pt; font-weight:600;
+              color:color-mix(in srgb, var(--c-text) 75%, transparent); white-space:nowrap;">LLM</div>
+  <div class="dg-iso-box dg-iso-slab" style="left:7.3in; top:1.28in; --sx:0.38in; --sy:0.38in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-box dg-iso-slab" style="left:7.3in; top:1.16in; --sx:0.38in; --sy:0.38in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div style="position:absolute; left:7.72in; top:1.28in; z-index:3; font-size:7pt; font-weight:600;
+              color:color-mix(in srgb, var(--c-text) 75%, transparent); white-space:nowrap;">SLM</div>
+  <div class="dg-iso-box dg-iso-box--gateway" style="left:5.95in; top:1.42in; --sx:0.55in; --sy:0.55in; --h:0.26in; z-index:2;">
     <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
   </div>
-  <div class="dg-iso-box dg-iso-slab" style="left:5.15in; top:1.52in; --sx:0.45in; --sy:0.45in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-box dg-iso-slab" style="left:5.15in; top:1.4in; --sx:0.45in; --sy:0.45in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-box dg-iso-slab" style="left:5.15in; top:1.28in; --sx:0.45in; --sy:0.45in; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-leader" style="left:4.1in; top:1.35in; --len:0.55in;"></div>
-  <div class="dg-iso-callout" style="left:4.1in; top:0.8in;">
-    <div class="co-t">Inference Serving</div>
-    <div class="co-s">Single model gateway · LLM / SLM<br>on-prem or external API</div>
+  <div class="dg-iso-leader" style="left:5.95in; top:1.42in; --len:0.55in;"></div>
+  <div class="dg-iso-callout" style="left:5.95in; top:0.87in;">
+    <div class="co-t">Model Gateway</div>
   </div>
 
-  <!-- G4 Tool Layer — platform + module cubes -->
-  <div class="dg-iso-box dg-iso-box--layer" style="left:6.85in; top:3.15in; --sx:1.3in; --sy:1.3in; z-index:2;">
-    <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
-  </div>
-  <div class="dg-iso-cube" style="left:6.85in; top:3.3in; --s:0.28in; --h:0.14in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-cube" style="left:6.45in; top:3.53in; --s:0.28in; --h:0.14in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-cube" style="left:7.25in; top:3.53in; --s:0.28in; --h:0.14in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-leader" style="left:6.85in; top:3.15in; --len:0.85in;"></div>
-  <div class="dg-iso-callout" style="left:6.85in; top:2.3in;">
-    <div class="co-t">Tool Layer</div>
-    <div class="co-s">Document search · quantitative query<br>document provider</div>
+  <!-- G4 children: 3 tool cubes on plane -->
+  <div class="dg-iso-cube" style="left:7.9in; top:3.42in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:7.48in; top:3.66in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:8.32in; top:3.66in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-leader" style="left:7.9in; top:3.42in; --len:0.85in;"></div>
+  <div class="dg-iso-callout" style="left:7.9in; top:2.57in;">
+    <div class="co-t">Tools</div>
   </div>
 
-  <!-- G5 Data Layer — cylinder cluster -->
-  <div class="dg-iso-cyl" style="left:9.7in; top:2.95in; --d:0.5in; --h:0.24in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-cyl" style="left:10.35in; top:3.15in; --d:0.5in; --h:0.24in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-cyl" style="left:9.35in; top:3.35in; --d:0.5in; --h:0.24in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-cyl" style="left:10.0in; top:3.55in; --d:0.5in; --h:0.24in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-leader" style="left:9.95in; top:2.98in; --len:0.72in;"></div>
-  <div class="dg-iso-callout" style="left:9.95in; top:2.26in;">
-    <div class="co-t">Data Layer</div>
-    <div class="co-s">Structured (OLTP·OLAP) · keyword<br>vector · file · domain dictionary</div>
+  <!-- G5 children: 4 cylinders + dictionary on plane -->
+  <div class="dg-iso-cyl" style="left:10.35in; top:2.7in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:10.95in; top:2.9in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:10.05in; top:3.1in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:10.65in; top:3.3in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:11.25in; top:3.5in; --d:0.38in; --h:0.16in; --iso-c:#B5A46A; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-leader" style="left:10.58in; top:2.73in; --len:0.7in;"></div>
+  <div class="dg-iso-callout" style="left:10.58in; top:2.03in;">
+    <div class="co-t">Stores</div>
   </div>
 
-  <!-- G6 Ingestion — duct, bottom right -->
-  <div class="dg-iso-box dg-iso-box--duct" style="left:7.9in; top:4.55in; --sx:0.34in; --sy:1.1in; --h:0.15in; z-index:2;">
-    <div class="f-top"></div><div class="f-left"></div><div class="f-right"></div>
-  </div>
-  <div class="dg-iso-leader" style="left:7.9in; top:4.55in; --len:0.12in;"></div>
-  <div class="dg-iso-callout" style="left:7.9in; top:4.43in;">
-    <div class="co-t">Ingestion</div>
-    <div class="co-s">Index · embed · pre-summarize at registration</div>
+  <!-- G6 Ingestion — long horizontal pipe cylinder -->
+  <div style="position:absolute; left:4.75in; top:5.12in; width:2.5in; height:0.34in; z-index:2;
+              border-radius:0.17in / 50%;
+              background:linear-gradient(180deg,
+                color-mix(in srgb, var(--kori-duct) 38%, var(--c-background)),
+                color-mix(in srgb, var(--kori-duct) 78%, #000 10%));
+              border:1px solid color-mix(in srgb, var(--kori-duct) 60%, #000 12%);"></div>
+  <div style="position:absolute; left:4.75in; top:5.12in; width:0.17in; height:0.34in; z-index:3;
+              border-radius:50%;
+              background:color-mix(in srgb, var(--kori-duct) 88%, #000 20%);
+              border:1px solid color-mix(in srgb, var(--kori-duct) 60%, #000 12%);"></div>
+  <div style="position:absolute; left:5.25in; top:5.22in; z-index:3; width:1.7in; height:0;
+              border-top:2px dashed color-mix(in srgb, #fff 50%, var(--kori-duct));"></div>
+  
+  <div class="dg-iso-callout" style="left:7.42in; top:5.44in; transform:none; padding-left:0.09in;">
+    <div class="co-t">Ingestion Pipeline</div>
   </div>
 
 </div>
