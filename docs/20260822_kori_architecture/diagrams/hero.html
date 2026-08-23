@@ -28,23 +28,18 @@
 
   <!-- ══ Flow edges (thin) ══ -->
   <svg class="dg-edges" viewBox="0 0 1190 540" preserveAspectRatio="none">
-    <defs>
-      <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-        <path d="M0 0 L8 4 L0 8 z" fill="#22FFBD"/>
-      </marker>
-    </defs>
-    <!-- User → G1 → G2 -->
-    <path class="e e--accent" d="M100 338 H218" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M298 348 H438" marker-end="url(#ah)"/>
-    <!-- G2 ↕ G3 (Model Gateway front face) -->
-    <path class="e e--accent" d="M530 344 L568 240" marker-end="url(#ah)"/>
-    <path class="e" d="M585 244 L549 348"/>
-    <!-- G2 → G4 (tools) -->
-    <path class="e e--accent" d="M568 372 H705 V220 H738" marker-end="url(#ah)"/>
-    <!-- G4 → G5 -->
-    <path class="e e--accent" d="M852 216 H1002" marker-end="url(#ah)"/>
-    <!-- G6 ⇢ G5 (dashed, pipe → data plane bottom vertex) -->
-    <path class="e e--flow" d="M1044 420 L1056 342" marker-end="url(#ah)"/>
+    <!-- User → Compliance Gateway -->
+    <path class="e e--accent" d="M92 322 L126 302 L196 343"/>
+    <!-- Gateway → Agent Core -->
+    <path class="e e--accent" d="M296 343 L335 320 L428 374"/>
+    <!-- Agent Core ↕ Model Gateway (vertical + face diagonal) -->
+    <path class="e e--accent" d="M513 347 V300 L568 274"/>
+    <!-- Agent Core → Tool Layer -->
+    <path class="e e--accent" d="M547 374 L711 280 L729 290"/>
+    <!-- Tool Layer → Data Layer (edge midpoints along faces) -->
+    <path class="e e--accent" d="M770 255 L855 295 L940 256"/>
+    <!-- Ingestion ⇢ Data Layer (dashed, rises into plane) -->
+    <path class="e e--flow" d="M996 415 L1019 402 V325"/>
   </svg>
 
   <!-- ══ Components ══ -->
@@ -62,7 +57,7 @@
   <!-- G1 Compliance Gateway -->
   <div class="dg-iso-box dg-iso-box--muted dg-iso-box--mid" style="left:2.55in; top:3.25in; --sx:0.6in; --sy:0.6in; z-index:2;">
     <div class="f-top"><div class="dg-glyph">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V8M19 21V8M2.5 8h19M4.5 4.5h15"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 018 0v3.5"/></svg>
     </div></div><div class="f-left"></div><div class="f-right"></div>
   </div>
   <div class="dg-iso-leader" style="left:2.55in; top:3.25in; --len:0.85in;"></div>
@@ -98,22 +93,22 @@
   </div>
 
   <!-- G4 children INSIDE plane: 3 tool cubes -->
-  <div class="dg-iso-cube" style="left:7.81in; top:1.92in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-cube" style="left:7.42in; top:2.14in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-cube" style="left:8.2in; top:2.14in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
-  <div class="dg-iso-leader" style="left:7.81in; top:1.92in; --len:0.8in;"></div>
-  <div class="dg-iso-callout" style="left:7.81in; top:1.12in;">
+  <div class="dg-iso-cube" style="left:7.55in; top:1.95in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:7.16in; top:2.17in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-cube" style="left:7.94in; top:2.17in; --s:0.3in; --h:0.16in; --iso-c:#2E9E86; z-index:2;"><div class="f-top"></div><div class="f-left"></div><div class="f-right"></div></div>
+  <div class="dg-iso-leader" style="left:7.55in; top:1.95in; --len:0.83in;"></div>
+  <div class="dg-iso-callout" style="left:7.55in; top:1.12in;">
     <div class="co-t">Tools</div>
   </div>
 
   <!-- G5 children INSIDE plane: 4 cylinders + dictionary -->
-  <div class="dg-iso-cyl" style="left:10.45in; top:1.8in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-cyl" style="left:11.05in; top:2.0in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-cyl" style="left:10.15in; top:2.1in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-cyl" style="left:10.75in; top:2.3in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-cyl" style="left:11.45in; top:2.5in; --d:0.38in; --h:0.16in; --iso-c:#B5A46A; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
-  <div class="dg-iso-leader" style="left:10.68in; top:1.83in; --len:0.75in;"></div>
-  <div class="dg-iso-callout" style="left:10.68in; top:1.08in;">
+  <div class="dg-iso-cyl" style="left:10.3in; top:1.75in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:10.85in; top:1.95in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:9.95in; top:2.0in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:10.5in; top:2.2in; --d:0.46in; --h:0.22in; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-cyl" style="left:11.05in; top:2.35in; --d:0.38in; --h:0.16in; --iso-c:#B5A46A; z-index:2;"><div class="cyl-top"></div><div class="cyl-body"></div></div>
+  <div class="dg-iso-leader" style="left:10.53in; top:1.78in; --len:0.72in;"></div>
+  <div class="dg-iso-callout" style="left:10.53in; top:1.06in;">
     <div class="co-t">Stores</div>
   </div>
 
