@@ -1,5 +1,5 @@
 ---
-title: "KORI Answers — 구조가 보장하는 엔터프라이즈 AI 답변"
+title: "KORI Answers"
 layout: diagram
 diagram: diagrams/hero.html
 source: [kori-arch]
