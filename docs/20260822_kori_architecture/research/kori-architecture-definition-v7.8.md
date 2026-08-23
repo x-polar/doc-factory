@@ -27,10 +27,10 @@ C1(End User)은 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ 
 | C16 | Model Gateway | G3 | 게이트웨이 | 모든 모델 호출(LLM·SLM, 런타임·배치)의 단일 관문 — 라우팅·인증·로깅. 구현(LiteLLM)은 로고 배지 |
 | C5 | LLM | G3 | 모델 | 플랜·답변 생성. 온프렘 또는 외부 API |
 | C6 | SLM | G3 | 모델 | 요약 전용. 온프렘 또는 외부 API |
-| T1 | Document Search | G4 | 툴 그룹 | `search.hybrid` / `search.lexical` / `search.semantic` — 하위 C7.1·C7.2·C7.4 |
-| C7.1 | Lexical Retriever | T1 | T1 하위 | 키워드/BM25 → C10 |
-| C7.2 | Semantic Retriever | T1 | T1 하위 | 벡터 유사도 → C11 |
-| C7.4 | Fusion & Rank | T1 | T1 하위 | RRF 융합 — C7.1 + C7.2 결과만 대상 (hybrid 시) |
+| T1 | Document Search | G4 | 툴 그룹 | `search.hybrid` / `search.lexical` / `search.semantic` — 실행 흐름: 리트리버 팬아웃(C7.1·C7.2) → 후처리(C7.4) → Document Context. 단독 툴은 후처리 미경유 |
+| C7.1 | Lexical Retriever | T1 | 리트리버 | 키워드/BM25 → C10 |
+| C7.2 | Semantic Retriever | T1 | 리트리버 | 벡터 유사도 → C11 |
+| C7.4 | Fusion & Rank | T1 | 후처리 스테이지 | RRF 융합·랭킹 — C7.1 + C7.2 결과 합류 지점. `search.hybrid` 시에만 경유 (리트리버와 동급 아님) |
 | T2 | Quantitative Query | G4 | 툴 그룹 | `query.quantitative` — 하위 C7.3 |
 | C7.3 | Quantitative Retriever | T2 | T2 하위 | 정형 조회·집계 → C9의 OLTP·OLAP 양쪽 실행. 권한은 SQL 템플릿 파라미터 바인딩 |
 | T3 | Document Provider | G4 | 툴 그룹 | `fetch.document` — 하위 C7.5 |
@@ -51,9 +51,9 @@ C1(End User)은 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ 
 
 | 툴 | 그룹 | 실행 | 융합 |
 |---|---|---|---|
-| `search.hybrid` | T1 | C7.1 + C7.2 팬아웃 → C7.4 RRF | O |
-| `search.lexical` | T1 | C7.1 단독 | X |
-| `search.semantic` | T1 | C7.2 단독 | X |
+| `search.hybrid` | T1 | C7.1 + C7.2 팬아웃 → 후처리 C7.4 (RRF·랭킹) | O |
+| `search.lexical` | T1 | C7.1 단독 — 후처리 미경유 | X |
+| `search.semantic` | T1 | C7.2 단독 — 후처리 미경유 | X |
 | `query.quantitative` | T2 | C7.3 단독 (OLTP·OLAP 라우팅) | X — 별도 슬롯 |
 | `fetch.document` | T3 | C7.5 | — |
 
@@ -141,7 +141,8 @@ C15 내부 흐름(별도 장): 자료 등록/갱신 → 메타(C9)·원본(C12)�
 | D18 | C9는 논리적 단일 Structured Store, 물리 이원 **OLTP + OLAP** (워크로드 기준 명명, 제품명은 로고 배지만). C7.3은 양쪽 모두 실행, 엔진 라우팅은 SQL 템플릿이 담당 |
 | D19 | C17 Domain Dictionary 신설 — G4·G6에 참조 제공(R21, 점선). 고객사별 교체 |
 | D20 | 교체 가능 컴포넌트(C5·C6·C9·C10·C11·C12·C16·C17)는 ⇄ 배지 + 하단 범례 |
-| D21 | G-레벨 큰 컴포넌트 도입(G1~G6+X). C7 계층 소멸 → T1 Document Search(C7.1·C7.2·C7.4) / T2 Quantitative Query(C7.3) / T3 Document Provider(C7.5) 능력별 툴 그룹으로 재편 |
+| D21 | G-레벨 큰 컴포넌트 도입(G1~G6+X). C7 계층 소멸 → T1 Document Search(리트리버 C7.1·C7.2 + 후처리 C7.4) / T2 Quantitative Query(C7.3) / T3 Document Provider(C7.5) 능력별 툴 그룹으로 재편 |
 | D22 | C18 Tool Registry 신설, G2(Agent Core) 소속 — 툴 카탈로그는 플래너의 참조원. G4는 실행 전담 |
 | D23 | G3 = Inference Serving, G5 = Data Layer로 명명. OLTP→OLAP 동기화는 R22로 정의하되 다이어그램 미표기 |
 | D24 | 히어로 = G-레벨 레이블 흐름도(추상 3D 폐기), 드릴다운 = 플랫 다크. 다이어그램 레이블은 영어 전용 |
+| D25 | C7.4 Fusion & Rank는 리트리버와 동급이 아니라 T1 내부 후처리 스테이지 — 다이어그램에서 리트리버 병렬 아래 합류 지점으로 표기 |
