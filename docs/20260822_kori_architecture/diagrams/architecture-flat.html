@@ -1,6 +1,7 @@
-<!-- KORI Answers 메인 아키텍처 — 플랫 다크 (v7.7 기준, 레퍼런스 01+02 문법)
+<!-- KORI Answers 메인 아키텍처 — 플랫 다크 (v0.1 D26·D27 기준)
      좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6).
-     R15 미표기(D14). C14 = 앰버 배경 밴드. 교체 가능 = ⇄ (D20). -->
+     내부 구현 관계(File Meta Query·OLTP→OLAP 동기화) 미표기(D14).
+     DETERMINISTIC SECURITY = 앰버 배경 밴드. 교체 가능 = ⇄ (D20). -->
 <div class="dg-canvas">
 
   <!-- ══ C14 배경 밴드 (z0) — C2·C3·C7 관통 ══ -->
@@ -60,13 +61,13 @@
     <text x="509" y="228" text-anchor="middle">Tool Invocation</text>
     <text x="509" y="330" text-anchor="middle">Context Slots</text>
     <text x="396" y="180" text-anchor="end">OpenAI Compatible API</text>
-    <text x="475" y="207">SLM 폴백</text>
+    <text x="475" y="207" fill="#8A8A8A">SLM fallback (cache miss)</text>
     <text x="585" y="410">Keyword Query</text>
     <text x="725" y="410">Vector Query</text>
     <text x="820" y="410">SQL (principal)</text>
     <text x="930" y="410">File Fetch</text>
-    <text x="368" y="414" text-anchor="middle">fetch.document — 참조 문서 온디맨드 (플래닝 루프 미경유)</text>
-    <text x="468" y="468" text-anchor="middle">적재</text>
+    <text x="368" y="414" text-anchor="middle">fetch.document — on-demand reference (no planning loop)</text>
+    <text x="468" y="468" text-anchor="middle">Load</text>
   </svg>
 
   <!-- ══ 모델 존 ══ -->
@@ -75,15 +76,15 @@
   </div>
   <div class="dg-node dg-node--accent" style="left:34%;top:6%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model Gateway ⇄</span></div>
-    <p class="dg-s">LiteLLM · 라우팅·인증·로깅 — 모든 모델 호출 단일 관문</p>
+    <p class="dg-s">LiteLLM — single gate: routing·auth·logging · OpenAI Compatible API</p>
   </div>
   <div class="dg-node" style="left:52%;top:5%;width:9.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkles}}</span><span class="dg-t">LLM ⇄</span></div>
-    <p class="dg-s">플랜·답변 생성</p>
+    <p class="dg-s">Plan &amp; answer generation</p>
   </div>
   <div class="dg-node" style="left:52%;top:13.5%;width:9.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkle}}</span><span class="dg-t">SLM ⇄</span></div>
-    <p class="dg-s">요약 전용</p>
+    <p class="dg-s">Summarization</p>
   </div>
 
   <!-- ══ 메인 행: C1 → C2 → C3 → C7 ══ -->
@@ -94,25 +95,25 @@
 
   <div class="dg-node" style="left:14%;top:42%;width:14%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/shield-check}}</span><span class="dg-t">Compliance Gateway</span></div>
-    <p class="dg-s">SSO·권한관리 사내 통합 · UI 권한 표시</p>
+    <p class="dg-s">SSO · auth — corporate integration · UI permissions</p>
   </div>
 
   <div class="dg-node dg-node--accent" style="left:32%;top:42%;width:17%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent Orchestrator</span></div>
     <p class="dg-s">Plan → Tool → Answer loop</p>
     <ul class="dg-items">
-      <li>플랜 수립 → 툴 실행 → 답변 합성</li>
-      <li>Deterministic Security 기준 플랜·답변 검증 집행</li>
+      <li>Plan → Tool → Answer loop</li>
+      <li>Validates plan/answer against Deterministic Security</li>
     </ul>
   </div>
 
   <!-- ══ C7 Retrieval Layer 존 ══ -->
   <div class="dg-zone dg-zone--accent" style="left:53%;top:36%;width:45%;height:33%">
-    <span class="dg-zone-label">Retrieval Layer — search.hybrid/lexical/semantic · query.quantitative · fetch.document</span>
+    <span class="dg-zone-label">Tool Layer — Document Search · Quantitative Query · Document Provider</span>
   </div>
   <div class="dg-node" style="left:55%;top:41%;width:8.5%">
     <div class="dg-head"><span class="dg-t">Lexical</span></div>
-    <p class="dg-s">BM25</p>
+    <p class="dg-s">Lexical / BM25</p>
   </div>
   <div class="dg-node" style="left:68%;top:41%;width:8.5%">
     <div class="dg-head"><span class="dg-t">Semantic</span></div>
@@ -120,15 +121,15 @@
   </div>
   <div class="dg-node" style="left:60.5%;top:53.5%;width:11%">
     <div class="dg-head"><span class="dg-t">Fusion &amp; Rank</span></div>
-    <p class="dg-s">RRF 융합 · Lexical+Semantic만</p>
+    <p class="dg-s">Fusion &amp; Rank — RRF · hybrid only</p>
   </div>
   <div class="dg-node" style="left:77.5%;top:53.5%;width:8.5%">
     <div class="dg-head"><span class="dg-t">Quantitative</span></div>
-    <p class="dg-s">정형 조회·집계</p>
+    <p class="dg-s">Structured query · OLTP/OLAP</p>
   </div>
   <div class="dg-node" style="left:88.5%;top:53.5%;width:8.5%">
     <div class="dg-head"><span class="dg-t">Document Provider</span></div>
-    <p class="dg-s">SPI · 메타→원본</p>
+    <p class="dg-s">SPI · meta → file</p>
   </div>
 
   <!-- ══ 데이터 존 (스토어 4) ══ -->
@@ -137,19 +138,19 @@
   </div>
   <div class="dg-node" style="left:54.5%;top:80%;width:10%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store ⇄</span></div>
-    <p class="dg-s">색인 + 요약 필드</p>
+    <p class="dg-s">Index + summary field</p>
   </div>
   <div class="dg-node" style="left:65.5%;top:80%;width:10%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Vector Store ⇄</span></div>
-    <p class="dg-s">벡터 색인</p>
+    <p class="dg-s">Vector index</p>
   </div>
   <div class="dg-node" style="left:76.5%;top:80%;width:10%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">Structured Store ⇄</span></div>
-    <p class="dg-s">RDB+ClickHouse · 권한·파일 메타</p>
+    <p class="dg-s">OLTP + OLAP · auth · file meta</p>
   </div>
   <div class="dg-node" style="left:87.5%;top:80%;width:10%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store ⇄</span></div>
-    <p class="dg-s">원본 · 메타 경유 접근</p>
+    <p class="dg-s">Originals · via meta only</p>
   </div>
 
   <!-- ══ 하단: Ingestion & Support 존 ══ -->
@@ -158,11 +159,11 @@
   </div>
   <div class="dg-node" style="left:3.5%;top:78.5%;width:20%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/import}}</span><span class="dg-t">Ingestion Pipeline</span></div>
-    <p class="dg-s">등록 시 사전 요약·캐싱 → 응답 시간 단축<br>상세 별도 장</p>
+    <p class="dg-s">Pre-summarize at ingestion → fast response<br>Detail: separate chapter</p>
   </div>
   <div class="dg-node dg-node--ghost" style="left:26.5%;top:78.5%;width:12.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dict. ⇄</span></div>
-    <p class="dg-s">용어·동의어 — C7 검색 전처리 · C15 색인 보조</p>
+    <p class="dg-s">Terms·synonyms — query preprocess · ingest index</p>
   </div>
 
   <!-- 스텝 번호 -->
@@ -174,5 +175,5 @@
 
   <!-- 범례 -->
   <div style="position:absolute; left:2%; top:96%; z-index:3; font-size:7pt;
-              color:color-mix(in srgb, var(--c-text) 55%, transparent);">⇄ 교체 가능 (구현 교체·플러그인) · 실선 = 런타임 · 점선 = 온디맨드/배치 · ①질의 ②플랜 ③툴 실행 ④컨텍스트 ⑤검증된 답변</div>
+              color:color-mix(in srgb, var(--c-text) 55%, transparent);">⇄ swappable (impl·plugin) · solid = runtime · dashed = on-demand/batch · ①query ②plan ③tool exec ④context ⑤validated answer</div>
 </div>
