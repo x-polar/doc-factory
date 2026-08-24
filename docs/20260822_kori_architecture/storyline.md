@@ -19,12 +19,12 @@
 | # | slug | action title | 시각 자료 |
 |---|---|---|---|
 | 1 | 01-hero | KORI Answers — 구조가 보장하는 엔터프라이즈 AI 답변 | **G-레벨 흐름도** (G1~G6+X, 영어 레이블) |
-| 2 | 02-gateway-agent | 질문은 게이트웨이에서 신원을 얻고, 에이전트 루프가 답을 만든다 | G1+G2 드릴다운 (R1~R5 · C18 Tool Discovery · 루프 3단계) |
-| 3 | 03-security | 환각이 보안을 뚫지 못한다 — 결정론적 보안 레이어 | X 드릴다운 (권한 판정 + 산출물 검증, R17·R18·R19) |
+| 2 | 02-gateway-agent | 질문은 게이트웨이에서 신원을 얻고, 에이전트 루프가 답을 만든다 | G1+G2 드릴다운 (사용자 경로 · Tool Discovery · 루프 3단계) |
+| 3 | 03-security | 환각이 보안을 뚫지 못한다 — 결정론적 보안 레이어 | X 드릴다운 (권한 판정 + 산출물 검증 — UI 권한·플랜 검증·ACL pre-filter) |
 | 4 | 04-tools | 플랜이 지정한 능력만 실행된다 — 능력별 툴 계층 | G4 드릴다운 (T1/T2/T3, 툴 5종, RRF, 컨텍스트 슬롯 2종) |
 | 5 | 05-data | 데이터는 형태별 저장소에, 접근은 권한 필터를 통과한 쿼리만 | G5 드릴다운 (스토어 4종 + OLTP/OLAP + Domain Dictionary) |
-| 6 | 06-inference | 모델은 교체 가능한 부품 — 단일 추론 관문이 라우팅한다 | G3 드릴다운 (C16 + LLM/SLM, R6~R9, 폴백) |
-| 7 | 07-ingestion | 응답 속도는 등록 시점에 결정된다 — 사전 요약·캐싱 | G6 드릴다운 (C15 내부: Queue → Worker → 요약 적재) |
+| 6 | 06-inference | 모델은 교체 가능한 부품 — 단일 추론 관문이 라우팅한다 | G3 드릴다운 (Model Gateway + LLM/SLM, 모델 경로, 폴백) |
+| 7 | 07-ingestion | 응답 속도는 등록 시점에 결정된다 — 사전 요약·캐싱 | G6 드릴다운 (Ingestion Pipeline 내부: Queue → Worker → 요약 적재) |
 | 8 | 08-closing | 구조가 신뢰를 만든다 — 세 기둥 요약 | 요약 (보안 · 툴 · 추론 관문) |
 
 ## So-What 점검

@@ -25,7 +25,7 @@ theme: {}
 - 다이어그램 레이블은 영어 전용, 한글은 본문·노트만
 - 아이콘 스타일 토큰(`kori-icon-style-tokens.html`) 단일 소스 유지
 - 작도 기준: `research/kori-architecture-definition-v0.1.md` (단일 출처).
-  R15·R22 미표기, X(C14)는 관통 밴드, ⇄ swappable 배지 8종 (D14·D20·D23)
+  내부 구현 관계(File Meta Query·OLTP→OLAP 동기화) 미표기, X는 관통 밴드, ⇄ swappable 배지 8종 (D14·D20·D23)
 
 ## 성공 기준 (Definition of Done)
 - 히어로+드릴다운 전체가 v0.1의 G-레벨·컴포넌트·관계 정의와 1:1 대조 통과

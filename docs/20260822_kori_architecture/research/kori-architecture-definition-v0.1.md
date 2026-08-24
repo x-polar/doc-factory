@@ -1,108 +1,110 @@
 # KORI Answers 아키텍처 — 구성 요소·관계 정의 v0.1
 
-다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D25)으로만 보존한다.
+다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D26)으로만 보존한다.
+
+컴포넌트는 **이름으로 참조**한다. 임의 부여 ID(구 C·R 번호)는 D26으로 폐기 — §4 결정 이력 안의 구 ID 표기는 당시 기록 그대로 동결한다. 그룹 키(G1~G6·X, T1~T3)는 유지한다.
 
 ## 0. 큰 컴포넌트 (G-레벨) — 히어로·슬라이드 구성의 기준
 
 | ID | 이름 | 포함 | 정의 |
 |---|---|---|---|
-| G1 | Service Gateway | C2 | 사용자 접점 — SSO·권한관리 사내 통합 |
-| G2 | Agent Core | C3, C18 | 에이전트 루프 + 툴 카탈로그 |
-| G3 | Inference Serving | C16, C5, C6 | 추론 요청 단일 관문 + 모델 |
+| G1 | Compliance Gateway | Compliance Gateway Server | 사용자 접점 — SSO·권한관리 사내 통합 |
+| G2 | Agent Core | Agent Orchestrator, Tool Registry | 에이전트 루프 + 툴 카탈로그 |
+| G3 | Inference Serving | Model Gateway, LLM, SLM | 추론 요청 단일 관문 + 모델 |
 | G4 | Tool Layer | T1, T2, T3 | 툴 실행 (능력별 그룹) |
-| G5 | Data Layer | C9, C10, C11, C12, C17 | 저장소 — 읽기: G4 · 쓰기: G6 |
-| G6 | Ingestion | C15 | 자료 등록·갱신 → G5 적재 |
-| X | Deterministic Security | C14 | cross-cutting — G1·G2·G4 관통 |
+| G5 | Data Layer | Structured/Keyword/Vector/File Store, Domain Dictionary | 저장소 — 읽기: G4 · 쓰기: G6 |
+| G6 | Ingestion | Ingestion Pipeline | 자료 등록·갱신 → G5 적재 |
+| X | Deterministic Security | Deterministic Security Layer | cross-cutting — G1·G2·G4 관통 |
 
-C1(End User)은 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 / G4) · G4 → G5 · G6 ⇢ G5 · X 관통.
+End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 / G4) · G4 → G5 · G6 ⇢ G5 · X 관통.
 
 ## 1. 구성 요소
 
-| ID | 이름 | 그룹 | 유형 | 정의 |
-|---|---|---|---|---|
-| C1 | End User | 액터 | 액터 | 최종 사용자 |
-| C2 | Compliance Gateway Server | G1 | 애플리케이션 (Java) | SSO 연동·권한관리 등 사내 시스템 통합. 참조 문서 온디맨드 제공(플래닝 루프 미경유). UI 권한 표시 |
-| C3 | Agent Orchestrator | G2 | 애플리케이션 (Python) | 플랜 수립 → 툴 실행 → 답변 합성의 에이전트 루프. C14 기준으로 플랜·답변 검증 집행 |
-| C18 | Tool Registry | G2 | 레지스트리 | 툴 등록·노출·발견 — 플랜 수립의 참조원. 소비 주체는 C3 |
-| C16 | Model Gateway | G3 | 게이트웨이 | 모든 모델 호출(LLM·SLM, 런타임·배치)의 단일 관문 — 라우팅·인증·로깅. 구현(LiteLLM)은 로고 배지 |
-| C5 | LLM | G3 | 모델 | 플랜·답변 생성. 온프렘 또는 외부 API |
-| C6 | SLM | G3 | 모델 | 요약 전용. 온프렘 또는 외부 API |
-| T1 | Document Search | G4 | 툴 그룹 | `search.hybrid` / `search.lexical` / `search.semantic` — 실행 흐름: 리트리버 팬아웃(C7.1·C7.2) → 후처리(C7.4) → Document Context. 단독 툴은 후처리 미경유 |
-| C7.1 | Lexical Retriever | T1 | 리트리버 | 키워드/BM25 → C10 |
-| C7.2 | Semantic Retriever | T1 | 리트리버 | 벡터 유사도 → C11 |
-| C7.4 | Fusion & Rank | T1 | 후처리 스테이지 | RRF 융합·랭킹 — C7.1 + C7.2 결과 합류 지점. `search.hybrid` 시에만 경유 (리트리버와 동급 아님) |
-| T2 | Quantitative Query | G4 | 툴 그룹 | `query.quantitative` — 하위 C7.3 |
-| C7.3 | Quantitative Retriever | T2 | T2 하위 | 정형 조회·집계 → C9의 OLTP·OLAP 양쪽 실행. 권한은 SQL 템플릿 파라미터 바인딩 |
-| T3 | Document Provider | G4 | 툴 그룹 | `fetch.document` — 하위 C7.5 |
-| C7.5 | Document Fetcher | T3 | T3 하위 | 파일 메타 조회(C9) → 원본 페치(C12). SPI 식별자는 `DocumentProvider` |
-| C9 | Structured Store | G5 | 데이터 저장소 | 논리적 단일 역할, 물리 구현 이원: **OLTP**(마스터 데이터·권한·파일 메타[문서 ID, 물리 경로, 버전, 소유자]·트랜잭션 정형) + **OLAP**(대용량 조회·집계). 구체 제품은 로고 배지로만 병기 |
-| C10 | Keyword Store | G5 | 데이터 저장소 | 키워드 색인 + 문서별 요약 필드 |
-| C11 | Vector Store | G5 | 데이터 저장소 | 벡터 색인 |
-| C12 | File Store | G5 | 데이터 저장소 | 원본 파일. 메타(C9) 경유로만 접근 |
-| C17 | Domain Dictionary | G5 | 지원 컴포넌트 | 도메인 용어·동의어·엔티티의 단일 원천. G4 쿼리 전처리·G6 청킹/색인 보조. 사전 데이터는 고객사별 교체 |
-| C15 | Ingestion Pipeline | G6 | 파이프라인 | 메인 다이어그램에서는 단일 박스 |
-| C15.1 | Summarization Queue | C15 | C15 하위 | 등록·갱신 이벤트 적재. 갱신 시 기존 요약 삭제 후 재등록 |
-| C15.2 | Summary Worker | C15 | C15 하위 | Queue 소비 → C16 경유 C6 호출 → 요약을 C10 필드에 적재 |
-| C14 | Deterministic Security Layer | X | cross-cutting | 결정론적 보안 규칙의 단일 원천 (PDP): ① 권한 판정 — ACL pre-filter·플랜 권한 범위·UI 권한 정보 ② 산출물 검증 — 플랜 유효성, 답변·인용의 컨텍스트 근거 |
+| 이름 | 그룹 | 유형 | 정의 |
+|---|---|---|---|
+| End User | 액터 | 액터 | 최종 사용자 |
+| Compliance Gateway Server | G1 | 애플리케이션 | SSO 연동·권한관리 등 사내 시스템 통합. 참조 문서 온디맨드 제공(플래닝 루프 미경유). UI 권한 표시 |
+| Agent Orchestrator | G2 | 애플리케이션 | 플랜 수립 → 툴 실행 → 답변 합성의 에이전트 루프. Deterministic Security Layer 기준으로 플랜·답변 검증 집행 |
+| Tool Registry | G2 | 레지스트리 | 툴 등록·노출·발견 — 플랜 수립의 참조원. 소비 주체는 Agent Orchestrator |
+| Model Gateway | G3 | 게이트웨이 | 모든 모델 호출(LLM·SLM, 런타임·배치)의 단일 관문 — 라우팅·인증·로깅. 구현(LiteLLM)은 로고 배지 |
+| LLM | G3 | 모델 | 플랜·답변 생성. 온프렘 또는 외부 API |
+| SLM | G3 | 모델 | 요약 전용. 온프렘 또는 외부 API |
+| Document Search | G4 (T1) | 툴 그룹 | `search.hybrid` / `search.lexical` / `search.semantic` — 실행 흐름: 리트리버 팬아웃(Lexical·Semantic) → 후처리(Fusion & Rank) → Document Context. 단독 툴은 후처리 미경유 |
+| Lexical Retriever | T1 | 리트리버 | 키워드/BM25 → Keyword Store |
+| Semantic Retriever | T1 | 리트리버 | 벡터 유사도 → Vector Store |
+| Fusion & Rank | T1 | 후처리 스테이지 | RRF 융합·랭킹 — Lexical + Semantic 결과 합류 지점. `search.hybrid` 시에만 경유 (리트리버와 동급 아님) |
+| Quantitative Query | G4 (T2) | 툴 그룹 | `query.quantitative` — 하위 Quantitative Retriever |
+| Quantitative Retriever | T2 | 리트리버 | 정형 조회·집계 → Structured Store의 OLTP·OLAP 양쪽 실행. 권한은 SQL 템플릿 파라미터 바인딩 |
+| Document Provider | G4 (T3) | 툴 그룹 | `fetch.document` — 하위 Document Fetcher |
+| Document Fetcher | T3 | 페처 | 파일 메타 조회(Structured Store) → 원본 페치(File Store). SPI 식별자는 `DocumentProvider` |
+| Structured Store | G5 | 데이터 저장소 | 논리적 단일 역할, 물리 구현 이원: **OLTP**(마스터 데이터·권한·파일 메타[문서 ID, 물리 경로, 버전, 소유자]·트랜잭션 정형) + **OLAP**(대용량 조회·집계). 구체 제품은 로고 배지로만 병기 |
+| Keyword Store | G5 | 데이터 저장소 | 키워드 색인 + 문서별 요약 필드 |
+| Vector Store | G5 | 데이터 저장소 | 벡터 색인 |
+| File Store | G5 | 데이터 저장소 | 원본 파일. 메타(Structured Store) 경유로만 접근 |
+| Domain Dictionary | G5 | 지원 컴포넌트 | 도메인 용어·동의어·엔티티의 단일 원천. G4 쿼리 전처리·G6 청킹/색인 보조. 사전 데이터는 고객사별 교체 |
+| Ingestion Pipeline | G6 | 파이프라인 | 메인 다이어그램에서는 단일 박스 |
+| Summarization Queue | Ingestion Pipeline | 하위 | 등록·갱신 이벤트 적재. 갱신 시 기존 요약 삭제 후 재등록 |
+| Summary Worker | Ingestion Pipeline | 하위 | Queue 소비 → Model Gateway 경유 SLM 호출 → 요약을 Keyword Store 필드에 적재 |
+| Deterministic Security Layer | X | cross-cutting | 결정론적 보안 규칙의 단일 원천 (PDP): ① 권한 판정 — ACL pre-filter·플랜 권한 범위·UI 권한 정보 ② 산출물 검증 — 플랜 유효성, 답변·인용의 컨텍스트 근거 |
 
-명명 규칙: 툴 그룹은 능력 기준(Document Search / Quantitative Query / Document Provider), 스토어는 데이터 형태 기준(Keyword/Vector/Structured/File), C9 내부는 워크로드 기준(OLTP/OLAP). 구체 구현 기술·제품명은 다이어그램에서 로고 배지로만 병기. **다이어그램 레이블은 영어 전용** — 한글은 정의서·발표 노트에만.
+명명 규칙: 툴 그룹은 능력 기준(Document Search / Quantitative Query / Document Provider), 스토어는 데이터 형태 기준(Keyword/Vector/Structured/File), Structured Store 내부는 워크로드 기준(OLTP/OLAP). 구체 구현 기술·제품명은 다이어그램에서 로고 배지로만 병기. **다이어그램 레이블은 영어 전용** — 한글은 정의서·발표 노트에만.
 
 ### G4 노출 툴
 
 | 툴 | 그룹 | 실행 | 융합 |
 |---|---|---|---|
-| `search.hybrid` | T1 | C7.1 + C7.2 팬아웃 → 후처리 C7.4 (RRF·랭킹) | O |
-| `search.lexical` | T1 | C7.1 단독 — 후처리 미경유 | X |
-| `search.semantic` | T1 | C7.2 단독 — 후처리 미경유 | X |
-| `query.quantitative` | T2 | C7.3 단독 (OLTP·OLAP 라우팅) | X — 별도 슬롯 |
-| `fetch.document` | T3 | C7.5 | — |
+| `search.hybrid` | T1 | Lexical + Semantic 팬아웃 → 후처리 Fusion & Rank (RRF·랭킹) | O |
+| `search.lexical` | T1 | Lexical Retriever 단독 — 후처리 미경유 | X |
+| `search.semantic` | T1 | Semantic Retriever 단독 — 후처리 미경유 | X |
+| `query.quantitative` | T2 | Quantitative Retriever 단독 (OLTP·OLAP 라우팅) | X — 별도 슬롯 |
+| `fetch.document` | T3 | Document Fetcher | — |
 
 ## 2. 관계
 
 ### 사용자 경로
-| ID | 방향 | 레이블 |
-|---|---|---|
-| R1 | C1 → C2 | Chat Query |
-| R2 | C2 → C1 | Chat Response + Reference Links |
-| R3 | C2 → C3 | Chat Query + Principal |
-| R4 | C3 → C2 | Chat Response |
-| R5 | C2 → T3 | `fetch.document` — 참조 문서 다운로드 온디맨드. 플래닝 루프 미경유 |
+| 방향 | 레이블 |
+|---|---|
+| End User → Compliance Gateway | Chat Query |
+| Compliance Gateway → End User | Chat Response + Reference Links |
+| Compliance Gateway → Agent Orchestrator | Chat Query + Principal |
+| Agent Orchestrator → Compliance Gateway | Chat Response |
+| Compliance Gateway → T3 Document Provider | `fetch.document` — 참조 문서 다운로드 온디맨드. 플래닝 루프 미경유 |
 
 ### 모델 경로
-| ID | 방향 | 레이블 |
-|---|---|---|
-| R6 | C3 → C16 | Planning Prompt / Answer Prompt |
-| R7 | C16 → C3 | Proposed Tool Call Plan / Draft Answer + Citations — C3가 C14 기준으로 검증해 Validated로 확정 |
-| R8 | C16 ↔ C5 | 프롬프트/응답 |
-| R9 | C16 ↔ C6 | 요약 요청/응답 — 호출자는 C3(캐시 미스 폴백, 점선)과 C15.2(배치) |
+| 방향 | 레이블 |
+|---|---|
+| Agent Orchestrator → Model Gateway | Planning Prompt / Answer Prompt |
+| Model Gateway → Agent Orchestrator | Proposed Tool Call Plan / Draft Answer + Citations — Orchestrator가 Deterministic Security 기준으로 검증해 Validated로 확정 |
+| Model Gateway ↔ LLM | 프롬프트/응답 |
+| Model Gateway ↔ SLM | 요약 요청/응답 — 호출자는 Agent Orchestrator(캐시 미스 폴백, 점선)와 Summary Worker(배치) |
 
 ### 툴 경로
-| ID | 방향 | 레이블 |
-|---|---|---|
-| R10 | C3 → G4 | Tool Invocation — 플랜 지정 툴 + principal |
-| R11 | G4 → C3 | Context Slots — ① Document Context (융합·랭킹 문서 + 요약 필드) ② Structured Data (+ 쿼리 ID·대상 테이블 메타 = 답변 출처) |
-| R23 | C3 ↔ C18 | Tool Discovery — 플랜 수립 시 툴 카탈로그 참조 (G2 내부, 다이어그램 표기는 드릴다운만) |
-| R12 | C7.1 ↔ C10 | Keyword Query / Ranked Documents |
-| R13 | C7.2 ↔ C11 | Vector Query / Relevant Chunks |
-| R14 | C7.3 ↔ C9 | Parameterized SQL (principal 바인딩) — OLTP·OLAP 양쪽 / Query Result Data |
-| R15 | C7.5 → C9 | File Meta Query — **다이어그램 미표기** (T3 내부 구현) |
-| R16 | C7.5 → C12 | File Fetch |
+| 방향 | 레이블 |
+|---|---|
+| Agent Orchestrator → G4 | Tool Invocation — 플랜 지정 툴 + principal |
+| G4 → Agent Orchestrator | Context Slots — ① Document Context (융합·랭킹 문서 + 요약 필드) ② Structured Data (+ 쿼리 ID·대상 테이블 메타 = 답변 출처) |
+| Agent Orchestrator ↔ Tool Registry | Tool Discovery — 플랜 수립 시 툴 카탈로그 참조 (G2 내부, 다이어그램 표기는 드릴다운만) |
+| Lexical Retriever ↔ Keyword Store | Keyword Query / Ranked Documents |
+| Semantic Retriever ↔ Vector Store | Vector Query / Relevant Chunks |
+| Quantitative Retriever ↔ Structured Store | Parameterized SQL (principal 바인딩) — OLTP·OLAP 양쪽 / Query Result Data |
+| Document Fetcher → Structured Store | File Meta Query — **다이어그램 미표기** (T3 내부 구현) |
+| Document Fetcher → File Store | File Fetch |
 
 ### 보안 (X — cross-cutting)
-| ID | 방향 | 레이블 |
-|---|---|---|
-| R17 | C14 → C2 | User Permission Info — UI 표시용 (접근 가능 메뉴·문서) |
-| R18 | C14 ⇢ C3 | 플랜·답변 검증 기준 |
-| R19 | C14 ⇢ G4 | ACL pre-filter 기준 — Keyword Store 필터 절 / Vector Store 메타데이터 필터 / SQL 파라미터 |
+| 방향 | 레이블 |
+|---|---|
+| Deterministic Security Layer → Compliance Gateway | User Permission Info — UI 표시용 (접근 가능 메뉴·문서) |
+| Deterministic Security Layer ⇢ Agent Orchestrator | 플랜·답변 검증 기준 |
+| Deterministic Security Layer ⇢ G4 | ACL pre-filter 기준 — Keyword Store 필터 절 / Vector Store 메타데이터 필터 / SQL 파라미터 |
 
 ### 적재·동기화 (G6·G5)
-| ID | 방향 | 레이블 |
-|---|---|---|
-| R20 | C15 ⇢ C9·C10·C11·C12 | 적재 (점선). 내부 전개는 별도 다이어그램 |
-| R21 | C17 ⇢ G4·C15 | Domain Term Reference — 쿼리 전처리(G4)·청킹/색인 보조(G6). 참조 관계(점선) |
-| R22 | C9 내부 OLTP → OLAP | 정형 데이터 동기화 (CDC/배치) — **다이어그램 미표기** (C9 내부 구현, R15와 동일 원칙) |
+| 방향 | 레이블 |
+|---|---|
+| Ingestion Pipeline ⇢ Structured·Keyword·Vector·File Store | 적재 (점선). 내부 전개는 별도 다이어그램 |
+| Domain Dictionary ⇢ G4·Ingestion Pipeline | Domain Term Reference — 쿼리 전처리(G4)·청킹/색인 보조(G6). 참조 관계(점선) |
+| Structured Store 내부 OLTP → OLAP | 정형 데이터 동기화 (CDC/배치) — **다이어그램 미표기** (Structured Store 내부 구현, File Meta Query와 동일 원칙) |
 
-C15 내부 흐름(별도 장): 자료 등록/갱신 → 메타(C9)·원본(C12)·색인(C10)·청킹/임베딩(C11) 적재 → C15.1 enqueue → C15.2 → C16 → C6 → 요약을 C10 문서 필드에 기록. 갱신 시 기존 요약 삭제 후 재등록.
+Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → 메타(Structured)·원본(File)·색인(Keyword)·청킹/임베딩(Vector) 적재 → Summarization Queue enqueue → Summary Worker → Model Gateway → SLM → 요약을 Keyword Store 문서 필드에 기록. 갱신 시 기존 요약 삭제 후 재등록.
 
 ## 3. 다이어그램 표기 지침
 
@@ -110,10 +112,10 @@ C15 내부 흐름(별도 장): 자료 등록/갱신 → 메타(C9)·원본(C12)�
 - **히어로 슬라이드**: G-레벨 큰 컴포넌트(G1~G6 + X)만으로 전체 흐름이 읽히는 레이블 있는 흐름도. 박스 6개 + cross-cutting 밴드 1개. 스타일은 임팩트 우선(아이소 허용)
 - **드릴다운 슬라이드**: 큰 컴포넌트 1개씩 확대 — 플랫 다크(존 그룹핑 + 글래스 카드) 문법, 관계 레이블 전부 표기
 - **아이콘 시스템**: 형태 = 유형, 글리프 = 개체. 토큰은 `kori-icon-style-tokens.html` 단일 소스
-- **저장소·게이트웨이 레이블**: 역할명 주 레이블 + 구체 기술 로고는 전면 하단 고정 배지. C9는 OLTP/OLAP 2배지
-- **교체 가능(swappable) 배지**: C5·C6·C9·C10·C11·C12·C16·C17 — ⇄ 마커 + 하단 한 줄 범례
-- **X(C14)**: G1·G2·G4를 관통하는 밴드(배경 레이어). 화살표 노드로 그리지 않음
-- **G6(C15)**: 메인/히어로에서 단일 박스 + G5로 점선. 상세는 별도 장
+- **저장소·게이트웨이 레이블**: 역할명 주 레이블 + 구체 기술 로고는 전면 하단 고정 배지. Structured Store는 OLTP/OLAP 2배지
+- **교체 가능(swappable) 배지**: LLM·SLM·Structured/Keyword/Vector/File Store·Model Gateway·Domain Dictionary — ⇄ 마커 + 하단 한 줄 범례
+- **X(Deterministic Security Layer)**: G1·G2·G4를 관통하는 밴드(배경 레이어). 화살표 노드로 그리지 않음
+- **G6(Ingestion Pipeline)**: 메인/히어로에서 단일 박스 + G5로 점선. 상세는 별도 장
 - **주석**: "온프렘/외부 API 선택 배포 (Model Gateway 라우팅)" · "등록 시 사전 요약·캐싱으로 응답 시간 단축" → 영어로 표기 (예: "On-prem / External API — routed via Model Gateway", "Pre-summarized at ingestion for fast response")
 - **유지 주석**(영어 변환): SSO·권한 사내 통합 / 정형·비정형 통합 답변 / 답변 출처·기반 문서 제시
 
@@ -146,3 +148,4 @@ C15 내부 흐름(별도 장): 자료 등록/갱신 → 메타(C9)·원본(C12)�
 | D23 | G3 = Inference Serving, G5 = Data Layer로 명명. OLTP→OLAP 동기화는 R22로 정의하되 다이어그램 미표기 |
 | D24 | 히어로 = G-레벨 레이블 흐름도(추상 3D 폐기), 드릴다운 = 플랫 다크. 다이어그램 레이블은 영어 전용 |
 | D25 | C7.4 Fusion & Rank는 리트리버와 동급이 아니라 T1 내부 후처리 스테이지 — 다이어그램에서 리트리버 병렬 아래 합류 지점으로 표기 |
+| D26 | 임의 부여 ID(C·R 번호) 폐기 — 컴포넌트·관계는 이름으로 참조. 그룹 키(G1~G6·X, T1~T3)는 유지. 설명문에서 구현 언어(Java·Python) 표기 삭제. §4 이력의 구 ID는 기록 그대로 동결 |
