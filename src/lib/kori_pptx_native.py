@@ -71,6 +71,10 @@ def line_alpha(shape, alpha):
         if srgb is not None:
             set_alpha(srgb, alpha)
 
+def est_w(text, pt, factor=0.58):
+    """PowerPoint 렌더 기준 텍스트 폭 추정 (인치)"""
+    return len(text) * pt * factor / 72
+
 prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
@@ -127,7 +131,8 @@ for z in d['zones']:
     # 존 라벨 (경계 위 칩)
     if z['label'] and z['lblRect']:
         lr = z['lblRect']
-        lbl = txbox(lr['x'], lr['y'], lr['w'], lr['h'], z['label'],
+        cw = est_w(z['label'], px2pt(z['lblSize'])) + 0.10
+        lbl = txbox(lr['x'], lr['y'], cw, lr['h'], z['label'],
                     px2pt(z['lblSize']), css_rgb(z['lblColor']), bold=True,
                     font='Pretendard', spacing=0.45)
         # 배경색으로 경계선 위에 얹힘 (dg-zone-label은 배경을 슬라이드색으로 가짐)
@@ -156,8 +161,12 @@ for L in d['labels']:
     is_badge = a > 0.5  # 앰버 라벨
     align = {'center': PP_ALIGN.CENTER}.get(L['align'], PP_ALIGN.LEFT)
     text = ' '.join(text.split()) if is_badge else text
-    ext = 0.10 if is_badge else 0.55
-    tb = txbox(L['x'] - ext / 2, L['y'], L['w'] + ext, L['h'] + 0.02, text if is_badge else L['html'],
+    if is_badge:
+        bw = est_w(text, px2pt(L['size'])) + 0.12
+        bx = L['x'] + (L['w'] - bw) / 2
+    else:
+        bw = L['w'] + 0.55; bx = L['x'] - 0.55 / 2
+    tb = txbox(bx, L['y'], bw, L['h'] + 0.02, text if is_badge else L['html'],
                px2pt(L['size']), css_rgb(L['color']),
                bold=(L['weight'] in ('700', 'bold')), align=align,
                font='Pretendard',
