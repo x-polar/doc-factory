@@ -37,22 +37,24 @@
     <path class="e e--accent" d="M860,194 L888,194" marker-end="url(#ah)"/>
 
     <!-- 외부 접점 (그레이, 수직): TO ↑ Tool Layer / AS ↑ Model Gateway -->
-    <path class="e" d="M570,168 L570,58" marker-end="url(#ahm)"/>
-    <path class="e" d="M820,112 L820,58" marker-end="url(#ahm)"/>
+    <path class="e e--accent" d="M562,168 L562,58" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M820,112 L820,58" marker-end="url(#ah)"/>
 
     <!-- 검증 접점 (앰버, 하향): Planning → Plan Check / Validation → Answer Check -->
-    <path class="e e--flow" style="stroke:#FFB224" d="M436,224 L436,390" marker-end="url(#aha)"/>
-    <path class="e e--flow" style="stroke:#FFB224" d="M924,224 L924,390" marker-end="url(#aha)"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M436,224 L436,372" marker-end="url(#aha)"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M922,205 L922,372" marker-end="url(#aha)"/>
 
     <!-- fail 회귀 (앰버 점선): Answer Check → (하단 좌행) → Planning 좌측 -->
-    <path class="e e--flow" style="stroke:#FFB224" d="M920,469 L920,490 L360,490"/>
-    <path class="e e--flow" style="stroke:#FFB224" d="M360,490 L360,194 L386,194" marker-end="url(#aha)"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M920,450 L920,462 L360,462"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M360,462 L360,194 L386,194" marker-end="url(#aha)"/>
 
     <!-- 라벨 -->
-    <text x="640" y="510" text-anchor="middle">Re-planning on failure</text>
+    <text x="640" y="452" text-anchor="middle">Re-planning on failure</text>
   </svg>
 
-  <div style="position:absolute; left:34.2%; top:29%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
+  <div style="position:absolute; left:34.2%; top:15.6%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Principal-bound<br>request</div>
+  <div style="position:absolute; left:34.2%; top:26.3%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">Verified<br>answer</div>
 
   <!-- ── 상단 행 ── -->
@@ -61,7 +63,6 @@
   </div>
   <div class="dg-node dg-node--accent" style="left:17%;top:14%;width:14.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/shield-check}}</span><span class="dg-t">Compliance Gateway</span></div>
-    <p class="dg-s">Grants principal to every request</p>
   </div>
 
   <!-- AO 존 -->
@@ -70,7 +71,7 @@
   </div>
 
   <!-- 외부 접점 고스트 (존 상단 안쪽, 칩 바로 위) -->
-  <div class="dg-node dg-node--ghost" style="left:51.5%;top:3.5%;width:11%">
+  <div class="dg-node dg-node--ghost" style="left:50.75%;top:3.5%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/wrench}}</span><span class="dg-t">Tool Layer</span></div>
   </div>
   <div class="dg-node dg-node--ghost" style="left:76.5%;top:3.5%;width:11%">
@@ -95,11 +96,11 @@
   </div>
 
   <!-- 앰버 밴드 내부: 검증 2종 -->
-  <div class="dg-node" style="left:38%;top:70%;width:11%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
+  <div class="dg-node" style="left:38%;top:66.5%;width:11%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/list-checks}}</span><span class="dg-t">Plan Check</span></div>
     <p class="dg-s">Allowed capabilities only</p>
   </div>
-  <div class="dg-node" style="left:86.5%;top:70%;width:11%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
+  <div class="dg-node" style="left:86%;top:66.5%;width:11%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-check-2}}</span><span class="dg-t">Answer Check</span></div>
     <p class="dg-s">Grounded in context only</p>
   </div>
