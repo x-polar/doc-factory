@@ -12,8 +12,6 @@
   <div style="position:absolute; left:14.2%; top:31.8%; z-index:2; padding:0.01in 0.08in;
               font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
               color:#000; background:#FFB224;">DETERMINISTIC SECURITY LAYER</div>
-  <div style="position:absolute; left:22%; top:66%; z-index:2; font-size:6.8pt; line-height:1.5;
-              color:color-mix(in srgb, #FFB224 85%, transparent);">권한 판정 — ACL pre-filter · 플랜 권한 범위 · UI 권한 정보<br>산출물 검증 — 플랜 유효성 · 답변·인용의 컨텍스트 근거</div>
 
   <svg class="dg-edges" viewBox="0 0 1000 560" preserveAspectRatio="none">
     <defs>
@@ -48,8 +46,6 @@
     <path class="e" d="M710,304 L795,426" marker-end="url(#ahm)"/>
     <path class="e" d="M710,350 L795,490" marker-end="url(#ahm)"/>
 
-    <!-- R5: C2 → C7 fetch.document (하단 우회, 점선) -->
-    <path class="e e--flow" d="M180,300 L180,408 L638,408 L638,371" marker-end="url(#ahm)"/>
 
     <!-- R20: C15 ⇢ 스토어 존 (점선 트렁크) -->
     <path class="e e--flow" d="M245,465 L770,465" marker-end="url(#ahm)"/>
@@ -61,7 +57,6 @@
     <text x="752" y="284" text-anchor="middle">Vector Query</text>
     <text x="748" y="340" text-anchor="middle">SQL (principal)</text>
     <text x="748" y="422" text-anchor="middle">File Fetch</text>
-    <text x="410" y="424" text-anchor="middle">fetch.document — on-demand reference (no planning loop)</text>
     <text x="500" y="458" text-anchor="middle">Load</text>
   </svg>
 
