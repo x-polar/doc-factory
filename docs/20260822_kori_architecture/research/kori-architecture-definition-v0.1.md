@@ -1,6 +1,6 @@
 # KORI Answers 아키텍처 — 구성 요소·관계 정의 v0.1
 
-다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D27)으로만 보존한다.
+다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D28)으로만 보존한다.
 
 컴포넌트는 **이름으로 참조**한다. 임의 부여 ID(구 C·R 번호)는 D26으로 폐기 — §4 결정 이력 안의 구 ID 표기는 당시 기록 그대로 동결한다. 그룹 키(G1~G6·X, T1~T3)는 유지한다.
 
@@ -42,9 +42,11 @@ End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 
 | Vector Store | G5 | 데이터 저장소 | 청크 단위 벡터 색인 저장소 — 의미 기반 검색의 기반 |
 | File Store | G5 | 데이터 저장소 | 원본 파일 저장소. 직접 접근은 없고 반드시 Structured Store의 파일 메타를 경유해서만 접근한다 |
 | Domain Dictionary | G5 | 지원 컴포넌트 | 도메인 용어·동의어·엔티티의 단일 원천. 검색 품질의 도메인 적응 장치로, G4의 쿼리 전처리와 G6의 청킹/색인을 보조한다. 사전 데이터는 고객사별 교체 |
-| Ingestion Pipeline | G6 | 파이프라인 | 자료 등록·갱신을 받아 G5의 네 저장소에 적재하는 준비 경로. 메인 다이어그램에서는 단일 박스, 내부 전개는 별도 장 |
-| Summarization Queue | Ingestion Pipeline | 하위 | 등록·갱신 이벤트를 적재하는 큐. 갱신 시 기존 요약을 삭제 후 재등록해 최신성을 보장한다 |
-| Summary Worker | Ingestion Pipeline | 하위 | 큐를 소비하는 배치 워커. Model Gateway를 경유해 SLM을 호출하고, 생성된 요약을 Keyword Store의 문서 필드에 적재한다 |
+| Ingestion Pipeline | G6 | 파이프라인 | 자료 등록·갱신을 받아 G5의 저장소에 적재하는 준비 경로. 내부는 처리 단계 4개: Converter → Semantic Chunking → Indexing → Summarization. 메인 다이어그램에서 존으로 표기 |
+| Converter | Ingestion Pipeline | 처리 단계 | 원본(PDF·Office 등) 파싱 — 텍스트·구조 추출, 메타 등록(OLTP)·원본 보존(File Store) |
+| Semantic Chunking | Ingestion Pipeline | 처리 단계 | 의미 단위 분할. Domain Dictionary 참조로 도메인 용어 경계 보존 |
+| Indexing | Ingestion Pipeline | 처리 단계 | 키워드 색인(Keyword Store)·벡터 색인(Vector Store) 구축 |
+| Summarization | Ingestion Pipeline | 처리 단계 | 문서 요약 생성 — Model Gateway 경유 SLM 배치 호출, 요약을 Keyword Store 문서 필드에 적재. 내부 구현은 Queue + Worker(이벤트 구동, 갱신 시 기존 요약 삭제 후 재등록) |
 | Deterministic Security Layer | X | cross-cutting | 결정론적 보안 규칙의 단일 원천(PDP). 모델의 확률적 출력과 무관하게 규칙으로 판정한다: ① 권한 판정 — ACL pre-filter·플랜 권한 범위·UI 권한 정보 ② 산출물 검증 — 플랜 유효성, 답변·인용의 컨텍스트 근거 확인 |
 
 명명 규칙: 툴 그룹은 능력 기준(Document Search / Quantitative Query / Document Provider), 스토어는 데이터 형태 기준(Keyword/Vector/Structured/File), Structured Store 내부는 워크로드 기준(OLTP/OLAP). 구체 구현 기술·제품명은 다이어그램에서 로고 배지로만 병기. **다이어그램 레이블은 영어 전용** — 한글은 정의서·발표 노트에만.
@@ -75,7 +77,7 @@ End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 
 |---|---|
 | Agent Orchestrator ↔ Model Gateway | **OpenAI Compatible API** — 단일 양방향 연결. 요청: Planning Prompt / Answer Prompt. 응답: Proposed Tool Call Plan / Draft Answer + Citations (Orchestrator가 Deterministic Security 기준으로 검증해 Validated로 확정) |
 | Model Gateway ↔ LLM | 프롬프트/응답 |
-| Model Gateway ↔ SLM | 요약 요청/응답 — 호출자는 Agent Orchestrator(캐시 미스 폴백, 점선)와 Summary Worker(배치) |
+| Model Gateway ↔ SLM | 요약 요청/응답 — 호출자는 Agent Orchestrator(캐시 미스 폴백, 점선)와 Summarization 단계(배치) |
 
 ### 툴 경로
 | 방향 | 레이블 |
@@ -103,7 +105,7 @@ End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 
 | Domain Dictionary ⇢ G4·Ingestion Pipeline | Domain Term Reference — 쿼리 전처리(G4)·청킹/색인 보조(G6). 참조 관계(점선) |
 | Structured Store 내부 OLTP → OLAP | 정형 데이터 동기화 (CDC/배치) — **다이어그램 미표기** (Structured Store 내부 구현, File Meta Query와 동일 원칙) |
 
-Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → 메타(Structured)·원본(File)·색인(Keyword)·청킹/임베딩(Vector) 적재 → Summarization Queue enqueue → Summary Worker → Model Gateway → SLM → 요약을 Keyword Store 문서 필드에 기록. 갱신 시 기존 요약 삭제 후 재등록.
+Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Converter(메타 OLTP·원본 File Store) → Semantic Chunking(Domain Dictionary 참조) → Indexing(Keyword·Vector Store) → Summarization(Queue enqueue → Worker → Model Gateway → SLM → 요약을 Keyword Store 문서 필드에 기록, 갱신 시 기존 요약 삭제 후 재등록).
 
 ## 3. 다이어그램 표기 지침
 
@@ -149,3 +151,4 @@ Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → 메타(St
 | D25 | C7.4 Fusion & Rank는 리트리버와 동급이 아니라 T1 내부 후처리 스테이지 — 다이어그램에서 리트리버 병렬 아래 합류 지점으로 표기 |
 | D26 | 임의 부여 ID(C·R 번호) 폐기 — 컴포넌트·관계는 이름으로 참조. 그룹 키(G1~G6·X, T1~T3)는 유지. 설명문에서 구현 언어(Java·Python) 표기 삭제. §4 이력의 구 ID는 기록 그대로 동결 |
 | D27 | Agent Orchestrator ↔ Model Gateway는 단일 양방향 연결로 표기, 레이블은 **OpenAI Compatible API** — 요청/응답 상세는 정의서에만 |
+| D28 | Ingestion Pipeline 내부를 처리 단계 4개로 재정의: Converter → Semantic Chunking → Indexing → Summarization. Queue·Worker는 Summarization 내부 구현으로 흡수(D8 취지 유지). 메인 다이어그램에서 존+4노드 표기 |

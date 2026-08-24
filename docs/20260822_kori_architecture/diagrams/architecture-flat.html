@@ -48,13 +48,17 @@
     <path class="e" d="M710,358 L795,368" marker-end="url(#ahm)"/>
 
 
-    <!-- R20: C15 ⇢ 스토어 존 (점선 트렁크) -->
-    <path class="e e--flow" d="M762,489 L793,489" marker-end="url(#ahm)"/>
+    <!-- Ingestion 내부 단계 -->
+    <path class="e" d="M405,500 L425,500" marker-end="url(#ahm)"/>
+    <path class="e" d="M525,500 L545,500" marker-end="url(#ahm)"/>
+    <path class="e" d="M635,500 L655,500" marker-end="url(#ahm)"/>
+    <!-- Ingestion ⇢ 스토어 존 (점선 트렁크) -->
+    <path class="e e--flow" d="M762,500 L793,500" marker-end="url(#ahm)"/>
 
     <!-- 레이블 -->
     
     <text x="413" y="168">OpenAI Compatible API</text>
-    <text x="777" y="480" text-anchor="middle">Load</text>
+    <text x="777" y="492" text-anchor="middle">Load</text>
   </svg>
 
   <div style="position:absolute; left:50.9%; top:41.2%; z-index:3; font-size:7pt; transform:translateX(-50%);
@@ -141,6 +145,18 @@
   <!-- ══ 하단: Ingestion 존 (가로, Data Stores 좌측 밀착 · 내부 컴포넌트 TBD) ══ -->
   <div class="dg-zone" style="left:30%;top:82%;width:46%;height:14%">
     <span class="dg-zone-label">Ingestion Pipeline</span>
+  </div>
+  <div class="dg-node" style="left:31.2%;top:86%;width:9.6%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-cog}}</span><span class="dg-t">Converter</span></div>
+  </div>
+  <div class="dg-node" style="left:42.2%;top:86%;width:10.6%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/scissors-line-dashed}}</span><span class="dg-t">Semantic<br>Chunking</span></div>
+  </div>
+  <div class="dg-node" style="left:54.2%;top:86%;width:9.6%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/list-tree}}</span><span class="dg-t">Indexing</span></div>
+  </div>
+  <div class="dg-node" style="left:65.2%;top:86%;width:10%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-quote}}</span><span class="dg-t">Summarization</span></div>
   </div>
 
   <!-- 범례 -->
