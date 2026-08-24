@@ -56,8 +56,6 @@
 
     <!-- 레이블 -->
     
-    <text x="509" y="228" text-anchor="middle">Tool Invocation</text>
-    <text x="509" y="330" text-anchor="middle">Context Slots</text>
     <text x="396" y="168" text-anchor="end">OpenAI Compatible API</text>
     <text x="596" y="416" text-anchor="end">Keyword Query</text>
     <text x="672" y="410">Vector Query</text>
@@ -67,12 +65,17 @@
     <text x="468" y="468" text-anchor="middle">Load</text>
   </svg>
 
+  <div style="position:absolute; left:50.9%; top:41.2%; z-index:3; font-size:7pt; transform:translateX(-50%);
+              color:color-mix(in srgb, var(--c-text) 62%, transparent); white-space:nowrap;">Tool Invocation</div>
+  <div style="position:absolute; left:50.9%; top:50.5%; z-index:3; font-size:7pt; transform:translateX(-50%);
+              color:color-mix(in srgb, var(--c-text) 62%, transparent); white-space:nowrap;">Context Slots</div>
+
   <!-- ══ 모델 존 ══ -->
   <div class="dg-zone" style="left:32%;top:2.5%;width:42%;height:21%">
     <span class="dg-zone-label">Model Zone</span>
   </div>
   <div class="dg-node dg-node--accent" style="left:34%;top:9%;width:13%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model Gateway</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model<br>Gateway</span></div>
     <p class="dg-s">Routing · Logging</p>
   </div>
   <div class="dg-node" style="left:53%;top:5%;width:9.5%">
@@ -98,7 +101,7 @@
   </div>
 
   <div class="dg-node dg-node--accent" style="left:32%;top:42%;width:17%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent Orchestrator</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent<br>Orchestrator</span></div>
     <p class="dg-s">Plan → Tool → Answer loop</p>
     <ul class="dg-items">
       <li>Validates plan/answer against Deterministic Security</li>
@@ -160,7 +163,7 @@
     <span class="dg-zone-label">Ingestion &amp; Support</span>
   </div>
   <div class="dg-node" style="left:3.5%;top:78.5%;width:20%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/import}}</span><span class="dg-t">Ingestion Pipeline</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/import}}</span><span class="dg-t">Ingestion<br>Pipeline</span></div>
     <p class="dg-s">Pre-summarize at ingestion → fast response<br>Detail: separate chapter</p>
   </div>
   <div class="dg-node dg-node--ghost" style="left:26.5%;top:78.5%;width:12.5%">
