@@ -45,6 +45,7 @@
     <path class="e" d="M710,280 L795,358" marker-end="url(#ahm)"/>
     <path class="e" d="M710,288 L795,423" marker-end="url(#ahm)"/>
     <path class="e" d="M710,320 L795,487" marker-end="url(#ahm)"/>
+    <path class="e" d="M710,358 L795,368" marker-end="url(#ahm)"/>
 
 
     <!-- R20: C15 ⇢ 스토어 존 (점선 트렁크) -->
@@ -52,11 +53,7 @@
 
     <!-- 레이블 -->
     
-    <text x="396" y="168" text-anchor="end">OpenAI Compatible API</text>
-    <text x="752" y="228" text-anchor="middle">Keyword Query</text>
-    <text x="752" y="277" text-anchor="middle">Vector Query</text>
-    <text x="752" y="352" text-anchor="middle">SQL (principal)</text>
-    <text x="752" y="410" text-anchor="middle">File Fetch</text>
+    <text x="413" y="168">OpenAI Compatible API</text>
     <text x="777" y="480" text-anchor="middle">Load</text>
   </svg>
 
@@ -117,7 +114,7 @@
   <div class="dg-node" style="left:56.5%;top:55%;width:14.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
   </div>
-  <div class="dg-node dg-node--ghost" style="left:56.5%;top:62%;width:14.5%">
+  <div class="dg-node" style="left:56.5%;top:62%;width:14.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
 
@@ -141,20 +138,12 @@
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
   </div>
 
-  <!-- ══ 하단: Ingestion (가로, Data Stores 좌측 밀착) ══ -->
-  <div class="dg-node" style="left:30%;top:84.5%;width:46%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/import}}</span><span class="dg-t">Ingestion Pipeline</span></div>
-    <p class="dg-s">Pre-summarize at ingestion → fast response</p>
+  <!-- ══ 하단: Ingestion 존 (가로, Data Stores 좌측 밀착 · 내부 컴포넌트 TBD) ══ -->
+  <div class="dg-zone" style="left:30%;top:82%;width:46%;height:14%">
+    <span class="dg-zone-label">Ingestion Pipeline</span>
   </div>
-
-  <!-- 스텝 번호 -->
-  <div class="dg-step" style="left:12.4%;top:44.6%">1</div>
-  <div class="dg-step" style="left:40.5%;top:29%">2</div>
-  <div class="dg-step" style="left:50.9%;top:44.6%">3</div>
-  <div class="dg-step" style="left:50.9%;top:49%">4</div>
-  <div class="dg-step" style="left:29.9%;top:49%">5</div>
 
   <!-- 범례 -->
   <div style="position:absolute; left:2%; top:96%; z-index:3; font-size:7pt;
-              color:color-mix(in srgb, var(--c-text) 55%, transparent);">solid = runtime · dashed = on-demand/batch · ①query ②plan ③tool exec ④context ⑤validated answer</div>
+              color:color-mix(in srgb, var(--c-text) 55%, transparent);">solid = runtime · dashed = on-demand/batch</div>
 </div>
