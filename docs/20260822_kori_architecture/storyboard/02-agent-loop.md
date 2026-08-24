@@ -1,6 +1,6 @@
 ---
 title: "Agent Loop"
-lede: "질문은 신원을 얻고, 루프의 산출물은 검증을 통과해야 한다"
+lede: "신원 없이 실행되지 않고, 검증 없이 답하지 않는다"
 layout: diagram
 diagram: diagrams/agent-loop-a.html
 source: [kori-arch]

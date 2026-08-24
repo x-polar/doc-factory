@@ -21,7 +21,7 @@
 | # | slug | action title | 시각 자료 |
 |---|---|---|---|
 | 1 | 01-hero | KORI Answers Architecture | **플랫 메인 다이어그램** (확정본 — 존 4 + Deterministic Security 밴드 + 액터 2종) |
-| 2 | 02-agent-loop | Agent Loop *(lede: 질문은 신원을 얻고, 루프의 산출물은 검증을 통과해야 한다)* | Agent Loop 다이어그램 — CG(Authn·Authz·Audit·Observability) → AO 루프 5단계(Planning & Re-planning → Tool Orchestration → Context Assembly → Answer Synthesis → Validation) + Deterministic Security 검증 접점 |
+| 2 | 02-agent-loop | Agent Loop *(lede: 신원 없이 실행되지 않고, 검증 없이 답하지 않는다)* | Agent Loop 다이어그램 — CG(Authn·Authz·Audit·Observability) → AO 루프 5단계(Planning & Re-planning → Tool Orchestration → Context Assembly → Answer Synthesis → Validation) + Deterministic Security 검증 접점 |
 | 3 | 03-retrieval | Retrieval Workflow *(lede: 플랜이 지정한 능력만, 권한 필터를 통과한 데이터만)* | Retrieval 다이어그램 — 툴 4종(Document Search·Domain Dictionary·Quantitative Query·Document Provider) → 스토어 5종, RRF 융합, ACL pre-filter, Grounding Context 슬롯 조립 |
 | 4 | 04-ingestion | Ingestion Pipeline *(lede: 응답 속도는 등록 시점에 결정된다)* | Ingestion 다이어그램 — External Interface → Conversion(File Store·OLTP) → Semantic Chunking(DD 참조) → Indexing(Keyword·Vector) → Summarization(SLM 배치 → Keyword Store) |
 
