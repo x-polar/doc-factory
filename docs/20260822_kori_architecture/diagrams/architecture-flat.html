@@ -40,24 +40,24 @@
     <!-- R9 폴백 주석용 점선: C3 → C16 (SLM 캐시 미스) -->
 
     <!-- 툴 그룹 → 스토어 (좌→우) -->
-    <path class="e" d="M710,245 L795,232" marker-end="url(#ahm)"/>
-    <path class="e" d="M710,253 L795,297" marker-end="url(#ahm)"/>
-    <path class="e" d="M710,296 L795,361" marker-end="url(#ahm)"/>
-    <path class="e" d="M710,304 L795,426" marker-end="url(#ahm)"/>
-    <path class="e" d="M710,350 L795,490" marker-end="url(#ahm)"/>
+    <path class="e" d="M710,240 L795,230" marker-end="url(#ahm)"/>
+    <path class="e" d="M710,248 L795,294" marker-end="url(#ahm)"/>
+    <path class="e" d="M710,280 L795,358" marker-end="url(#ahm)"/>
+    <path class="e" d="M710,288 L795,423" marker-end="url(#ahm)"/>
+    <path class="e" d="M710,320 L795,487" marker-end="url(#ahm)"/>
 
 
     <!-- R20: C15 ⇢ 스토어 존 (점선 트렁크) -->
-    <path class="e e--flow" d="M245,465 L770,465" marker-end="url(#ahm)"/>
+    <path class="e e--flow" d="M762,489 L793,489" marker-end="url(#ahm)"/>
 
     <!-- 레이블 -->
     
     <text x="396" y="168" text-anchor="end">OpenAI Compatible API</text>
     <text x="752" y="228" text-anchor="middle">Keyword Query</text>
-    <text x="752" y="284" text-anchor="middle">Vector Query</text>
-    <text x="748" y="340" text-anchor="middle">SQL (principal)</text>
-    <text x="748" y="422" text-anchor="middle">File Fetch</text>
-    <text x="500" y="458" text-anchor="middle">Load</text>
+    <text x="752" y="277" text-anchor="middle">Vector Query</text>
+    <text x="752" y="352" text-anchor="middle">SQL (principal)</text>
+    <text x="752" y="410" text-anchor="middle">File Fetch</text>
+    <text x="777" y="480" text-anchor="middle">Load</text>
   </svg>
 
   <div style="position:absolute; left:50.9%; top:41.2%; z-index:3; font-size:7pt; transform:translateX(-50%);
@@ -108,14 +108,17 @@
   <div class="dg-zone dg-zone--accent" style="left:54.5%;top:36.5%;width:18.5%;height:33%">
     <span class="dg-zone-label">Tool Layer</span>
   </div>
-  <div class="dg-node" style="left:56.5%;top:41.5%;width:14.5%">
+  <div class="dg-node" style="left:56.5%;top:41%;width:14.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-search}}</span><span class="dg-t">Document Search</span></div>
   </div>
-  <div class="dg-node" style="left:56.5%;top:50.5%;width:14.5%">
+  <div class="dg-node" style="left:56.5%;top:48%;width:14.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/sigma}}</span><span class="dg-t">Quantitative Query</span></div>
   </div>
-  <div class="dg-node" style="left:56.5%;top:59.5%;width:14.5%">
+  <div class="dg-node" style="left:56.5%;top:55%;width:14.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
+  </div>
+  <div class="dg-node dg-node--ghost" style="left:56.5%;top:62%;width:14.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
 
   <!-- ══ 데이터 존 (스토어 4) ══ -->
@@ -138,17 +141,10 @@
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
   </div>
 
-  <!-- ══ 하단: Ingestion & Support 존 ══ -->
-  <div class="dg-zone" style="left:2%;top:73.5%;width:39%;height:22.5%">
-    <span class="dg-zone-label">Ingestion &amp; Support</span>
-  </div>
-  <div class="dg-node" style="left:3.5%;top:78.5%;width:20%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/import}}</span><span class="dg-t">Ingestion<br>Pipeline</span></div>
-    <p class="dg-s">Pre-summarize at ingestion → fast response<br>Detail: separate chapter</p>
-  </div>
-  <div class="dg-node dg-node--ghost" style="left:26.5%;top:78.5%;width:12.5%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
-    <p class="dg-s">Terms·synonyms — query preprocess · ingest index</p>
+  <!-- ══ 하단: Ingestion (가로, Data Stores 좌측 밀착) ══ -->
+  <div class="dg-node" style="left:30%;top:84.5%;width:46%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/import}}</span><span class="dg-t">Ingestion Pipeline</span></div>
+    <p class="dg-s">Pre-summarize at ingestion → fast response</p>
   </div>
 
   <!-- 스텝 번호 -->
