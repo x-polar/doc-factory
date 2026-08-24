@@ -5,14 +5,14 @@
 <div class="dg-canvas">
 
   <!-- ══ C14 배경 밴드 (z0) — C2·C3·C7 관통 ══ -->
-  <div style="position:absolute; left:13%; top:39%; width:85%; height:31.5%;
+  <div style="position:absolute; left:13%; top:34%; width:85%; height:38%;
               background:color-mix(in srgb, #FFB224 6.5%, transparent);
               border:1.2px dashed color-mix(in srgb, #FFB224 55%, transparent);
               border-radius:10px; z-index:0;"></div>
-  <div style="position:absolute; left:14.2%; top:36.8%; z-index:2; padding:0.01in 0.08in;
+  <div style="position:absolute; left:14.2%; top:31.8%; z-index:2; padding:0.01in 0.08in;
               font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
               color:#000; background:#FFB224;">DETERMINISTIC SECURITY LAYER</div>
-  <div style="position:absolute; left:33%; top:62.5%; z-index:2; font-size:6.8pt; line-height:1.5;
+  <div style="position:absolute; left:22%; top:66%; z-index:2; font-size:6.8pt; line-height:1.5;
               color:color-mix(in srgb, #FFB224 85%, transparent);">권한 판정 — ACL pre-filter · 플랜 권한 범위 · UI 권한 정보<br>산출물 검증 — 플랜 유효성 · 답변·인용의 컨텍스트 근거</div>
 
   <svg class="dg-edges" viewBox="0 0 1000 560" preserveAspectRatio="none">
@@ -40,7 +40,6 @@
     <path class="e" d="M470,66 L530,44"/>
     <path class="e" d="M470,80 L530,94"/>
     <!-- R9 폴백 주석용 점선: C3 → C16 (SLM 캐시 미스) -->
-    <path class="e e--flow" d="M450,233 L450,140" />
 
     <!-- 툴 그룹 → 스토어 -->
     <path class="e" d="M595,312 L583,423" marker-end="url(#ahm)"/>
@@ -59,9 +58,8 @@
     
     <text x="509" y="228" text-anchor="middle">Tool Invocation</text>
     <text x="509" y="330" text-anchor="middle">Context Slots</text>
-    <text x="396" y="180" text-anchor="end">OpenAI Compatible API</text>
-    <text x="460" y="152" fill="#8A8A8A">SLM fallback (cache miss)</text>
-    <text x="600" y="386" text-anchor="end">Keyword Query</text>
+    <text x="396" y="168" text-anchor="end">OpenAI Compatible API</text>
+    <text x="596" y="416" text-anchor="end">Keyword Query</text>
     <text x="672" y="410">Vector Query</text>
     <text x="800" y="382" text-anchor="middle">SQL (principal)</text>
     <text x="938" y="410">File Fetch</text>
@@ -108,20 +106,20 @@
   </div>
 
   <!-- ══ C7 Retrieval Layer 존 ══ -->
-  <div class="dg-zone dg-zone--accent" style="left:53%;top:36%;width:45%;height:33%">
+  <div class="dg-zone dg-zone--accent" style="left:54%;top:38.5%;width:42.5%;height:28.5%">
     <span class="dg-zone-label">Tool Layer</span>
   </div>
-  <div class="dg-node" style="left:55%;top:46%;width:12.5%">
+  <div class="dg-node" style="left:55.5%;top:48%;width:12.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-search}}</span><span class="dg-t">Document Search</span></div>
     
 
   </div>
-  <div class="dg-node" style="left:70.5%;top:46%;width:12.5%">
+  <div class="dg-node" style="left:70.5%;top:48%;width:12.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/sigma}}</span><span class="dg-t">Quantitative Query</span></div>
     
 
   </div>
-  <div class="dg-node" style="left:86%;top:46%;width:11%">
+  <div class="dg-node" style="left:85%;top:48%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
     
 
