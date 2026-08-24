@@ -23,3 +23,6 @@
   border-top: 2px solid var(--accent);
 }
 .tbl th{ color: var(--accent); }
+
+/* 푸터 로고: 기본(.logo-sm 1.55u)의 절반 */
+.ftr .logo-sm { height: calc(var(--u) * 0.78); }
