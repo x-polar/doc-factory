@@ -225,3 +225,6 @@
   padding: 0 0.07in 0.03in 0;
   text-align: right;
 }
+
+/* 관계선 라벨: 컴포넌트 설명문(dg-s, 7.5pt) 크기에 맞춤 */
+svg.dg-edges text { font-size: 10px; }
