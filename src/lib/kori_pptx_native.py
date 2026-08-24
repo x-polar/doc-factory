@@ -127,13 +127,15 @@ for z in d['zones']:
     # 존 라벨 (경계 위 칩)
     if z['label'] and z['lblRect']:
         lr = z['lblRect']
-        lbl = txbox(lr['x'], lr['y'], lr['w'] + 0.35, lr['h'], z['label'],
+        lbl = txbox(lr['x'], lr['y'], lr['w'], lr['h'], z['label'],
                     px2pt(z['lblSize']), css_rgb(z['lblColor']), bold=True,
                     font='Pretendard', spacing=0.45)
         # 배경색으로 경계선 위에 얹힘 (dg-zone-label은 배경을 슬라이드색으로 가짐)
         lbl.fill.solid(); lbl.fill.fore_color.rgb = RGBColor(*BG)
         lbl.line.fill.background()
         lbl.text_frame.word_wrap = False
+        lbl.text_frame.margin_left = lbl.text_frame.margin_right = Pt(2)
+        lbl.text_frame.auto_size = None
 
 # ── 자유 라벨 (앰버 밴드 배경 + 앰버 배지 + Tool Invocation / Grounding Context) ──
 for L in d['labels']:
