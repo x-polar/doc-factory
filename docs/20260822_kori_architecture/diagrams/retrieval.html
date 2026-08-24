@@ -5,11 +5,11 @@
 <div class="dg-canvas">
 
   <!-- ACL Pre-filter 게이트 (앰버 세로 스트립) -->
-  <div style="position:absolute; left:51.5%; top:8%; width:5%; height:80%;
+  <div style="position:absolute; left:55%; top:8%; width:5%; height:80%;
               background:color-mix(in srgb, #FFB224 6.5%, transparent);
               border:1.2px dashed color-mix(in srgb, #FFB224 55%, transparent);
               border-radius:10px; z-index:0;"></div>
-  <div style="position:absolute; left:54%; top:6.2%; z-index:2; padding:0.01in 0.08in;
+  <div style="position:absolute; left:57.5%; top:6.2%; z-index:2; padding:0.01in 0.08in;
               font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
               color:#000; background:#FFB224; transform:translateX(-50%); white-space:nowrap;">ACL PRE-FILTER</div>
 
@@ -21,22 +21,22 @@
     </defs>
 
     <!-- AO → Tool Layer 존 (민트, 호출) -->
-    <path class="e e--accent" d="M160,150 L238,150" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M160,150 L268,150" marker-end="url(#ah)"/>
 
     <!-- 툴 → 스토어 (그레이 무향, ACL 게이트 관통) -->
     <!-- DS(중심 y106) → Keyword(101) / Vector(185) -->
-    <path class="e" d="M480,100 L600,100"/>
-    <path class="e" d="M480,116 L530,116 L530,185 L600,185"/>
+    <path class="e" d="M510,100 L655,100"/>
+    <path class="e" d="M510,116 L575,116 L575,185 L655,185"/>
     <!-- DD(207) → OLTP(269) -->
-    <path class="e" d="M480,207 L545,207 L545,262 L600,262"/>
+    <path class="e" d="M510,207 L590,207 L590,262 L655,262"/>
     <!-- QQ(308) → OLTP(269) / OLAP(353) -->
-    <path class="e" d="M480,300 L555,300 L555,276 L600,276"/>
-    <path class="e" d="M480,316 L560,316 L560,353 L600,353"/>
+    <path class="e" d="M510,300 L600,300 L600,276 L655,276"/>
+    <path class="e" d="M510,316 L605,316 L605,353 L655,353"/>
     <!-- DP(409) → File(437) -->
-    <path class="e" d="M480,409 L565,409 L565,437 L600,437"/>
+    <path class="e" d="M510,409 L610,409 L610,437 L655,437"/>
 
     <!-- 툴 결과 → Grounding Context (민트): Tool 존 좌하단 → GC 존 우변 -->
-    <path class="e e--accent" d="M240,430 L202,430" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M270,430 L202,430" marker-end="url(#ah)"/>
     <!-- GC → AO (민트 상승) -->
     <path class="e e--accent" d="M100,278 L100,190" marker-end="url(#ah)"/>
   </svg>
@@ -47,7 +47,7 @@
   </div>
 
   <!-- AO→툴 라벨 -->
-  <div style="position:absolute; left:20%; top:19.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
+  <div style="position:absolute; left:21.5%; top:19.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">Plan-scoped<br>tool calls</div>
 
   <!-- ── Grounding Context 존 (좌하단) ── -->
@@ -68,45 +68,45 @@
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">Assembled<br>context</div>
 
   <!-- ── Tool Layer 존 ── -->
-  <div class="dg-zone dg-zone--accent" style="left:24%;top:8%;width:26%;height:80%">
+  <div class="dg-zone dg-zone--accent" style="left:27%;top:8%;width:26%;height:80%">
     <span class="dg-zone-label">Tool Layer</span>
   </div>
 
-  <div class="dg-node" style="left:26%;top:14%;width:22%">
+  <div class="dg-node" style="left:29%;top:14%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/search}}</span><span class="dg-t">Document Search</span></div>
     <p class="dg-s">keyword + vector, RRF fusion</p>
   </div>
-  <div class="dg-node" style="left:26%;top:32%;width:22%">
+  <div class="dg-node" style="left:29%;top:32%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
     <p class="dg-s">terminology lookup</p>
   </div>
-  <div class="dg-node" style="left:26%;top:50%;width:22%">
+  <div class="dg-node" style="left:29%;top:50%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/calculator}}</span><span class="dg-t">Quantitative Query</span></div>
     <p class="dg-s">Analytics over OLTP · OLAP</p>
   </div>
-  <div class="dg-node" style="left:26%;top:68%;width:22%">
+  <div class="dg-node" style="left:29%;top:68%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
     <p class="dg-s">original file retrieval</p>
   </div>
 
   <!-- ── Data Stores 존 ── -->
-  <div class="dg-zone" style="left:58%;top:8%;width:27%;height:80%">
+  <div class="dg-zone" style="left:63%;top:8%;width:32%;height:80%">
     <span class="dg-zone-label">Data Stores</span>
   </div>
 
-  <div class="dg-node" style="left:60%;top:14%;width:23%">
+  <div class="dg-node" style="left:65.5%;top:14%;width:27%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
   </div>
-  <div class="dg-node" style="left:60%;top:29%;width:23%">
+  <div class="dg-node" style="left:65.5%;top:29%;width:27%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/box}}</span><span class="dg-t">Vector Store</span></div>
   </div>
-  <div class="dg-node" style="left:60%;top:44%;width:23%">
+  <div class="dg-node" style="left:65.5%;top:44%;width:27%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">OLTP</span></div>
   </div>
-  <div class="dg-node" style="left:60%;top:59%;width:23%">
+  <div class="dg-node" style="left:65.5%;top:59%;width:27%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/database-zap}}</span><span class="dg-t">OLAP</span></div>
   </div>
-  <div class="dg-node" style="left:60%;top:74%;width:23%">
+  <div class="dg-node" style="left:65.5%;top:74%;width:27%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
   </div>
 
