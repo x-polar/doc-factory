@@ -48,6 +48,8 @@
     <path class="e" d="M710,358 L795,368" marker-end="url(#ahm)"/>
 
 
+    <!-- External Interface → Ingestion -->
+    <path class="e e--accent" d="M112,500 L143,500" marker-end="url(#ah)"/>
     <!-- Ingestion 내부 단계 -->
     <path class="e" d="M262,500 L283,500" marker-end="url(#ahm)"/>
     <path class="e" d="M452,500 L473,500" marker-end="url(#ahm)"/>
@@ -142,7 +144,12 @@
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
   </div>
 
-  <!-- ══ 하단: Ingestion 존 (가로, Data Stores 좌측 밀착 · 내부 컴포넌트 TBD) ══ -->
+  <!-- External Interface (End User와 같은 레벨) -->
+  <div class="dg-node dg-node--ghost" style="left:2%;top:84.5%;width:9%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/plug-zap}}</span><span class="dg-t">External<br>Interface</span></div>
+  </div>
+
+  <!-- ══ 하단: Ingestion 존 (가로, Data Stores 좌측 밀착) ══ -->
   <div class="dg-zone" style="left:13%;top:82%;width:63%;height:14%">
     <span class="dg-zone-label">Ingestion Pipeline</span>
   </div>
