@@ -1,12 +1,10 @@
 ---
-title: "KORI Answers"
+title: "KORI Answers Architecture"
 layout: diagram
-diagram: diagrams/hero.html
+diagram: diagrams/architecture-flat.html
 source: [kori-arch]
 ---
 
 ## notes
-히어로: G-레벨 6개 + X 밴드만으로 전체 흐름 제시 (v0.1 D24).
-User → Service Gateway → Agent Core ⇄ (Inference Serving / Tool Layer) →
-Data Layer, Ingestion ⇢ Data Layer. Deterministic Security가 G1·G2·G4 관통.
-레이블 영어 전용. 상세는 2~7장 드릴다운.
+v0.1 기준 메인 다이어그램 (플랫 비교용 초안). 전 컴포넌트, File Meta Query 미표기(D14), 선 교차 0.
+Deterministic Security는 배경 레이어(앰버), Ingestion Pipeline은 단일 덕트 + 점선 적재, 교체 가능 8종 ⇄ 표기(D20).
