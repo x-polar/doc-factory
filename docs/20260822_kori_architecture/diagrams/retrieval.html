@@ -4,15 +4,6 @@
      좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6). -->
 <div class="dg-canvas">
 
-  <!-- PLAN SCOPE 게이트 (민트 세로 스트립) — AO와 Tool Layer 사이 -->
-  <div style="position:absolute; left:17.5%; top:8%; width:5%; height:40%;
-              background:color-mix(in srgb, #22FFBD 5%, transparent);
-              border:1.2px dashed color-mix(in srgb, #22FFBD 45%, transparent);
-              border-radius:10px; z-index:0;"></div>
-  <div style="position:absolute; left:20%; top:6.2%; z-index:2; padding:0.01in 0.08in;
-              font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
-              color:#000; background:#22FFBD; transform:translateX(-50%); white-space:nowrap;">PLAN SCOPE</div>
-
   <!-- ACL Pre-filter 게이트 (앰버 세로 스트립) -->
   <div style="position:absolute; left:55%; top:8%; width:5%; height:80%;
               background:color-mix(in srgb, #FFB224 6.5%, transparent);
@@ -34,15 +25,15 @@
 
     <!-- 툴 → 스토어 (그레이 무향, ACL 게이트 관통) -->
     <!-- DS(중심 y106) → Keyword(101) / Vector(185) -->
-    <path class="e" d="M480,100 L670,100"/>
-    <path class="e" d="M480,116 L560,116 L560,185 L670,185"/>
+    <path class="e" d="M480,100 L665,100"/>
+    <path class="e" d="M480,116 L560,116 L560,185 L665,185"/>
     <!-- DD(207) → OLTP(269) -->
-    <path class="e" d="M480,207 L570,207 L570,262 L670,262"/>
+    <path class="e" d="M480,207 L570,207 L570,262 L665,262"/>
     <!-- QQ(308) → OLTP(269) / OLAP(353) -->
-    <path class="e" d="M480,300 L580,300 L580,276 L670,276"/>
-    <path class="e" d="M480,316 L588,316 L588,353 L670,353"/>
+    <path class="e" d="M480,300 L580,300 L580,276 L665,276"/>
+    <path class="e" d="M480,316 L588,316 L588,353 L665,353"/>
     <!-- DP(409) → File(437) -->
-    <path class="e" d="M480,409 L595,409 L595,437 L670,437"/>
+    <path class="e" d="M480,409 L595,409 L595,437 L665,437"/>
 
     <!-- 툴 결과 → Grounding Context (민트): Tool 존 좌하단 → GC 존 우변 -->
     <path class="e e--accent" d="M240,430 L202,430" marker-end="url(#ah)"/>
@@ -54,6 +45,10 @@
   <div class="dg-node dg-node--ghost" style="left:3%;top:22%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent Orchestrator</span></div>
   </div>
+
+  <!-- AO→Tool 라벨: principal 휴대 (2장과 동일 문법) -->
+  <div style="position:absolute; left:19.9%; top:20.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Principal-bound<br>tool calls</div>
 
   <!-- ── Grounding Context 존 (좌하단) ── -->
   <div class="dg-zone" style="left:3%;top:50%;width:17%;height:38%">
@@ -95,23 +90,23 @@
   </div>
 
   <!-- ── Data Stores 존 ── -->
-  <div class="dg-zone" style="left:65%;top:8%;width:30%;height:80%">
+  <div class="dg-zone" style="left:65%;top:8%;width:16%;height:80%">
     <span class="dg-zone-label">Data Stores</span>
   </div>
 
-  <div class="dg-node" style="left:67%;top:14%;width:26%">
+  <div class="dg-node" style="left:66.5%;top:14%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
   </div>
-  <div class="dg-node" style="left:67%;top:29%;width:26%">
+  <div class="dg-node" style="left:66.5%;top:29%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/box}}</span><span class="dg-t">Vector Store</span></div>
   </div>
-  <div class="dg-node" style="left:67%;top:44%;width:26%">
+  <div class="dg-node" style="left:66.5%;top:44%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">OLTP</span></div>
   </div>
-  <div class="dg-node" style="left:67%;top:59%;width:26%">
+  <div class="dg-node" style="left:66.5%;top:59%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/database-zap}}</span><span class="dg-t">OLAP</span></div>
   </div>
-  <div class="dg-node" style="left:67%;top:74%;width:26%">
+  <div class="dg-node" style="left:66.5%;top:74%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
   </div>
 
