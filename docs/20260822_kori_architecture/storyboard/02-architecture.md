@@ -1,5 +1,5 @@
 ---
-title: "전체 아키텍처 — 에이전트 루프가 검색·모델·보안을 오케스트레이션한다"
+title: "KORI Answers Architecture"
 layout: diagram
 diagram: diagrams/architecture-flat.html
 source: [kori-arch]
