@@ -33,7 +33,7 @@
     <path class="e e--accent" d="M492,250 L539,250" marker-end="url(#ah)"/>
     <path class="e e--accent" d="M539,272 L492,272" marker-end="url(#ah)"/>
     <!-- R6/R7: C3 ↕ C16 -->
-    <path class="e" d="M405,233 L405,100"/>
+    <path class="e e--accent" d="M405,233 L405,100"/>
     <!-- R8: C16 ↔ C5 / R9: C16 ↔ C6 -->
     <path class="e" d="M470,66 L530,44"/>
     <path class="e" d="M470,80 L530,94"/>
@@ -42,10 +42,11 @@
     <!-- 툴 그룹 → 스토어 (좌→우) -->
     <path class="e" d="M710,229 L815,212"/>
     <path class="e" d="M710,237 L815,279"/>
-    <path class="e" d="M710,280 L815,342"/>
-    <path class="e" d="M710,288 L815,409"/>
-    <path class="e" d="M710,338 L815,479"/>
-    <path class="e" d="M710,385 L815,350"/>
+    <path class="e" d="M710,287 L815,342"/>
+    <path class="e" d="M710,385 L815,479"/>
+    <path class="e" d="M710,331 L815,342"/>
+    <path class="e" d="M710,339 L815,409"/>
+    
 
 
     <!-- External Interface → Ingestion -->
@@ -69,7 +70,7 @@
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">Grounding<br>Context</div>
 
   <!-- ══ 모델 존 ══ -->
-  <div class="dg-zone" style="left:32%;top:2.5%;width:42%;height:21%">
+  <div class="dg-zone" style="left:32%;top:2.5%;width:33%;height:21%">
     <span class="dg-zone-label">Model Zone</span>
   </div>
   <div class="dg-node dg-node--accent" style="left:34%;top:7.5%;width:13%">
@@ -123,13 +124,13 @@
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-search}}</span><span class="dg-t">Document Search</span></div>
   </div>
   <div class="dg-node" style="left:56.5%;top:48%;width:14.5%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sigma}}</span><span class="dg-t">Quantitative Query</span></div>
-  </div>
-  <div class="dg-node" style="left:56.5%;top:57%;width:14.5%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
   <div class="dg-node" style="left:56.5%;top:66%;width:14.5%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
+  </div>
+  <div class="dg-node" style="left:56.5%;top:57%;width:14.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sigma}}</span><span class="dg-t">Quantitative Query</span></div>
   </div>
 
   <!-- ══ 데이터 존 (스토어 4) ══ -->
