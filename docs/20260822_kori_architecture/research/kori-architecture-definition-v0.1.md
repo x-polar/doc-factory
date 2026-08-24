@@ -1,6 +1,6 @@
 # KORI Answers 아키텍처 — 구성 요소·관계 정의 v0.1
 
-다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D34)으로만 보존한다.
+다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D35)으로만 보존한다.
 
 컴포넌트는 **이름으로 참조**한다. 임의 부여 ID(구 C·R 번호)는 D26으로 폐기 — §4 결정 이력 안의 구 ID 표기는 당시 기록 그대로 동결한다. 그룹 키(G1~G6·X, T1~T3)는 유지한다.
 
@@ -161,3 +161,4 @@ Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Conversio
 | D32 | 메인 다이어그램 Tool Layer 표기 순서 = Document Search → Domain Dictionary → Quantitative Query → Document Provider (스토어 타깃 순서와 일치시켜 관계선 교차 제거). MG↔Orchestrator 선은 민트(런타임 경로 일관) |
 | D33 | Agent Loop 드릴다운(2장): Tool Layer·Model Gateway는 AO 존 밖 고스트 — Model Gateway 호출선은 AO 존 경계에서 출발(특정 단계 아닌 오케스트레이터 레벨 호출, 거의 모든 단계가 모델을 호출하므로). 성공 경로 'Verified answer' 라벨을 AO→CG 리턴선에 표기, 실패 경로 'Re-planning on failure'와 대구 |
 | D34 | Agent Loop 구성: End User·Compliance Gateway는 AO 존 좌측(수평 왕복: Principal-bound request→ / ←Verified answer), Tool Layer·Model Gateway는 상단 고스트. AO 존 내 루프 5칩에 ①~⑤ 뱃지(⑤만 앰버)+영문 캡션 1줄, CG는 책임 4종 리스트(Authn·Authz·Audit·Observability). Deterministic Security 밴드 미표시(3장 소재) — Validation 앰버 테두리·뱃지로만 암시. Tool Layer↕Tool Orchestration 무향, MG 호출선은 AO 존 경계 출발 |
+| D35 | Ingestion 진입 액터 2종: External Interface(배치 동기화) 외에 End User 직접 업로드 경로 추가 — 두 액터가 Conversion으로 합류. 4장 드릴다운에서 Queue·Worker(D5·D28 Summarization 내부 구현) 명시 표기, 스토어 배열은 적재 순서(OLTP·File·Vector·Keyword·OLAP), OLAP는 무연결(적재 대상 아님) |
