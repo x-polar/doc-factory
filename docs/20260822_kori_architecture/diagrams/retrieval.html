@@ -21,22 +21,22 @@
     </defs>
 
     <!-- AO → Tool Layer 존 (민트, 호출) -->
-    <path class="e e--accent" d="M160,150 L268,150" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M160,150 L238,150" marker-end="url(#ah)"/>
 
     <!-- 툴 → 스토어 (그레이 무향, ACL 게이트 관통) -->
     <!-- DS(중심 y106) → Keyword(101) / Vector(185) -->
-    <path class="e" d="M510,100 L655,100"/>
-    <path class="e" d="M510,116 L575,116 L575,185 L655,185"/>
+    <path class="e" d="M480,100 L670,100"/>
+    <path class="e" d="M480,116 L570,116 L570,185 L670,185"/>
     <!-- DD(207) → OLTP(269) -->
-    <path class="e" d="M510,207 L590,207 L590,262 L655,262"/>
+    <path class="e" d="M480,207 L595,207 L595,262 L670,262"/>
     <!-- QQ(308) → OLTP(269) / OLAP(353) -->
-    <path class="e" d="M510,300 L600,300 L600,276 L655,276"/>
-    <path class="e" d="M510,316 L605,316 L605,353 L655,353"/>
+    <path class="e" d="M480,300 L610,300 L610,276 L670,276"/>
+    <path class="e" d="M480,316 L620,316 L620,353 L670,353"/>
     <!-- DP(409) → File(437) -->
-    <path class="e" d="M510,409 L610,409 L610,437 L655,437"/>
+    <path class="e" d="M480,409 L630,409 L630,437 L670,437"/>
 
     <!-- 툴 결과 → Grounding Context (민트): Tool 존 좌하단 → GC 존 우변 -->
-    <path class="e e--accent" d="M270,430 L202,430" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M240,430 L202,430" marker-end="url(#ah)"/>
     <!-- GC → AO (민트 상승) -->
     <path class="e e--accent" d="M100,278 L100,190" marker-end="url(#ah)"/>
   </svg>
@@ -68,45 +68,45 @@
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">Assembled<br>context</div>
 
   <!-- ── Tool Layer 존 ── -->
-  <div class="dg-zone dg-zone--accent" style="left:27%;top:8%;width:26%;height:80%">
+  <div class="dg-zone dg-zone--accent" style="left:24%;top:8%;width:26%;height:80%">
     <span class="dg-zone-label">Tool Layer</span>
   </div>
 
-  <div class="dg-node" style="left:29%;top:14%;width:22%">
+  <div class="dg-node" style="left:26%;top:14%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/search}}</span><span class="dg-t">Document Search</span></div>
     <p class="dg-s">keyword + vector, RRF fusion</p>
   </div>
-  <div class="dg-node" style="left:29%;top:32%;width:22%">
+  <div class="dg-node" style="left:26%;top:32%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
     <p class="dg-s">terminology lookup</p>
   </div>
-  <div class="dg-node" style="left:29%;top:50%;width:22%">
+  <div class="dg-node" style="left:26%;top:50%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/calculator}}</span><span class="dg-t">Quantitative Query</span></div>
     <p class="dg-s">Analytics over OLTP · OLAP</p>
   </div>
-  <div class="dg-node" style="left:29%;top:68%;width:22%">
+  <div class="dg-node" style="left:26%;top:68%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
     <p class="dg-s">original file retrieval</p>
   </div>
 
   <!-- ── Data Stores 존 ── -->
-  <div class="dg-zone" style="left:63%;top:8%;width:32%;height:80%">
+  <div class="dg-zone" style="left:65%;top:8%;width:30%;height:80%">
     <span class="dg-zone-label">Data Stores</span>
   </div>
 
-  <div class="dg-node" style="left:65.5%;top:14%;width:27%">
+  <div class="dg-node" style="left:67%;top:14%;width:26%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
   </div>
-  <div class="dg-node" style="left:65.5%;top:29%;width:27%">
+  <div class="dg-node" style="left:67%;top:29%;width:26%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/box}}</span><span class="dg-t">Vector Store</span></div>
   </div>
-  <div class="dg-node" style="left:65.5%;top:44%;width:27%">
+  <div class="dg-node" style="left:67%;top:44%;width:26%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">OLTP</span></div>
   </div>
-  <div class="dg-node" style="left:65.5%;top:59%;width:27%">
+  <div class="dg-node" style="left:67%;top:59%;width:26%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/database-zap}}</span><span class="dg-t">OLAP</span></div>
   </div>
-  <div class="dg-node" style="left:65.5%;top:74%;width:27%">
+  <div class="dg-node" style="left:67%;top:74%;width:26%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
   </div>
 
