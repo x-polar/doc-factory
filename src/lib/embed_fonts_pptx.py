@@ -41,9 +41,12 @@ def embed(src, dst, fonts):
                 '<Default Extension="fntdata" ContentType="application/x-fontdata"/></Types>')
 
         lst = '<p:embeddedFontLst>' + ''.join(font_entries) + '</p:embeddedFontLst>'
-        # embeddedFontLst는 sldMasterIdLst 앞에 위치해야 함
-        assert '<p:sldMasterIdLst>' in pres
-        pres = pres.replace('<p:sldMasterIdLst>', lst + '<p:sldMasterIdLst>')
+        # CT_Presentation 스키마 순서: ...sldIdLst, sldSz, notesSz, [smartTags], embeddedFontLst...
+        # → notesSz 닫힌 직후에 삽입해야 PowerPoint가 연다
+        import re as _re
+        m = _re.search(r'<p:notesSz[^>]*/>|<p:notesSz[^>]*>.*?</p:notesSz>', pres)
+        assert m, 'notesSz not found'
+        pres = pres[:m.end()] + lst + pres[m.end():]
         # embedTrueTypeFonts 속성
         pres = pres.replace('<p:presentation ',
                             '<p:presentation embedTrueTypeFonts="1" ', 1)
