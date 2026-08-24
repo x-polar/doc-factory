@@ -129,7 +129,7 @@ for z in d['zones']:
         lr = z['lblRect']
         lbl = txbox(lr['x'], lr['y'], lr['w'] + 0.35, lr['h'], z['label'],
                     px2pt(z['lblSize']), css_rgb(z['lblColor']), bold=True,
-                    font='Tomorrow', spacing=1.2)
+                    font='Pretendard', spacing=0.45)
         # 배경색으로 경계선 위에 얹힘 (dg-zone-label은 배경을 슬라이드색으로 가짐)
         lbl.fill.solid(); lbl.fill.fore_color.rgb = RGBColor(*BG)
         lbl.line.fill.background()
@@ -157,8 +157,8 @@ for L in d['labels']:
     tb = txbox(L['x'] - 0.02, L['y'], L['w'] + 0.55, L['h'] + 0.02, text if is_badge else L['html'],
                px2pt(L['size']), css_rgb(L['color']),
                bold=(L['weight'] in ('700', 'bold')), align=align,
-               font='Tomorrow' if is_badge else 'Pretendard',
-               spacing=0.6 if is_badge else None, line_spacing=0.95)
+               font='Pretendard',
+               spacing=0.5 if is_badge else None, line_spacing=0.95)
     tb.text_frame.word_wrap = False
     if is_badge:
         tb.fill.solid(); tb.fill.fore_color.rgb = RGBColor(*rgb)
@@ -237,7 +237,7 @@ for n in d['nodes']:
         tr = n['tRect']
         ttb = txbox(tr['x'], tr['y'], tr['w'] + 0.4, tr['h'] + 0.02, n['title'],
               px2pt(n['tSize']), css_rgb(n['tColor']), bold=(n['tWeight'] == '700'),
-              font='Tomorrow', line_spacing=0.98)
+              font='Pretendard', line_spacing=0.98)
         ttb.text_frame.word_wrap = False
         ttb.text_frame.auto_size = None
     # 설명 (dg-s)
