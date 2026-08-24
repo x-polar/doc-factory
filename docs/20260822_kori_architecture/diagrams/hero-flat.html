@@ -1,0 +1,112 @@
+<!-- KORI Answers HERO — FLAT variant (v0.1 D24, G-level)
+     Flat dark grammar: dg-zone / dg-node / dg-edges.
+     Same content as iso hero: G1..G6 + X amber band (labels only, English). -->
+<div class="dg-canvas">
+
+  <!-- X · Deterministic Security — amber band across G1·G2·G4 (behind nodes) -->
+  <div class="dg-zone" style="left:0.95in; top:2.12in; width:7.05in; height:1.55in;
+       border-color:color-mix(in srgb, var(--kori-xcut) 60%, transparent);
+       background:color-mix(in srgb, var(--kori-xcut) 7%, transparent);">
+    <div class="dg-zone-label" style="left:auto; right:0.14in; top:auto; bottom:-0.09in;
+         color:var(--kori-xcut);">DETERMINISTIC SECURITY</div>
+  </div>
+
+  <!-- G3 Inference Serving zone (top) -->
+  <div class="dg-zone" style="left:3.05in; top:0.30in; width:3.55in; height:1.42in;
+       border-color:color-mix(in srgb, #8A8A8A 50%, transparent);">
+    <div class="dg-zone-label" style="color:#B9B9B9;">INFERENCE SERVING</div>
+  </div>
+
+  <!-- G4 Tool Layer zone -->
+  <div class="dg-zone" style="left:5.72in; top:2.28in; width:2.05in; height:1.22in;
+       border-color:color-mix(in srgb, var(--kori-layer) 65%, transparent);">
+    <div class="dg-zone-label" style="color:var(--kori-layer);">TOOL LAYER</div>
+  </div>
+
+  <!-- G5 Data Layer zone -->
+  <div class="dg-zone" style="left:8.5in; top:1.95in; width:2.5in; height:1.9in;
+       border-color:color-mix(in srgb, var(--kori-store) 55%, transparent);">
+    <div class="dg-zone-label" style="color:var(--kori-store);">DATA LAYER</div>
+  </div>
+
+  <!-- ══ Flow edges ══ -->
+  <svg class="dg-edges" viewBox="0 0 1190 540" preserveAspectRatio="none">
+    <!-- User → Compliance Gateway -->
+    <path class="e e--accent" d="M72 292 L125 292"/>
+    <!-- Gateway → Agent Core -->
+    <path class="e e--accent" d="M283 292 L337 292"/>
+    <!-- Agent Core ↕ Model Gateway -->
+    <path class="e e--accent" d="M410 250 V146"/>
+    <!-- Agent Core → Tools -->
+    <path class="e e--accent" d="M485 292 L600 292"/>
+    <!-- Tools → Stores -->
+    <path class="e e--accent" d="M752 292 L872 292"/>
+    <!-- Ingestion ⇢ Data Layer (dashed) -->
+    <path class="e e--flow" d="M790 462 H965 V388"/>
+  </svg>
+
+  <!-- ══ Components ══ -->
+
+  <!-- C1 End User -->
+  <div style="position:absolute; left:0.28in; top:2.62in; width:0.38in; height:0.48in; z-index:2;
+              color:var(--c-accent);">
+    <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="12" cy="6.5" r="3.5"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/>
+    </svg>
+  </div>
+  <div style="position:absolute; left:0.47in; top:3.26in; transform:translateX(-50%); z-index:2;
+              font-size:8pt; font-weight:600; color:var(--c-text); white-space:nowrap;">End User</div>
+
+  <!-- G1 Compliance Gateway -->
+  <div class="dg-node" style="left:1.25in; top:2.52in; width:1.58in; height:0.8in;">
+    <div class="dg-head">
+      <div class="dg-ico" style="color:var(--c-accent);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 018 0v3.5"/></svg>
+      </div>
+      <div class="dg-t">Compliance<br>Gateway</div>
+    </div>
+  </div>
+
+  <!-- G2 Agent Core -->
+  <div class="dg-node dg-node--accent" style="left:3.37in; top:2.52in; width:1.48in; height:0.8in;
+       display:flex; align-items:center;">
+    <div class="dg-t" style="color:var(--c-accent);">Agent Core</div>
+  </div>
+
+  <!-- G3 children: Model Gateway + LLM/SLM -->
+  <div class="dg-node" style="left:3.3in; top:0.78in; width:1.5in; height:0.68in;
+       display:flex; align-items:center;">
+    <div class="dg-t">Model Gateway</div>
+  </div>
+  <div class="dg-node dg-node--ghost" style="left:5.05in; top:0.62in; width:1.3in; height:0.44in;
+       display:flex; align-items:center;">
+    <div class="dg-t" style="font-size:8pt;">LLM</div>
+  </div>
+  <div class="dg-node dg-node--ghost" style="left:5.05in; top:1.16in; width:1.3in; height:0.44in;
+       display:flex; align-items:center;">
+    <div class="dg-t" style="font-size:8pt;">SLM</div>
+  </div>
+
+  <!-- G4 child: Tools -->
+  <div class="dg-node" style="left:6.02in; top:2.52in; width:1.5in; height:0.8in;
+       display:flex; align-items:center;">
+    <div class="dg-t">Tools</div>
+  </div>
+
+  <!-- G5 child: Stores -->
+  <div class="dg-node" style="left:8.75in; top:2.52in; width:1.55in; height:0.8in;">
+    <div class="dg-head">
+      <div class="dg-ico" style="color:var(--kori-store);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+      </div>
+      <div class="dg-t">Stores</div>
+    </div>
+  </div>
+
+  <!-- G6 Ingestion Pipeline -->
+  <div class="dg-node dg-node--ghost" style="left:5.9in; top:4.35in; width:1.95in; height:0.58in;
+       display:flex; align-items:center;">
+    <div class="dg-t" style="font-size:9pt;">Ingestion Pipeline</div>
+  </div>
+
+</div>
