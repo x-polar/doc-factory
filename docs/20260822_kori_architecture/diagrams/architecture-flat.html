@@ -42,11 +42,12 @@
     <!-- R9 폴백 주석용 점선: C3 → C16 (SLM 캐시 미스) -->
     <path class="e e--flow" d="M450,233 L450,140" />
 
-    <!-- 검색 → 스토어 (R12/R13/R14/R16, 수직 정렬) -->
-    <path class="e" d="M580,262 L580,423" marker-end="url(#ahm)"/>
-    <path class="e" d="M720,262 L720,423" marker-end="url(#ahm)"/>
-    <path class="e" d="M815,332 L815,423" marker-end="url(#ahm)"/>
-    <path class="e" d="M925,332 L925,423" marker-end="url(#ahm)"/>
+    <!-- 툴 그룹 → 스토어 -->
+    <path class="e" d="M595,312 L583,423" marker-end="url(#ahm)"/>
+    <path class="e" d="M630,312 L667,423" marker-end="url(#ahm)"/>
+    <path class="e" d="M755,312 L757,423" marker-end="url(#ahm)"/>
+    <path class="e" d="M790,312 L843,423" marker-end="url(#ahm)"/>
+    <path class="e" d="M915,312 L933,423" marker-end="url(#ahm)"/>
 
     <!-- R5: C2 → C7 fetch.document (하단 우회, 점선) -->
     <path class="e e--flow" d="M180,308 L180,400 L555,400 L555,388" marker-end="url(#ahm)"/>
@@ -59,29 +60,29 @@
     <text x="509" y="228" text-anchor="middle">Tool Invocation</text>
     <text x="509" y="330" text-anchor="middle">Context Slots</text>
     <text x="396" y="180" text-anchor="end">OpenAI Compatible API</text>
-    <text x="475" y="207" fill="#8A8A8A">SLM fallback (cache miss)</text>
-    <text x="585" y="410">Keyword Query</text>
-    <text x="725" y="410">Vector Query</text>
-    <text x="820" y="410">SQL (principal)</text>
-    <text x="930" y="410">File Fetch</text>
+    <text x="460" y="152" fill="#8A8A8A">SLM fallback (cache miss)</text>
+    <text x="600" y="386" text-anchor="end">Keyword Query</text>
+    <text x="672" y="410">Vector Query</text>
+    <text x="800" y="382" text-anchor="middle">SQL (principal)</text>
+    <text x="938" y="410">File Fetch</text>
     <text x="368" y="414" text-anchor="middle">fetch.document — on-demand reference (no planning loop)</text>
     <text x="468" y="468" text-anchor="middle">Load</text>
   </svg>
 
   <!-- ══ 모델 존 ══ -->
   <div class="dg-zone" style="left:32%;top:2.5%;width:42%;height:21%">
-    <span class="dg-zone-label">Model Zone — 온프렘/외부 API 선택 배포</span>
+    <span class="dg-zone-label">Model Zone</span>
   </div>
   <div class="dg-node dg-node--accent" style="left:34%;top:6%;width:13%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model Gateway ⇄</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model Gateway</span></div>
     <p class="dg-s">Routing · Logging</p>
   </div>
   <div class="dg-node" style="left:53%;top:3.5%;width:9.5%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkles}}</span><span class="dg-t">LLM ⇄</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkles}}</span><span class="dg-t">LLM</span></div>
     <p class="dg-s">Plan &amp; answer generation</p>
   </div>
   <div class="dg-node" style="left:53%;top:14%;width:9.5%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkle}}</span><span class="dg-t">SLM ⇄</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkle}}</span><span class="dg-t">SLM</span></div>
     <p class="dg-s">Summarization</p>
   </div>
 
@@ -106,47 +107,43 @@
 
   <!-- ══ C7 Retrieval Layer 존 ══ -->
   <div class="dg-zone dg-zone--accent" style="left:53%;top:36%;width:45%;height:33%">
-    <span class="dg-zone-label">Tool Layer — Document Search · Quantitative Query · Document Provider</span>
+    <span class="dg-zone-label">Tool Layer</span>
   </div>
-  <div class="dg-node" style="left:55%;top:41%;width:8.5%">
-    <div class="dg-head"><span class="dg-t">Lexical</span></div>
-    <p class="dg-s">Lexical / BM25</p>
+  <div class="dg-node" style="left:55%;top:46%;width:12.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-search}}</span><span class="dg-t">Document Search</span></div>
+    <p class="dg-s">search.hybrid · lexical · semantic</p>
   </div>
-  <div class="dg-node" style="left:68%;top:41%;width:8.5%">
-    <div class="dg-head"><span class="dg-t">Semantic</span></div>
-    <p class="dg-s">벡터 유사도</p>
+  <div class="dg-node" style="left:70.5%;top:46%;width:12.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sigma}}</span><span class="dg-t">Quantitative Query</span></div>
+    <p class="dg-s">query.quantitative</p>
   </div>
-  <div class="dg-node" style="left:60.5%;top:53.5%;width:11%">
-    <div class="dg-head"><span class="dg-t">Fusion &amp; Rank</span></div>
-    <p class="dg-s">Fusion &amp; Rank — RRF · hybrid only</p>
-  </div>
-  <div class="dg-node" style="left:77.5%;top:53.5%;width:8.5%">
-    <div class="dg-head"><span class="dg-t">Quantitative</span></div>
-    <p class="dg-s">Structured query · OLTP/OLAP</p>
-  </div>
-  <div class="dg-node" style="left:88.5%;top:53.5%;width:8.5%">
-    <div class="dg-head"><span class="dg-t">Document Provider</span></div>
-    <p class="dg-s">SPI · meta → file</p>
+  <div class="dg-node" style="left:86%;top:46%;width:11%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
+    <p class="dg-s">fetch.document</p>
   </div>
 
   <!-- ══ 데이터 존 (스토어 4) ══ -->
   <div class="dg-zone" style="left:53%;top:75.5%;width:45%;height:20.5%">
     <span class="dg-zone-label">Data Stores</span>
   </div>
-  <div class="dg-node" style="left:54.5%;top:80%;width:10%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store ⇄</span></div>
+  <div class="dg-node" style="left:54%;top:80%;width:8.2%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
     <p class="dg-s">Index + summary field</p>
   </div>
-  <div class="dg-node" style="left:65.5%;top:80%;width:10%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Vector Store ⇄</span></div>
+  <div class="dg-node" style="left:62.8%;top:80%;width:8.2%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Vector Store</span></div>
     <p class="dg-s">Vector index</p>
   </div>
-  <div class="dg-node" style="left:76.5%;top:80%;width:10%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">Structured Store ⇄</span></div>
-    <p class="dg-s">OLTP + OLAP · auth · file meta</p>
+  <div class="dg-node" style="left:71.6%;top:80%;width:8.2%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">OLTP</span></div>
+    <p class="dg-s">Auth · file meta · transactions</p>
   </div>
-  <div class="dg-node" style="left:87.5%;top:80%;width:10%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store ⇄</span></div>
+  <div class="dg-node" style="left:80.4%;top:80%;width:8.2%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database-zap}}</span><span class="dg-t">OLAP</span></div>
+    <p class="dg-s">Aggregation · analytics</p>
+  </div>
+  <div class="dg-node" style="left:89.2%;top:80%;width:8.2%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
     <p class="dg-s">Originals · via meta only</p>
   </div>
 
@@ -159,7 +156,7 @@
     <p class="dg-s">Pre-summarize at ingestion → fast response<br>Detail: separate chapter</p>
   </div>
   <div class="dg-node dg-node--ghost" style="left:26.5%;top:78.5%;width:12.5%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dict. ⇄</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
     <p class="dg-s">Terms·synonyms — query preprocess · ingest index</p>
   </div>
 
@@ -172,5 +169,5 @@
 
   <!-- 범례 -->
   <div style="position:absolute; left:2%; top:96%; z-index:3; font-size:7pt;
-              color:color-mix(in srgb, var(--c-text) 55%, transparent);">⇄ swappable (impl·plugin) · solid = runtime · dashed = on-demand/batch · ①query ②plan ③tool exec ④context ⑤validated answer</div>
+              color:color-mix(in srgb, var(--c-text) 55%, transparent);">solid = runtime · dashed = on-demand/batch · ①query ②plan ③tool exec ④context ⑤validated answer</div>
 </div>
