@@ -1,0 +1,194 @@
+<style>
+/* ---- Light Mode 오버라이드 (이 슬라이드 한정) ---- */
+.slide:has(.dg-light) {
+  background: #F7F9F8;
+  --c-background: #F7F9F8;
+  --c-text: #10201B;
+  --c-accent: #0B9E74;   /* 민트를 라이트 배경 대비용으로 딥하게 */
+  --muted: #5C6663;
+}
+.slide:has(.dg-light) .bg, .slide:has(.dg-light) .veil { display:none; }
+.slide:has(.dg-light) h1, .slide:has(.dg-light) h2,
+.slide:has(.dg-light) .slide-title, .slide:has(.dg-light) .kicker { color:#10201B; }
+.slide:has(.dg-light) .ftr .logo-sm { filter: invert(1); opacity:.75; }
+.slide:has(.dg-light) .pg { color:#5C6663; }
+.slide:has(.dg-light) .dg-node { box-shadow: 0 2px 8px rgba(16,32,27,.10); }
+</style>
+<!-- KORI Answers 메인 아키텍처 — 플랫 다크 (v0.1 D26·D27 기준)
+     좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6).
+     내부 구현 관계(File Meta Query·OLTP→OLAP 동기화) 미표기(D14).
+     DETERMINISTIC SECURITY = 앰버 배경 밴드. 교체 가능 = ⇄ (D20). -->
+<div class="dg-canvas dg-light">
+
+  <!-- ══ C14 배경 밴드 (z0) — C2·C3·C7 관통 ══ -->
+  <div style="position:absolute; left:13%; top:30%; width:63%; height:49%;
+              background:color-mix(in srgb, #FFB224 6.5%, transparent);
+              border:1.2px dashed color-mix(in srgb, #FFB224 55%, transparent);
+              border-radius:10px; z-index:0;"></div>
+  <div style="position:absolute; left:14.2%; top:27.8%; z-index:2; padding:0.01in 0.08in;
+              font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
+              color:#000; background:#FFB224;">DETERMINISTIC SECURITY LAYER</div>
+
+  <svg class="dg-edges" viewBox="0 0 1000 560" preserveAspectRatio="none">
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#0B9E74" stroke-width="1.8"/>
+      </marker>
+      <marker id="ahm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#8A8A8A" stroke-width="1.8"/>
+      </marker>
+    </defs>
+
+    <!-- R1/R2: C1 ↔ C2 -->
+    <path class="e e--accent" d="M112,250 L136,250" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M136,272 L112,272" marker-end="url(#ah)"/>
+    <!-- R3/R4: C2 ↔ C3 -->
+    <path class="e e--accent" d="M282,250 L316,250" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M316,272 L282,272" marker-end="url(#ah)"/>
+    <!-- R10/R11: C3 ↔ C7 -->
+    <path class="e e--accent" d="M492,250 L539,250" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M539,272 L492,272" marker-end="url(#ah)"/>
+    <!-- R6/R7: C3 ↕ C16 -->
+    <path class="e e--accent" d="M405,233 L405,100"/>
+    <!-- R8: C16 ↔ C5 / R9: C16 ↔ C6 -->
+    <path class="e" d="M470,66 L530,44"/>
+    <path class="e" d="M470,80 L530,94"/>
+    <!-- R9 폴백 주석용 점선: C3 → C16 (SLM 캐시 미스) -->
+
+    <!-- 툴 그룹 → 스토어 (좌→우) -->
+    <path class="e" d="M710,229 L815,212"/>
+    <path class="e" d="M710,237 L815,279"/>
+    <path class="e" d="M710,287 L815,342"/>
+    <path class="e" d="M710,385 L815,479"/>
+    <path class="e" d="M710,331 L815,342"/>
+    <path class="e" d="M710,339 L815,409"/>
+    
+
+
+    <!-- External Interface → Ingestion -->
+    <path class="e e--accent" d="M112,500 L143,500" marker-end="url(#ah)"/>
+    <!-- Ingestion 내부 단계 -->
+    <path class="e" d="M262,500 L283,500" marker-end="url(#ahm)"/>
+    <path class="e" d="M452,500 L473,500" marker-end="url(#ahm)"/>
+    <path class="e" d="M592,500 L613,500" marker-end="url(#ahm)"/>
+    <!-- Ingestion ⇢ 스토어 존 (점선 트렁크) -->
+    <path class="e e--flow e--accent" d="M762,500 L801,500" marker-end="url(#ah)"/>
+
+    <!-- 레이블 -->
+    
+    <text x="413" y="153">OpenAI Compatible API</text>
+    <text x="778" y="490" text-anchor="middle">Load</text>
+  </svg>
+
+  <div style="position:absolute; left:51.4%; top:39%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Tool<br>Invocation</div>
+  <div style="position:absolute; left:52.2%; top:50.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Grounding<br>Context</div>
+
+  <!-- ══ 모델 존 ══ -->
+  <div class="dg-zone" style="left:32%;top:2.5%;width:33%;height:21%">
+    <span class="dg-zone-label">Model Zone</span>
+  </div>
+  <div class="dg-node dg-node--accent" style="left:34%;top:7.5%;width:13%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model<br>Gateway</span></div>
+    <p class="dg-s">Routing · Logging</p>
+  </div>
+  <div class="dg-node" style="left:53%;top:5%;width:9.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkles}}</span><span class="dg-t">LLM</span></div>
+    
+
+  </div>
+  <div class="dg-node" style="left:53%;top:14.5%;width:9.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sparkle}}</span><span class="dg-t">SLM</span></div>
+    
+
+  </div>
+
+  <!-- ══ 메인 행: C1 → C2 → C3 → C7 ══ -->
+  <div class="dg-node dg-node--ghost" style="left:2%;top:42%;width:9%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/user}}</span><span class="dg-t">End User</span></div>
+    
+
+  </div>
+
+  <div class="dg-node" style="left:14%;top:42%;width:14%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/shield-check}}</span><span class="dg-t">Compliance Gateway</span></div>
+    <ul class="dg-items">
+      <li>Authentication</li>
+      <li>Authorization</li>
+      <li>Audit</li>
+      <li>Observability</li>
+    </ul>
+  </div>
+
+  <div class="dg-node dg-node--accent" style="left:32%;top:42%;width:17%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent<br>Orchestrator</span></div>
+    <ul class="dg-items">
+      <li>Planning &amp; Re-planning</li>
+      <li>Tool Orchestration</li>
+      <li>Context Assembly</li>
+      <li>Answer Synthesis</li>
+      <li>Validation</li>
+    </ul>
+  </div>
+
+  <!-- ══ C7 Retrieval Layer 존 ══ -->
+  <div class="dg-zone dg-zone--accent" style="left:54.5%;top:34.5%;width:18.5%;height:42%">
+    <span class="dg-zone-label">Tool Layer</span>
+  </div>
+  <div class="dg-node" style="left:56.5%;top:39%;width:14.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-search}}</span><span class="dg-t">Document Search</span></div>
+  </div>
+  <div class="dg-node" style="left:56.5%;top:48%;width:14.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
+  </div>
+  <div class="dg-node" style="left:56.5%;top:66%;width:14.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
+  </div>
+  <div class="dg-node" style="left:56.5%;top:57%;width:14.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/sigma}}</span><span class="dg-t">Quantitative Query</span></div>
+  </div>
+
+  <!-- ══ 데이터 존 (스토어 4) ══ -->
+  <div class="dg-zone" style="left:80.5%;top:30%;width:17%;height:66%">
+    <span class="dg-zone-label">Data Stores</span>
+  </div>
+  <div class="dg-node" style="left:82%;top:35%;width:14%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
+  </div>
+  <div class="dg-node" style="left:82%;top:47%;width:14%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Vector Store</span></div>
+  </div>
+  <div class="dg-node" style="left:82%;top:59%;width:14%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">OLTP</span></div>
+  </div>
+  <div class="dg-node" style="left:82%;top:71%;width:14%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database-zap}}</span><span class="dg-t">OLAP</span></div>
+  </div>
+  <div class="dg-node" style="left:82%;top:83.5%;width:14%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
+  </div>
+
+  <!-- External Interface (End User와 같은 레벨) -->
+  <div class="dg-node dg-node--ghost" style="left:2%;top:84.5%;width:9%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/plug-zap}}</span><span class="dg-t">External<br>Interface</span></div>
+  </div>
+
+  <!-- ══ 하단: Ingestion 존 (가로, Data Stores 좌측 밀착) ══ -->
+  <div class="dg-zone" style="left:13%;top:82%;width:63%;height:14%">
+    <span class="dg-zone-label">Ingestion Pipeline</span>
+  </div>
+  <div class="dg-node" style="left:14.5%;top:86%;width:11.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-cog}}</span><span class="dg-t">Conversion</span></div>
+  </div>
+  <div class="dg-node" style="left:28.5%;top:86%;width:16.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/scissors-line-dashed}}</span><span class="dg-t">Semantic Chunking</span></div>
+  </div>
+  <div class="dg-node" style="left:47.5%;top:86%;width:11.5%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/list-tree}}</span><span class="dg-t">Indexing</span></div>
+  </div>
+  <div class="dg-node" style="left:61.5%;top:86%;width:13%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-quote}}</span><span class="dg-t">Summarization</span></div>
+  </div>
+
+</div>
