@@ -154,7 +154,8 @@ for L in d['labels']:
     is_badge = a > 0.5  # 앰버 라벨
     align = {'center': PP_ALIGN.CENTER}.get(L['align'], PP_ALIGN.LEFT)
     text = ' '.join(text.split()) if is_badge else text
-    tb = txbox(L['x'] - 0.02, L['y'], L['w'] + 0.55, L['h'] + 0.02, text if is_badge else L['html'],
+    ext = 0.10 if is_badge else 0.55
+    tb = txbox(L['x'] - ext / 2, L['y'], L['w'] + ext, L['h'] + 0.02, text if is_badge else L['html'],
                px2pt(L['size']), css_rgb(L['color']),
                bold=(L['weight'] in ('700', 'bold')), align=align,
                font='Pretendard',
