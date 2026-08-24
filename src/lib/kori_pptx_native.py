@@ -127,12 +127,13 @@ for z in d['zones']:
     # 존 라벨 (경계 위 칩)
     if z['label'] and z['lblRect']:
         lr = z['lblRect']
-        lbl = txbox(lr['x'], lr['y'], lr['w'] + 0.25, lr['h'], z['label'],
+        lbl = txbox(lr['x'], lr['y'], lr['w'] + 0.35, lr['h'], z['label'],
                     px2pt(z['lblSize']), css_rgb(z['lblColor']), bold=True,
                     font='Tomorrow', spacing=1.2)
         # 배경색으로 경계선 위에 얹힘 (dg-zone-label은 배경을 슬라이드색으로 가짐)
         lbl.fill.solid(); lbl.fill.fore_color.rgb = RGBColor(*BG)
         lbl.line.fill.background()
+        lbl.text_frame.word_wrap = False
 
 # ── 자유 라벨 (앰버 밴드 배경 + 앰버 배지 + Tool Invocation / Grounding Context) ──
 for L in d['labels']:
@@ -224,14 +225,21 @@ for n in d['nodes']:
     # 아이콘
     if n.get('icoKey') and n['icoRect']:
         ir = n['icoRect']
+        iy = ir['y']
+        if n['title'] and n['tRect']:
+            lines = n['title'].count('\n') + 1
+            line_h = n['tRect']['h'] / lines
+            iy = n['tRect']['y'] + (line_h - ir['h']) / 2
         slide.shapes.add_picture(f"/tmp/kori_icons/{n['icoKey']}.png",
-                                 Inches(ir['x']), Inches(ir['y']), Inches(ir['w']), Inches(ir['h']))
+                                 Inches(ir['x']), Inches(iy), Inches(ir['w']), Inches(ir['h']))
     # 제목
     if n['title'] and n['tRect']:
         tr = n['tRect']
-        txbox(tr['x'], tr['y'] - 0.02, tr['w'] + 0.15, tr['h'] + 0.04, n['title'],
+        ttb = txbox(tr['x'], tr['y'], tr['w'] + 0.4, tr['h'] + 0.02, n['title'],
               px2pt(n['tSize']), css_rgb(n['tColor']), bold=(n['tWeight'] == '700'),
               font='Tomorrow', line_spacing=0.98)
+        ttb.text_frame.word_wrap = False
+        ttb.text_frame.auto_size = None
     # 설명 (dg-s)
     if n['sub']:
         sy = (n['tRect']['y'] + n['tRect']['h'] + 0.03) if n['tRect'] else n['y'] + 0.3
