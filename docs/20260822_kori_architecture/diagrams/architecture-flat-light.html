@@ -13,6 +13,16 @@
 .slide:has(.dg-light) .ftr .logo-sm { filter: invert(1); opacity:.75; }
 .slide:has(.dg-light) .pg { color:#5C6663; }
 .slide:has(.dg-light) .dg-node { box-shadow: 0 2px 8px rgba(16,32,27,.10); }
+/* 회색 계통 외곽선·연결선을 라이트 배경 대비로 진하게 */
+.slide:has(.dg-light) .dg-node {
+  border-color: color-mix(in srgb, var(--c-text) 42%, transparent);
+}
+.slide:has(.dg-light) .dg-zone {
+  border-color: color-mix(in srgb, var(--c-text) 52%, transparent);
+}
+.slide:has(.dg-light) svg.dg-edges .e {
+  stroke: color-mix(in srgb, var(--c-text) 68%, transparent);
+}
 </style>
 <!-- KORI Answers 메인 아키텍처 — 플랫 다크 (v0.1 D26·D27 기준)
      좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6).
@@ -35,7 +45,7 @@
         <path d="M0,1 L9,5 L0,9" fill="none" stroke="#0B9E74" stroke-width="1.8"/>
       </marker>
       <marker id="ahm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#8A8A8A" stroke-width="1.8"/>
+        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#3D4A45" stroke-width="1.8"/>
       </marker>
     </defs>
 
