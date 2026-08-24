@@ -3,11 +3,11 @@
 <div class="dg-canvas">
 
   <!-- 앰버 밴드: 하단 검증 영역 -->
-  <div style="position:absolute; left:20%; top:62%; width:77%; height:23%;
+  <div style="position:absolute; left:12%; top:62%; width:85%; height:23%;
               background:color-mix(in srgb, #FFB224 6.5%, transparent);
               border:1.2px dashed color-mix(in srgb, #FFB224 55%, transparent);
               border-radius:10px; z-index:0;"></div>
-  <div style="position:absolute; left:21.2%; top:60.8%; z-index:2; padding:0.01in 0.08in;
+  <div style="position:absolute; left:13.2%; top:60.8%; z-index:2; padding:0.01in 0.08in;
               font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
               color:#000; background:#FFB224;">DETERMINISTIC SECURITY LAYER</div>
 
@@ -25,31 +25,31 @@
     </defs>
 
     <!-- 상단 런타임 경로: End User ↔ CG ↔ AO 존 -->
-    <path class="e e--accent" d="M120,120 L165,120" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M165,142 L120,142" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M320,120 L368,120" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M368,142 L320,142" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M115,120 L168,120" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M168,142 L117,142" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M315,120 L368,120" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M368,142 L317,142" marker-end="url(#ah)"/>
 
     <!-- 루프 칩 사이 (민트): P → TO → CA → AS → V -->
-    <path class="e e--accent" d="M488,194 L512,194" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M613,194 L637,194" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M740,194 L762,194" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M863,194 L887,194" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M485,194 L513,194" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M610,194 L638,194" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M735,194 L763,194" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M860,194 L888,194" marker-end="url(#ah)"/>
 
     <!-- 외부 접점 (그레이, 수직): TO ↑ Tool Layer / AS ↑ Model Gateway -->
-    <path class="e" d="M562,166 L562,124" marker-end="url(#ahm)"/>
-    <path class="e" d="M812,166 L812,124" marker-end="url(#ahm)"/>
+    <path class="e" d="M565,168 L565,122" marker-end="url(#ahm)"/>
+    <path class="e" d="M816,168 L816,122" marker-end="url(#ahm)"/>
 
     <!-- 검증 접점 (앰버, 하향): Planning → Plan Check / Validation → Answer Check -->
-    <path class="e e--flow" style="stroke:#FFB224" d="M437,224 L437,388" marker-end="url(#aha)"/>
-    <path class="e e--flow" style="stroke:#FFB224" d="M927,224 L927,388" marker-end="url(#aha)"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M436,224 L436,390" marker-end="url(#aha)"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M924,224 L924,390" marker-end="url(#aha)"/>
 
     <!-- fail 회귀 (앰버 점선): Answer Check → (하단 좌행) → Planning 좌측 -->
-    <path class="e e--flow" style="stroke:#FFB224" d="M865,462 L360,462"/>
-    <path class="e e--flow" style="stroke:#FFB224" d="M360,462 L360,194 L385,194" marker-end="url(#aha)"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M920,469 L920,490 L360,490"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M360,490 L360,194 L386,194" marker-end="url(#aha)"/>
 
     <!-- 라벨 -->
-    <text x="612" y="452" text-anchor="middle">Re-planning on failure</text>
+    <text x="640" y="510" text-anchor="middle">Re-planning on failure</text>
   </svg>
 
   <!-- ── 상단 행 ── -->
@@ -62,7 +62,7 @@
   </div>
 
   <!-- AO 존 -->
-  <div class="dg-zone" style="left:37%;top:10%;width:60%;height:38%">
+  <div class="dg-zone" style="left:37%;top:10%;width:60%;height:34%">
     <span class="dg-zone-label">Agent Orchestrator</span>
   </div>
 
