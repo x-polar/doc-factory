@@ -21,22 +21,22 @@
     </defs>
 
     <!-- AO → Tool Layer 존 (민트, 호출) -->
-    <path class="e e--accent" d="M160,150 L288,150" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M160,150 L308,150" marker-end="url(#ah)"/>
 
     <!-- 툴 → 스토어 (그레이 무향, ACL 게이트 관통) -->
     <!-- DS(중심 y106) → Keyword(101) / Vector(185) -->
-    <path class="e" d="M530,100 L775,100"/>
-    <path class="e" d="M530,116 L650,116 L650,185 L775,185"/>
+    <path class="e" d="M550,100 L775,100"/>
+    <path class="e" d="M550,116 L650,116 L650,185 L775,185"/>
     <!-- DD(207) → OLTP(269) -->
-    <path class="e" d="M530,207 L660,207 L660,262 L775,262"/>
+    <path class="e" d="M550,207 L660,207 L660,262 L775,262"/>
     <!-- QQ(308) → OLTP(269) / OLAP(353) -->
-    <path class="e" d="M530,300 L670,300 L670,276 L775,276"/>
-    <path class="e" d="M530,316 L678,316 L678,353 L775,353"/>
+    <path class="e" d="M550,300 L670,300 L670,276 L775,276"/>
+    <path class="e" d="M550,316 L678,316 L678,353 L775,353"/>
     <!-- DP(409) → File(437) -->
-    <path class="e" d="M530,409 L685,409 L685,437 L775,437"/>
+    <path class="e" d="M550,409 L685,409 L685,437 L775,437"/>
 
     <!-- 툴 결과 → Grounding Context (민트): Tool 존 좌하단 → GC 존 우변 -->
-    <path class="e e--accent" d="M290,430 L202,430" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M310,430 L202,430" marker-end="url(#ah)"/>
     <!-- GC → AO (민트 상승) -->
     <path class="e e--accent" d="M100,278 L100,190" marker-end="url(#ah)"/>
   </svg>
@@ -47,7 +47,7 @@
   </div>
 
   <!-- AO→Tool 라벨: principal 휴대 (2장과 동일 문법) -->
-  <div style="position:absolute; left:22.4%; top:20.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
+  <div style="position:absolute; left:23.4%; top:20.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">Principal-bound<br>tool calls</div>
 
   <!-- ── Grounding Context 존 (좌하단) ── -->
@@ -68,23 +68,23 @@
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">Assembled<br>context</div>
 
   <!-- ── Tool Layer 존 ── -->
-  <div class="dg-zone dg-zone--accent" style="left:29%;top:8%;width:26%;height:80%">
+  <div class="dg-zone dg-zone--accent" style="left:31%;top:8%;width:26%;height:80%">
     <span class="dg-zone-label">Tool Layer</span>
   </div>
 
-  <div class="dg-node" style="left:31%;top:14%;width:22%">
+  <div class="dg-node" style="left:33%;top:14%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/search}}</span><span class="dg-t">Document Search</span></div>
     <p class="dg-s">keyword + vector, RRF fusion</p>
   </div>
-  <div class="dg-node" style="left:31%;top:32%;width:22%">
+  <div class="dg-node" style="left:33%;top:32%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
     <p class="dg-s">terminology lookup</p>
   </div>
-  <div class="dg-node" style="left:31%;top:50%;width:22%">
+  <div class="dg-node" style="left:33%;top:50%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/calculator}}</span><span class="dg-t">Quantitative Query</span></div>
     <p class="dg-s">Analytics over OLTP · OLAP</p>
   </div>
-  <div class="dg-node" style="left:31%;top:68%;width:22%">
+  <div class="dg-node" style="left:33%;top:68%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
     <p class="dg-s">original file retrieval</p>
   </div>
