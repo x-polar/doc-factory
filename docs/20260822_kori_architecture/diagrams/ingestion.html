@@ -24,11 +24,14 @@
 
     <!-- Summarization → Queue 컨테이너 (민트 하강) -->
     <path class="e e--accent" d="M815,168 L815,208" marker-end="url(#ah)"/>
+    <!-- Queue → Worker (민트) -->
+    <path class="e e--accent" d="M822,238 L838,238" marker-end="url(#ah)"/>
+
     <!-- Worker → Model Gateway (민트 우상향) -->
-    <path class="e e--accent" d="M920,247 L950,247 L950,162" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M920,247 L960,247 L960,164" marker-end="url(#ah)"/>
 
     <!-- Semantic Chunking ⇢ Domain Dictionary (그레이 점선 참조, 하강) -->
-    <path class="e e--flow" d="M530,168 L530,300"/>
+    <path class="e e--flow" d="M530,168 L530,317"/>
 
     <!-- 적재 (그레이 무향): 스토어 상단 y=414 -->
     <!-- Registration(중심 236·252) → OLTP(115) · File(305) : 원본·메타 먼저 -->
@@ -54,7 +57,7 @@
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">batch sync</div>
 
   <!-- ── Ingestion Pipeline 존 ── -->
-  <div class="dg-zone dg-zone--accent" style="left:17%;top:8%;width:80%;height:47%">
+  <div class="dg-zone dg-zone--accent" style="left:17%;top:8%;width:74%;height:47%">
     <span class="dg-zone-label">Ingestion Pipeline</span>
   </div>
 
@@ -65,7 +68,7 @@
   <div class="dg-node" style="left:33%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Conversion</span></div>
   </div>
-  <div class="dg-node" style="left:47.3%;top:17%;width:11.5%">
+  <div class="dg-node" style="left:47.3%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Semantic<br>Chunking</span></div>
   </div>
   <div class="dg-node" style="left:61.6%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
@@ -108,11 +111,11 @@
   <div class="dg-node" style="left:84%;top:39.5%;width:8%">
     <div class="dg-head"><span class="dg-t">Worker</span></div>
   </div>
-  <div style="position:absolute; left:73%; top:51.5%; width:20%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:71%; top:51.5%; width:15%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">event-driven; re-registration replaces old summary</div>
 
   <!-- Model Gateway 고스트 (존 밖 우상단) -->
-  <div class="dg-node dg-node--ghost" style="left:90%;top:22%;width:8.5%">
+  <div class="dg-node dg-node--ghost" style="left:92.5%;top:22%;width:7%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Model<br>Gateway</span></div>
   </div>
 
@@ -121,7 +124,7 @@
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">domain term<br>reference</div>
 
   <!-- Domain Dictionary 고스트 (존 밖 중단) -->
-  <div class="dg-node dg-node--ghost" style="left:47.5%;top:54%;width:11%">
+  <div class="dg-node dg-node--ghost" style="left:47.5%;top:57%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
 
