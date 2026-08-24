@@ -1,6 +1,6 @@
 # KORI Answers 아키텍처 — 구성 요소·관계 정의 v0.1
 
-다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D30)으로만 보존한다.
+다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D31)으로만 보존한다.
 
 컴포넌트는 **이름으로 참조**한다. 임의 부여 ID(구 C·R 번호)는 D26으로 폐기 — §4 결정 이력 안의 구 ID 표기는 당시 기록 그대로 동결한다. 그룹 키(G1~G6·X, T1~T3)는 유지한다.
 
@@ -84,7 +84,7 @@ End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 
 | 방향 | 레이블 |
 |---|---|
 | Agent Orchestrator → G4 | Tool Invocation — 플랜 지정 툴 + principal |
-| G4 → Agent Orchestrator | Context Slots — ① Document Context (융합·랭킹 문서 + 요약 필드) ② Structured Data (+ 쿼리 ID·대상 테이블 메타 = 답변 출처) |
+| G4 → Agent Orchestrator | Grounding Context — ① Document Context (융합·랭킹 문서 + 요약 필드) ② Structured Data (+ 쿼리 ID·대상 테이블 메타 = 답변 출처). 답변 합성 프롬프트의 정해진 슬롯에 구조화 주입되어 인용 검증의 단위가 된다 |
 | Agent Orchestrator ↔ Tool Registry | Tool Discovery — 플랜 수립 시 툴 카탈로그 참조 (G2 내부, 다이어그램 표기는 드릴다운만) |
 | Lexical Retriever ↔ Keyword Store | Keyword Query / Ranked Documents |
 | Semantic Retriever ↔ Vector Store | Vector Query / Relevant Chunks |
@@ -157,3 +157,4 @@ Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Conversio
 | D28 | Ingestion Pipeline 내부를 처리 단계 4개로 재정의: Conversion → Semantic Chunking → Indexing → Summarization *(명명은 D30으로 공정 명사 통일)*. Queue·Worker는 Summarization 내부 구현으로 흡수(D8 취지 유지). 메인 다이어그램에서 존+4노드 표기 |
 | D29 | 메인 다이어그램 확정 사항 일괄 반영 — Compliance Gateway 책임 4종(Authn·Authz·Audit·Observability)·Agent Orchestrator 책임 5종(Planning & Re-planning·Tool Orchestration·Context Assembly·Answer Synthesis·Validation) 리스트 표기 / Structured Store를 메인에서 OLTP·OLAP 2노드로 분리 표기 / Domain Dictionary는 G4(Tool Layer) 소속·OLTP 조회·실선 / External Interface 액터 신설(적재 진입점, End User와 동레벨) / Load는 Data Stores 존 경계 종단·민트 화살표 / 호출 순서 번호·관계선 상세 라벨·범례 제거(상세는 드릴다운) |
 | D30 | Ingestion 단계명 공정 명사로 통일 — Converter를 **Conversion**으로 개명 (Conversion·Chunking·Indexing·Summarization) |
+| D31 | 툴 결과 반환 레이블을 **Grounding Context**로 개명(구 Context Slots) — 고객 문서 가독성. 슬롯 구조 의미는 관계 설명에 유지 |
