@@ -21,9 +21,13 @@
 | # | slug | action title | 시각 자료 |
 |---|---|---|---|
 | 1 | 01-hero | KORI Answers Architecture | **플랫 메인 다이어그램** (확정본 — 존 4 + Deterministic Security 밴드 + 액터 2종) |
-| 2 | 02-agent-loop | 질문은 신원을 얻고, 루프의 산출물은 검증을 통과해야 한다 | Agent Loop 다이어그램 — CG(Authn·Authz·Audit·Observability) → AO 루프 5단계(Planning & Re-planning → Tool Orchestration → Context Assembly → Answer Synthesis → Validation) + Deterministic Security 검증 접점 |
-| 3 | 03-retrieval | 플랜이 지정한 능력만, 권한 필터를 통과한 데이터만 | Retrieval 다이어그램 — 툴 4종(Document Search·Domain Dictionary·Quantitative Query·Document Provider) → 스토어 5종, RRF 융합, ACL pre-filter, Grounding Context 슬롯 조립 |
-| 4 | 04-ingestion | 응답 속도는 등록 시점에 결정된다 — 적재 파이프라인 4단계 | Ingestion 다이어그램 — External Interface → Conversion(File Store·OLTP) → Semantic Chunking(DD 참조) → Indexing(Keyword·Vector) → Summarization(SLM 배치 → Keyword Store) |
+| 2 | 02-agent-loop | Agent Loop *(lede: 질문은 신원을 얻고, 루프의 산출물은 검증을 통과해야 한다)* | Agent Loop 다이어그램 — CG(Authn·Authz·Audit·Observability) → AO 루프 5단계(Planning & Re-planning → Tool Orchestration → Context Assembly → Answer Synthesis → Validation) + Deterministic Security 검증 접점 |
+| 3 | 03-retrieval | Retrieval Workflow *(lede: 플랜이 지정한 능력만, 권한 필터를 통과한 데이터만)* | Retrieval 다이어그램 — 툴 4종(Document Search·Domain Dictionary·Quantitative Query·Document Provider) → 스토어 5종, RRF 융합, ACL pre-filter, Grounding Context 슬롯 조립 |
+| 4 | 04-ingestion | Ingestion Pipeline *(lede: 응답 속도는 등록 시점에 결정된다)* | Ingestion 다이어그램 — External Interface → Conversion(File Store·OLTP) → Semantic Chunking(DD 참조) → Indexing(Keyword·Vector) → Summarization(SLM 배치 → Keyword Store) |
+
+## 제목 정책 (v0.3)
+- 슬라이드 제목 = **간결한 명사형** (Agent Loop / Retrieval Workflow / Ingestion Pipeline).
+- 전달 메시지는 **lede(리드 문장)**로 제목 아래 배치 — storyboard frontmatter `lede:` 사용.
 
 ## So-What 점검
 - 1장: 전체 구조 한 장 — "구조가 보장한다"는 결론의 시각적 증거.
