@@ -1,6 +1,6 @@
 # KORI Answers 아키텍처 — 구성 요소·관계 정의 v0.1
 
-다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D29)으로만 보존한다.
+다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D30)으로만 보존한다.
 
 컴포넌트는 **이름으로 참조**한다. 임의 부여 ID(구 C·R 번호)는 D26으로 폐기 — §4 결정 이력 안의 구 ID 표기는 당시 기록 그대로 동결한다. 그룹 키(G1~G6·X, T1~T3)는 유지한다.
 
@@ -23,7 +23,7 @@ End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 
 | 이름 | 그룹 | 유형 | 정의 |
 |---|---|---|---|
 | End User | 액터 | 액터 | 질문을 던지고 근거 있는 답변을 받는 최종 사용자 |
-| External Interface | 액터 | 시스템 액터 | 자료 등록·갱신의 진입점 — 사내 문서 시스템 등 외부 소스가 Ingestion Pipeline(Converter)으로 자료를 밀어넣는 인터페이스 |
+| External Interface | 액터 | 시스템 액터 | 자료 등록·갱신의 진입점 — 사내 문서 시스템 등 외부 소스가 Ingestion Pipeline(Conversion)으로 자료를 밀어넣는 인터페이스 |
 | Compliance Gateway Server | G1 | 애플리케이션 | 사용자와 시스템 사이의 유일한 접점. 책임 4개: **Authentication**(SSO 연동 신원 부여) · **Authorization**(권한관리 사내 통합, UI 권한 반영) · **Audit**(요청·응답 감사 기록) · **Observability**(운영 관측). 참조 문서 다운로드는 플래닝 루프를 거치지 않고 온디맨드로 제공 |
 | Agent Orchestrator | G2 | 애플리케이션 | 답변 생성의 지휘자. 책임 5개: **Planning & Re-planning**(플랜 수립·재수립) · **Tool Orchestration**(플랜 지정 툴 실행) · **Context Assembly**(툴 결과를 컨텍스트 슬롯으로 조립) · **Answer Synthesis**(근거 기반 답변 합성) · **Validation**(플랜·답변을 Deterministic Security Layer 기준으로 검증). 다이어그램은 리스트 표기 |
 | Tool Registry | G2 | 레지스트리 | 사용 가능한 툴의 카탈로그. 툴의 등록·노출·발견을 담당하며, Agent Orchestrator가 플랜 수립 시 참조한다 |
@@ -43,8 +43,8 @@ End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 
 | Vector Store | G5 | 데이터 저장소 | 청크 단위 벡터 색인 저장소 — 의미 기반 검색의 기반 |
 | File Store | G5 | 데이터 저장소 | 원본 파일 저장소. 직접 접근은 없고 반드시 Structured Store의 파일 메타를 경유해서만 접근한다 |
 | Domain Dictionary | G4 | 지원 컴포넌트 | 도메인 용어·동의어·엔티티의 단일 원천. 검색 품질의 도메인 적응 장치로, G4의 쿼리 전처리와 G6의 청킹/색인(Semantic Chunking)을 보조한다. 사전 데이터는 Structured Store(OLTP)에서 조회하며 고객사별 교체. 다이어그램에서는 Tool Layer 존 안에 배치 |
-| Ingestion Pipeline | G6 | 파이프라인 | 자료 등록·갱신을 받아 G5의 저장소에 적재하는 준비 경로. 내부는 처리 단계 4개: Converter → Semantic Chunking → Indexing → Summarization. 메인 다이어그램에서 존으로 표기 |
-| Converter | Ingestion Pipeline | 처리 단계 | 원본(PDF·Office 등) 파싱 — 텍스트·구조 추출, 메타 등록(OLTP)·원본 보존(File Store) |
+| Ingestion Pipeline | G6 | 파이프라인 | 자료 등록·갱신을 받아 G5의 저장소에 적재하는 준비 경로. 내부는 처리 단계 4개: Conversion → Semantic Chunking → Indexing → Summarization. 메인 다이어그램에서 존으로 표기 |
+| Conversion | Ingestion Pipeline | 처리 단계 | 원본(PDF·Office 등) 파싱 — 텍스트·구조 추출, 메타 등록(OLTP)·원본 보존(File Store) |
 | Semantic Chunking | Ingestion Pipeline | 처리 단계 | 의미 단위 분할. Domain Dictionary 참조로 도메인 용어 경계 보존 |
 | Indexing | Ingestion Pipeline | 처리 단계 | 키워드 색인(Keyword Store)·벡터 색인(Vector Store) 구축 |
 | Summarization | Ingestion Pipeline | 처리 단계 | 문서 요약 생성 — Model Gateway 경유 SLM 배치 호출, 요약을 Keyword Store 문서 필드에 적재. 내부 구현은 Queue + Worker(이벤트 구동, 갱신 시 기존 요약 삭제 후 재등록) |
@@ -102,13 +102,13 @@ End User는 그룹 밖 액터. 히어로 흐름: End User → G1 → G2 ⇄ (G3 
 ### 적재·동기화 (G6·G5)
 | 방향 | 레이블 |
 |---|---|
-| External Interface → Ingestion Pipeline (Converter) | 자료 등록·갱신 유입 |
+| External Interface → Ingestion Pipeline (Conversion) | 자료 등록·갱신 유입 |
 | Ingestion Pipeline ⇢ Data Layer | Load (점선·민트) — 종단은 개별 스토어가 아닌 Data Stores 존 경계. 실제 적재 대상은 Structured·Keyword·Vector·File Store 전체 |
 | Domain Dictionary → Structured Store (OLTP) | Dictionary Lookup — 사전 데이터 조회 |
 | Domain Dictionary ⇢ G4·Ingestion Pipeline | Domain Term Reference — 쿼리 전처리(G4)·청킹/색인 보조(G6 Semantic Chunking). 참조 관계 |
 | Structured Store 내부 OLTP → OLAP | 정형 데이터 동기화 (CDC/배치) — **다이어그램 미표기** (Structured Store 내부 구현, File Meta Query와 동일 원칙) |
 
-Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Converter(메타 OLTP·원본 File Store) → Semantic Chunking(Domain Dictionary 참조) → Indexing(Keyword·Vector Store) → Summarization(Queue enqueue → Worker → Model Gateway → SLM → 요약을 Keyword Store 문서 필드에 기록, 갱신 시 기존 요약 삭제 후 재등록).
+Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Conversion(메타 OLTP·원본 File Store) → Semantic Chunking(Domain Dictionary 참조) → Indexing(Keyword·Vector Store) → Summarization(Queue enqueue → Worker → Model Gateway → SLM → 요약을 Keyword Store 문서 필드에 기록, 갱신 시 기존 요약 삭제 후 재등록).
 
 ## 3. 다이어그램 표기 지침
 
@@ -154,5 +154,6 @@ Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Converter
 | D25 | C7.4 Fusion & Rank는 리트리버와 동급이 아니라 T1 내부 후처리 스테이지 — 다이어그램에서 리트리버 병렬 아래 합류 지점으로 표기 |
 | D26 | 임의 부여 ID(C·R 번호) 폐기 — 컴포넌트·관계는 이름으로 참조. 그룹 키(G1~G6·X, T1~T3)는 유지. 설명문에서 구현 언어(Java·Python) 표기 삭제. §4 이력의 구 ID는 기록 그대로 동결 |
 | D27 | Agent Orchestrator ↔ Model Gateway는 단일 양방향 연결로 표기, 레이블은 **OpenAI Compatible API** — 요청/응답 상세는 정의서에만 |
-| D28 | Ingestion Pipeline 내부를 처리 단계 4개로 재정의: Converter → Semantic Chunking → Indexing → Summarization. Queue·Worker는 Summarization 내부 구현으로 흡수(D8 취지 유지). 메인 다이어그램에서 존+4노드 표기 |
+| D28 | Ingestion Pipeline 내부를 처리 단계 4개로 재정의: Conversion → Semantic Chunking → Indexing → Summarization *(명명은 D30으로 공정 명사 통일)*. Queue·Worker는 Summarization 내부 구현으로 흡수(D8 취지 유지). 메인 다이어그램에서 존+4노드 표기 |
 | D29 | 메인 다이어그램 확정 사항 일괄 반영 — Compliance Gateway 책임 4종(Authn·Authz·Audit·Observability)·Agent Orchestrator 책임 5종(Planning & Re-planning·Tool Orchestration·Context Assembly·Answer Synthesis·Validation) 리스트 표기 / Structured Store를 메인에서 OLTP·OLAP 2노드로 분리 표기 / Domain Dictionary는 G4(Tool Layer) 소속·OLTP 조회·실선 / External Interface 액터 신설(적재 진입점, End User와 동레벨) / Load는 Data Stores 존 경계 종단·민트 화살표 / 호출 순서 번호·관계선 상세 라벨·범례 제거(상세는 드릴다운) |
+| D30 | Ingestion 단계명 공정 명사로 통일 — Converter를 **Conversion**으로 개명 (Conversion·Chunking·Indexing·Summarization) |
