@@ -1,6 +1,6 @@
 ---
 title: "Retrieval Workflow"
-lede: "플랜이 지정한 능력만, 권한 필터를 통과한 데이터만"
+lede: "모든 답의 근거는 권한 필터를 통과한 데이터에서만 나온다"
 layout: diagram
 diagram: diagrams/retrieval.html
 source: [kori-arch]

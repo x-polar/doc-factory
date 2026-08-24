@@ -4,6 +4,15 @@
      좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6). -->
 <div class="dg-canvas">
 
+  <!-- PLAN SCOPE 게이트 (민트 세로 스트립) — AO와 Tool Layer 사이 -->
+  <div style="position:absolute; left:17.5%; top:8%; width:5%; height:40%;
+              background:color-mix(in srgb, #22FFBD 5%, transparent);
+              border:1.2px dashed color-mix(in srgb, #22FFBD 45%, transparent);
+              border-radius:10px; z-index:0;"></div>
+  <div style="position:absolute; left:20%; top:6.2%; z-index:2; padding:0.01in 0.08in;
+              font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
+              color:#000; background:#22FFBD; transform:translateX(-50%); white-space:nowrap;">PLAN SCOPE</div>
+
   <!-- ACL Pre-filter 게이트 (앰버 세로 스트립) -->
   <div style="position:absolute; left:55%; top:8%; width:5%; height:80%;
               background:color-mix(in srgb, #FFB224 6.5%, transparent);
@@ -45,10 +54,6 @@
   <div class="dg-node dg-node--ghost" style="left:3%;top:22%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent Orchestrator</span></div>
   </div>
-
-  <!-- AO→툴 라벨 -->
-  <div style="position:absolute; left:19.9%; top:20.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
-              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Plan-scoped<br>tool calls</div>
 
   <!-- ── Grounding Context 존 (좌하단) ── -->
   <div class="dg-zone" style="left:3%;top:50%;width:17%;height:38%">
