@@ -1,6 +1,6 @@
 # KORI Answers 아키텍처 — 구성 요소·관계 정의 v0.1
 
-다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D33)으로만 보존한다.
+다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D34)으로만 보존한다.
 
 컴포넌트는 **이름으로 참조**한다. 임의 부여 ID(구 C·R 번호)는 D26으로 폐기 — §4 결정 이력 안의 구 ID 표기는 당시 기록 그대로 동결한다. 그룹 키(G1~G6·X, T1~T3)는 유지한다.
 
@@ -160,3 +160,4 @@ Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Conversio
 | D31 | 툴 결과 반환 레이블을 **Grounding Context**로 개명(구 Context Slots) — 고객 문서 가독성. 슬롯 구조 의미는 관계 설명에 유지 |
 | D32 | 메인 다이어그램 Tool Layer 표기 순서 = Document Search → Domain Dictionary → Quantitative Query → Document Provider (스토어 타깃 순서와 일치시켜 관계선 교차 제거). MG↔Orchestrator 선은 민트(런타임 경로 일관) |
 | D33 | Agent Loop 드릴다운(2장): Tool Layer·Model Gateway는 AO 존 밖 고스트 — Model Gateway 호출선은 AO 존 경계에서 출발(특정 단계 아닌 오케스트레이터 레벨 호출, 거의 모든 단계가 모델을 호출하므로). 성공 경로 'Verified answer' 라벨을 AO→CG 리턴선에 표기, 실패 경로 'Re-planning on failure'와 대구 |
+| D34 | Agent Loop 2단 Row 구성: Row1=End User·Compliance Gateway·Tool Layer·Model Gateway, Row2=Agent Orchestrator 존(루프 5칩+fail 회귀). Deterministic Security 밴드는 이 드릴다운에서 미표시(3장 소재) — Validation 앰버 테두리로만 암시. CG↔AO 수직 왕복(Principal-bound request↓ / Verified answer↑), Tool Layer↕Tool Orchestration 수직, MG 호출선은 AO 존 경계 출발 |

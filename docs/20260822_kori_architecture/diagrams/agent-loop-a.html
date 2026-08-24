@@ -1,15 +1,9 @@
-<!-- KORI Answers — Agent Loop (버전 A 확정 트랙: 직선 5칩 + fail 회귀)
+<!-- KORI Answers — Agent Loop (2단 Row 구성, D34)
+     Row 1: End User · Compliance Gateway · Tool Layer · Model Gateway
+     Row 2: Agent Orchestrator 존 (루프 5칩 + fail 회귀)
+     DETERMINISTIC SECURITY 밴드 미표시 — Validation 칩 앰버 테두리로만 암시.
      좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6). -->
 <div class="dg-canvas">
-
-  <!-- 앰버 밴드: 하단 검증 영역 -->
-  <div style="position:absolute; left:12%; top:62%; width:85%; height:23%;
-              background:color-mix(in srgb, #FFB224 6.5%, transparent);
-              border:1.2px dashed color-mix(in srgb, #FFB224 55%, transparent);
-              border-radius:10px; z-index:0;"></div>
-  <div style="position:absolute; left:13.2%; top:60.8%; z-index:2; padding:0.01in 0.08in;
-              font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
-              color:#000; background:#FFB224;">DETERMINISTIC SECURITY LAYER</div>
 
   <svg class="dg-edges" viewBox="0 0 1000 560" preserveAspectRatio="none">
     <defs>
@@ -19,90 +13,82 @@
       <marker id="aha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,1 L9,5 L0,9" fill="none" stroke="#FFB224" stroke-width="1.8"/>
       </marker>
-      <marker id="ahm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#8A8A8A" stroke-width="1.8"/>
-      </marker>
     </defs>
 
-    <!-- 상단 런타임 경로: End User ↔ CG ↔ AO 존 -->
-    <path class="e e--accent" d="M115,113 L168,113" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M168,127 L117,127" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M315,120 L368,120" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M368,142 L317,142" marker-end="url(#ah)"/>
+    <!-- Row1: End User ↔ CG (y: 노드 세로 중심대) -->
+    <path class="e e--accent" d="M115,95 L168,95" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M168,117 L117,117" marker-end="url(#ah)"/>
+
+    <!-- CG ↔ AO 존 (수직 하강/상승: CG 하단 → 존 상단) -->
+    <path class="e e--accent" d="M230,140 L230,240" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M255,240 L255,140" marker-end="url(#ah)"/>
+
+    <!-- Tool Layer ↕ Tool Orchestration: 고스트 하단 → 칩 상단 -->
+    <path class="e e--accent" d="M402,132 L402,330" marker-end="url(#ah)"/>
+
+    <!-- Model Gateway ← AO 존 상단 경계 (오케스트레이터 레벨 호출) -->
+    <path class="e e--accent" d="M700,240 L700,132" marker-end="url(#ah)"/>
 
     <!-- 루프 칩 사이 (민트): P → TO → CA → AS → V -->
-    <path class="e e--accent" d="M485,194 L513,194" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M610,194 L638,194" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M735,194 L763,194" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M860,194 L888,194" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M325,358 L353,358" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M450,358 L478,358" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M575,358 L603,358" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M700,358 L728,358" marker-end="url(#ah)"/>
 
-    <!-- 외부 접점 (그레이, 수직): TO ↑ Tool Layer / AS ↑ Model Gateway -->
-    <path class="e e--accent" d="M562,168 L562,58" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M820,112 L820,58" marker-end="url(#ah)"/>
-
-    <!-- 검증 접점 (앰버, 하향): Planning → Plan Check / Validation → Answer Check -->
-    <path class="e e--flow" style="stroke:#FFB224" d="M436,224 L436,372" marker-end="url(#aha)"/>
-    <path class="e e--flow" style="stroke:#FFB224" d="M922,205 L922,372" marker-end="url(#aha)"/>
-
-    <!-- fail 회귀 (앰버 점선): Answer Check → (하단 좌행) → Planning 좌측 -->
-    <path class="e e--flow" style="stroke:#FFB224" d="M920,450 L920,462 L360,462"/>
-    <path class="e e--flow" style="stroke:#FFB224" d="M360,462 L360,194 L386,194" marker-end="url(#aha)"/>
+    <!-- fail 회귀 (앰버 점선): Validation 하단 → 칩 아래 → Planning 하단 재진입 -->
+    <path class="e e--flow" style="stroke:#FFB224" d="M767,395 L767,455 L277,455"/>
+    <path class="e e--flow" style="stroke:#FFB224" d="M277,455 L277,398" marker-end="url(#aha)"/>
 
     <!-- 라벨 -->
-    <text x="640" y="452" text-anchor="middle">Re-planning on failure</text>
+    <text x="522" y="447" text-anchor="middle">Re-planning on failure</text>
   </svg>
 
-  <div style="position:absolute; left:34.2%; top:15.6%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
-              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Principal-bound<br>request</div>
-  <div style="position:absolute; left:34.2%; top:26.3%; z-index:3; font-size:7pt; line-height:1.25; text-align:center; transform:translateX(-50%);
-              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Verified<br>answer</div>
-
-  <!-- ── 상단 행 ── -->
-  <div class="dg-node dg-node--ghost" style="left:4%;top:17%;width:7.5%">
+  <!-- ── Row 1 ── -->
+  <div class="dg-node dg-node--ghost" style="left:4%;top:13%;width:7.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/user-round}}</span><span class="dg-t">End User</span></div>
   </div>
-  <div class="dg-node dg-node--accent" style="left:17%;top:14%;width:14.5%">
+  <div class="dg-node dg-node--accent" style="left:17%;top:11%;width:14.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/shield-check}}</span><span class="dg-t">Compliance Gateway</span></div>
   </div>
-
-  <!-- AO 존 -->
-  <div class="dg-zone" style="left:37%;top:20%;width:60%;height:26%">
-    <span class="dg-zone-label">Agent Orchestrator</span>
-  </div>
-
-  <!-- 외부 접점 고스트 (존 상단 안쪽, 칩 바로 위) -->
-  <div class="dg-node dg-node--ghost" style="left:50.75%;top:3.5%;width:11%">
+  <div class="dg-node dg-node--ghost" style="left:34.75%;top:13%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/wrench}}</span><span class="dg-t">Tool Layer</span></div>
   </div>
-  <div class="dg-node dg-node--ghost" style="left:76.5%;top:3.5%;width:11%">
+  <div class="dg-node dg-node--ghost" style="left:64.5%;top:13%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Model Gateway</span></div>
   </div>
 
+  <!-- CG↔AO 수직선 라벨 -->
+  <div style="position:absolute; left:16.2%; top:29%; z-index:3; font-size:7pt; line-height:1.25; text-align:right; width:6%;
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Principal-bound<br>request</div>
+  <div style="position:absolute; left:26.6%; top:29%; z-index:3; font-size:7pt; line-height:1.25; text-align:left; width:6%;
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">Verified<br>answer</div>
+
+  <!-- ── Row 2: AO 존 ── -->
+  <div class="dg-zone" style="left:12%;top:43%;width:85%;height:45%">
+    <span class="dg-zone-label">Agent Orchestrator</span>
+  </div>
+
   <!-- 루프 칩 5개 -->
-  <div class="dg-node" style="left:39%;top:30%;width:9.5%">
+  <div class="dg-node" style="left:23%;top:59%;width:9.5%">
     <div class="dg-head"><span class="dg-t">Planning &amp;<br>Re-planning</span></div>
   </div>
-  <div class="dg-node" style="left:51.5%;top:30%;width:9.5%">
+  <div class="dg-node" style="left:35.5%;top:59%;width:9.5%">
     <div class="dg-head"><span class="dg-t">Tool<br>Orchestration</span></div>
   </div>
-  <div class="dg-node" style="left:64%;top:30%;width:9.5%">
+  <div class="dg-node" style="left:48%;top:59%;width:9.5%">
     <div class="dg-head"><span class="dg-t">Context<br>Assembly</span></div>
   </div>
-  <div class="dg-node" style="left:76.5%;top:30%;width:9.5%">
+  <div class="dg-node" style="left:60.5%;top:59%;width:9.5%">
     <div class="dg-head"><span class="dg-t">Answer<br>Synthesis</span></div>
   </div>
-  <div class="dg-node" style="left:89%;top:30%;width:7.5%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
+  <div class="dg-node" style="left:73%;top:59%;width:7.5%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
     <div class="dg-head"><span class="dg-t">Validation</span></div>
   </div>
 
-  <!-- 앰버 밴드 내부: 검증 2종 -->
-  <div class="dg-node" style="left:38%;top:66.5%;width:11%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/list-checks}}</span><span class="dg-t">Plan Check</span></div>
-    <p class="dg-s">Allowed capabilities only</p>
-  </div>
-  <div class="dg-node" style="left:86%;top:66.5%;width:11%; border-color:color-mix(in srgb, #FFB224 65%, transparent)">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-check-2}}</span><span class="dg-t">Answer Check</span></div>
-    <p class="dg-s">Grounded in context only</p>
+  <!-- 루프 진행 서사 (존 좌측 여백): 단계 요약 -->
+  <div style="position:absolute; left:84%; top:59%; z-index:3; font-size:7.5pt; line-height:1.5;
+              color:color-mix(in srgb, var(--c-text) 55%, transparent);">
+    Iterative loop —<br>plan, act, assemble,<br>synthesize, validate
   </div>
 
 </div>
