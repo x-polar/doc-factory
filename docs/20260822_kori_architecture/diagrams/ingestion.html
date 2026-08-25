@@ -13,17 +13,17 @@
     </defs>
 
     <!-- 액터 2종 → Registration 합류 (민트) -->
-    <path class="e e--accent" d="M120,152 L158,152 L158,183 L187,183" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M120,242 L158,242 L158,197 L187,197" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M120,152 L158,152 L158,183 L225,183" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M120,242 L158,242 L158,197 L225,197" marker-end="url(#ah)"/>
 
     <!-- 파이프라인 진행 (민트): R → C → SC → I → S -->
-    <path class="e e--accent" d="M302,190 L330,190" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M445,190 L473,190" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M588,190 L616,190" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M731,190 L759,190" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M344,190 L368,190" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M487,190 L511,190" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M630,190 L654,190" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M773,190 L797,190" marker-end="url(#ah)"/>
 
     <!-- Summarization → Queue 컨테이너 (민트 하강) -->
-    <path class="e e--accent" d="M840,218 L840,274" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M860,218 L860,274" marker-end="url(#ah)"/>
     <!-- Queue → Worker (민트) -->
     <path class="e e--accent" d="M822,305 L838,305" marker-end="url(#ah)"/>
 
@@ -35,11 +35,11 @@
 
     <!-- 적재 (그레이 무향): 스토어 상단 y=414 -->
     <!-- Registration(중심 236·252) → OLTP(115) · File(305) : 원본·메타 먼저 -->
-    <path class="e" d="M236,240 L236,370 L305,370 L305,442"/>
-    <path class="e" d="M252,240 L252,390 L495,390 L495,442"/>
+    <path class="e" d="M276,240 L276,370 L305,370 L305,442"/>
+    <path class="e" d="M292,240 L292,390 L495,390 L495,442"/>
     <!-- Indexing(645·661) → Vector(495) · Keyword(685) -->
-    <path class="e" d="M645,240 L645,370 L685,370 L685,442"/>
-    <path class="e" d="M661,240 L661,390 L855,390 L855,442"/>
+    <path class="e" d="M685,240 L685,442"/>
+    <path class="e" d="M701,240 L701,390 L855,390 L855,442"/>
     <!-- Worker → Keyword 요약 필드 (그레이, 우측 진입) -->
     <path class="e" d="M870,328 L870,442"/>
   </svg>
@@ -62,44 +62,44 @@
   </div>
 
   <!-- 파이프라인 5칩: R 18.7 / C 33 / SC 47.3 / I 61.6 / S 75.9 (폭 11.5) -->
-  <div class="dg-node" style="left:18.7%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:22.7%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Registration</span></div>
   </div>
-  <div class="dg-node" style="left:33%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:37%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Conversion</span></div>
   </div>
-  <div class="dg-node" style="left:47.3%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:51.3%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Semantic<br>Chunking</span></div>
   </div>
-  <div class="dg-node" style="left:61.6%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:65.6%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Indexing</span></div>
   </div>
-  <div class="dg-node" style="left:75.9%;top:29%;width:19%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:79.9%;top:29%;width:15%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Summarization &amp;<br>Classification</span></div>
   </div>
 
   <!-- 뱃지 ①~⑤ -->
-  <div style="position:absolute; left:18.1%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:22.1%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">1</div>
-  <div style="position:absolute; left:32.4%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:36.4%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">2</div>
-  <div style="position:absolute; left:46.7%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:50.7%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">3</div>
-  <div style="position:absolute; left:61%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:65%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">4</div>
-  <div style="position:absolute; left:75.3%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:79.3%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">5</div>
 
   <!-- 칩 캡션 -->
-  <div style="position:absolute; left:18.7%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:22.7%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">store original first</div>
-  <div style="position:absolute; left:33%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:37%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">parse &amp; extract</div>
-  <div style="position:absolute; left:47.3%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:51.3%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">split by meaning</div>
-  <div style="position:absolute; left:61.6%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:65.6%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">keyword &amp; vector indexes</div>
-  <div style="position:absolute; left:75.9%; top:40%; width:19%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:79.9%; top:40%; width:15%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">SLM batch summaries &amp; categories</div>
 
   <!-- Summarization 내부: Queue → Worker (점선 컨테이너) -->
