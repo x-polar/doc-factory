@@ -30,6 +30,10 @@
     <!-- Model Gateway 고스트 ↕ 존 (민트 무향) -->
     <path class="e e--accent" d="M808,99 L808,129"/>
 
+    <!-- External Interface → OLAP·OLTP (민트: 정형 데이터 직접 적재) -->
+    <path class="e e--accent" d="M70,260 L70,442" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M90,260 L90,410 L280,410 L280,442" marker-end="url(#ah)"/>
+
     <!-- Semantic Chunking ⇢ Domain Dictionary (그레이 점선 참조, 하강) -->
     <path class="e e--flow" d="M530,103 L530,129"/>
 
@@ -127,6 +131,10 @@
   <div class="dg-node dg-node--ghost" style="left:47.5%;top:8%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
+
+  <!-- EI→DB 라벨 -->
+  <div style="position:absolute; left:10.2%; top:60%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">structured data<br>direct load</div>
 
   <!-- ── Data Stores 존 (하단) ── -->
   <div class="dg-zone" style="left:2%;top:74%;width:95%;height:17%">
