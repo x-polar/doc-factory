@@ -78,7 +78,6 @@
 }
 .dg-node--accent {
   border-color: color-mix(in srgb, var(--c-accent) 65%, transparent);
-  box-shadow: 0 2px 12px color-mix(in srgb, var(--c-accent) 18%, transparent);
 }
 .dg-node--ghost {            /* 외부 시스템/서드파티: 낮은 위계 */
   background: transparent;
