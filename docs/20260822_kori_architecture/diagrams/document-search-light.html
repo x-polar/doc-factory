@@ -42,100 +42,100 @@
     </defs>
 
     <!-- DD ⇢ 존 (그레이 점선 무향) / MG ↕ 존 (민트 무향) -->
-    <path class="e e--flow" d="M263,100 L263,112" stroke-dasharray="4 3"/>
-    <path class="e e--accent" d="M460,100 L460,112"/>
+    <path class="e e--flow" d="M380,100 L380,112" stroke-dasharray="4 3"/>
+    <path class="e e--accent" d="M575,100 L575,112"/>
 
     <!-- AO → Query Preprocessing (민트) -->
-    <path class="e e--accent" d="M140,205 L192,286" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M255,205 L307,258" marker-end="url(#ah)"/>
 
     <!-- QP 팬아웃 → Lexical / Query Embedding (민트 직선) -->
-    <path class="e e--accent" d="M330,282 L361,171" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M330,300 L361,395" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M445,254 L476,171" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M445,272 L476,395" marker-end="url(#ah)"/>
 
     <!-- Query Embedding → Semantic Retriever (민트) -->
-    <path class="e e--accent" d="M487,403 L512,403" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M602,403 L627,403" marker-end="url(#ah)"/>
     <!-- Term Extraction → Lexical Retriever (민트) -->
-    <path class="e e--accent" d="M487,179 L512,179" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M602,179 L627,179" marker-end="url(#ah)"/>
 
     <!-- 리트리버 → 스토어 (그레이 무향 직선, 게이트 관통) -->
 
     <!-- 리트리버 결과 → Fusion & Rank (민트 직선 합류) -->
-    <path class="e e--accent" d="M583,207 L631,232" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M583,363 L631,296" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M698,207 L746,232" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M698,363 L746,296" marker-end="url(#ah)"/>
 
     <!-- F&R → Document Context (민트 하강·좌행) -->
-    <path class="e e--accent" d="M727,258 L760,258 L760,448 L80,448 L80,416" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M840,258 L875,258 L875,448 L195,448 L195,416" marker-end="url(#ah)"/>
     <!-- Document Context → AO (민트 상승) -->
-    <path class="e e--accent" d="M80,352 L80,212" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M195,352 L195,212" marker-end="url(#ah)"/>
   </svg>
 
   <!-- ── 존 위 바깥: 지원 고스트 2종 ── -->
-  <div class="dg-node dg-node--ghost" style="left:20.5%;top:6%;width:12%">
+  <div class="dg-node dg-node--ghost" style="left:32%;top:6%;width:12%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
-  <div style="position:absolute; left:27.5%; top:14.8%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+  <div style="position:absolute; left:39%; top:14.8%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">domain term reference</div>
 
-  <div class="dg-node dg-node--ghost" style="left:40.5%;top:6%;width:11%">
+  <div class="dg-node dg-node--ghost" style="left:52%;top:6%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model Gateway</span></div>
   </div>
-  <div style="position:absolute; left:47.2%; top:14.8%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+  <div style="position:absolute; left:58.7%; top:14.8%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">embedding calls</div>
 
   <!-- ── 좌측: AO 고스트 ── -->
-  <div class="dg-node dg-node--ghost" style="left:2%;top:30%;width:12%">
+  <div class="dg-node dg-node--ghost" style="left:13.5%;top:30%;width:12%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent Orchestrator</span></div>
   </div>
-  <div style="position:absolute; left:14.6%; top:41%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+  <div style="position:absolute; left:28.5%; top:36.8%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">search.hybrid</div>
 
   <!-- ── Document Search 존 ── -->
-  <div class="dg-zone dg-zone--accent" style="left:17%;top:20%;width:58%;height:68%">
+  <div class="dg-zone dg-zone--accent" style="left:28.5%;top:20%;width:58%;height:68%">
     <span class="dg-zone-label">Document Search</span>
   </div>
 
   <!-- ① Query Preprocessing -->
-  <div class="dg-node" style="left:19.5%;top:47%;width:13.5%">
+  <div class="dg-node" style="left:31%;top:42%;width:13.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-cursor-input}}</span><span class="dg-t">Query<br>Preprocessing</span></div>
   </div>
-  <div style="position:absolute; left:19.5%; top:60.5%; width:13.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:31%; top:55.5%; width:13.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">normalize · expand</div>
 
   <!-- ② 상단 경로: Lexical -->
-  <div class="dg-node" style="left:36.5%;top:26%;width:12%">
+  <div class="dg-node" style="left:48%;top:26%;width:12%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/list-filter}}</span><span class="dg-t">Term<br>Extraction</span></div>
     <p class="dg-s">text → terms</p>
   </div>
-  <div class="dg-node" style="left:51.5%;top:26%;width:13%">
+  <div class="dg-node" style="left:63%;top:26%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Lexical<br>Retriever</span></div>
     <p class="dg-s">BM25 match</p>
   </div>
 
   <!-- ② 하단 경로: Embedding → Semantic -->
-  <div class="dg-node" style="left:36.5%;top:66%;width:12%">
+  <div class="dg-node" style="left:48%;top:66%;width:12%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/binary}}</span><span class="dg-t">Query<br>Embedding</span></div>
     <p class="dg-s">text → vector</p>
   </div>
-  <div class="dg-node" style="left:51.5%;top:66%;width:13%">
+  <div class="dg-node" style="left:63%;top:66%;width:13%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Semantic<br>Retriever</span></div>
     <p class="dg-s">top-k similarity</p>
   </div>
 
   <!-- ③ Fusion & Rank -->
-  <div class="dg-node dg-node--accent" style="left:59%;top:42%;width:13.5%">
+  <div class="dg-node dg-node--accent" style="left:70.5%;top:42%;width:13.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Fusion &amp; Rank</span></div>
     <p class="dg-s">RRF fusion · re-rank</p>
   </div>
 
   <!-- 단독 툴 주석 -->
-  <div style="position:absolute; left:20%; top:83%; width:52%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:31.5%; top:83%; width:52%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">search.lexical · search.semantic expose retrievers directly — no fusion</div>
 
   <!-- ── 좌하단: Document Context 슬롯 ── -->
-  <div class="dg-node" style="left:2%;top:64%;width:12%; background:color-mix(in srgb, #0B9E74 7%, transparent); border:1.2px dashed color-mix(in srgb, #0B9E74 55%, transparent);">
+  <div class="dg-node" style="left:13.5%;top:64%;width:12%; background:color-mix(in srgb, #0B9E74 7%, transparent); border:1.2px dashed color-mix(in srgb, #0B9E74 55%, transparent);">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-text}}</span><span class="dg-t">Document<br>Context</span></div>
   </div>
-  <div style="position:absolute; left:0.5%; top:77.5%; width:15%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:12%; top:77.5%; width:15%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">slot in Grounding Context</div>
 
   <!-- F&R→DC 라벨 -->
