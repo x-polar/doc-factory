@@ -22,8 +22,9 @@
 |---|---|---|---|
 | 1 | 01-hero | KORI Answers Architecture | **플랫 메인 다이어그램** (확정본 — 존 4 + Deterministic Security 밴드 + 액터 2종) |
 | 2 | 02-agent-loop | Agent Loop *(lede: 신원 없이 실행되지 않고, 검증 없이 답하지 않는다)* | Agent Loop 다이어그램 — CG(Authn·Authz·Audit·Observability) → AO 루프 5단계(Planning & Re-planning → Tool Orchestration → Context Assembly → Answer Synthesis → Validation) + Deterministic Security 검증 접점 |
-| 3 | 03-retrieval | Retrieval Workflow *(lede: 모든 답의 근거는 권한 필터를 통과한 데이터에서만 나온다)* | Retrieval 다이어그램 — 툴 4종(Document Search·Domain Dictionary·Quantitative Query·Document Provider) → 스토어 5종, RRF 융합, ACL pre-filter, Grounding Context 슬롯 조립 |
-| 4 | 04-ingestion | Ingestion Pipeline *(lede: 응답 속도는 등록 시점에 결정된다)* | Ingestion 다이어그램 — External Interface → Conversion(File Store·OLTP) → Semantic Chunking(DD 참조) → Indexing(Keyword·Vector) → Summarization(SLM 배치 → Keyword Store) |
+| 3 | 03-retrieval | Retrieval Workflow *(lede: 모든 답의 근거는 권한 필터를 통과한 데이터에서만 나온다)* | Retrieval 다이어그램 — 툴 4종+Web Search 고스트(tools are extensible) → 스토어 5종, ACL pre-filter, Grounding Context 슬롯 조립 |
+| 4 | 04-document-search | Document Search Internals *(lede: 두 검색이 서로의 빈틈을 메운다)* | T1 드릴다운 — search.hybrid: Lexical ∥ Semantic 팬아웃 → Fusion & Rank(RRF) → Document Context. 단독 툴(search.lexical/semantic)은 후처리 미경유 주석 |
+| 5 | 05-ingestion | Ingestion Pipeline *(lede: 응답 속도는 등록 시점에 결정된다)* | Ingestion 다이어그램 — External Interface → Conversion(File Store·OLTP) → Semantic Chunking(DD 참조) → Indexing(Keyword·Vector) → Summarization(SLM 배치 → Keyword Store) |
 
 ## 제목 정책 (v0.3)
 - 슬라이드 제목 = **간결한 명사형** (Agent Loop / Retrieval Workflow / Ingestion Pipeline).
