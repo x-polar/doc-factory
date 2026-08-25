@@ -1,6 +1,5 @@
 ---
 title: "Ingestion Pipeline"
-lede: "응답 속도는 등록 시점에 결정된다"
 layout: diagram
 diagram: diagrams/ingestion.html
 source: [kori-arch]

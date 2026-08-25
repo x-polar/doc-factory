@@ -13,35 +13,35 @@
     </defs>
 
     <!-- 액터 2종 → Registration 합류 (민트) -->
-    <path class="e e--accent" d="M120,95 L158,95 L158,120 L187,120" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M120,178 L158,178 L158,145 L187,145" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M120,92 L158,92 L158,183 L187,183" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M120,178 L158,178 L158,197 L187,197" marker-end="url(#ah)"/>
 
     <!-- 파이프라인 진행 (민트): R → C → SC → I → S -->
-    <path class="e e--accent" d="M302,132 L330,132" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M445,132 L473,132" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M588,132 L616,132" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M731,132 L759,132" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M302,190 L330,190" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M445,190 L473,190" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M588,190 L616,190" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M731,190 L759,190" marker-end="url(#ah)"/>
 
     <!-- Summarization → Queue 컨테이너 (민트 하강) -->
-    <path class="e e--accent" d="M815,168 L815,208" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M815,218 L815,274" marker-end="url(#ah)"/>
     <!-- Queue → Worker (민트) -->
-    <path class="e e--accent" d="M822,238 L838,238" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M822,316 L838,316" marker-end="url(#ah)"/>
 
-    <!-- Worker → Model Gateway (민트 우상향) -->
-    <path class="e e--accent" d="M920,247 L960,247 L960,164" marker-end="url(#ah)"/>
+    <!-- Model Gateway 고스트 ↕ 존 (민트 무향) -->
+    <path class="e e--accent" d="M808,81 L808,112"/>
 
     <!-- Semantic Chunking ⇢ Domain Dictionary (그레이 점선 참조, 하강) -->
-    <path class="e e--flow" d="M530,168 L530,317"/>
+    <path class="e e--flow" d="M530,81 L530,112"/>
 
     <!-- 적재 (그레이 무향): 스토어 상단 y=414 -->
     <!-- Registration(중심 236·252) → OLTP(115) · File(305) : 원본·메타 먼저 -->
-    <path class="e" d="M236,168 L236,370 L115,370 L115,442"/>
-    <path class="e" d="M252,168 L252,390 L305,390 L305,442"/>
+    <path class="e" d="M236,240 L236,370 L115,370 L115,442"/>
+    <path class="e" d="M252,240 L252,390 L305,390 L305,442"/>
     <!-- Indexing(645·661) → Vector(495) · Keyword(685) -->
-    <path class="e" d="M645,168 L645,370 L495,370 L495,442"/>
-    <path class="e" d="M661,168 L661,390 L685,390 L685,442"/>
+    <path class="e" d="M645,240 L645,370 L495,370 L495,442"/>
+    <path class="e" d="M661,240 L661,390 L685,390 L685,442"/>
     <!-- Worker → Keyword 요약 필드 (그레이, 우측 진입) -->
-    <path class="e" d="M870,255 L870,340 L700,340 L700,442"/>
+    <path class="e" d="M870,333 L870,395 L700,395 L700,442"/>
   </svg>
 
   <!-- ── 좌측 진입 액터 ── -->
@@ -57,74 +57,74 @@
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">batch sync</div>
 
   <!-- ── Ingestion Pipeline 존 ── -->
-  <div class="dg-zone dg-zone--accent" style="left:17%;top:8%;width:74%;height:47%">
+  <div class="dg-zone dg-zone--accent" style="left:17%;top:20%;width:74%;height:47%">
     <span class="dg-zone-label">Ingestion Pipeline</span>
   </div>
 
   <!-- 파이프라인 5칩: R 18.7 / C 33 / SC 47.3 / I 61.6 / S 75.9 (폭 11.5) -->
-  <div class="dg-node" style="left:18.7%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:18.7%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Registration</span></div>
   </div>
-  <div class="dg-node" style="left:33%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:33%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Conversion</span></div>
   </div>
-  <div class="dg-node" style="left:47.3%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:47.3%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Semantic<br>Chunking</span></div>
   </div>
-  <div class="dg-node" style="left:61.6%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:61.6%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Indexing</span></div>
   </div>
-  <div class="dg-node" style="left:75.9%;top:17%;width:11.5%; min-height:0.55in; justify-content:center;">
+  <div class="dg-node" style="left:75.9%;top:29%;width:11.5%; min-height:0.55in; justify-content:center;">
     <div class="dg-head"><span class="dg-t">Summarization</span></div>
   </div>
 
   <!-- 뱃지 ①~⑤ -->
-  <div style="position:absolute; left:18.1%; top:15.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:18.1%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">1</div>
-  <div style="position:absolute; left:32.4%; top:15.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:32.4%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">2</div>
-  <div style="position:absolute; left:46.7%; top:15.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:46.7%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">3</div>
-  <div style="position:absolute; left:61%; top:15.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:61%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">4</div>
-  <div style="position:absolute; left:75.3%; top:15.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
+  <div style="position:absolute; left:75.3%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
               background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">5</div>
 
   <!-- 칩 캡션 -->
-  <div style="position:absolute; left:18.7%; top:28%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:18.7%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">store original first</div>
-  <div style="position:absolute; left:33%; top:28%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:33%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">parse &amp; extract</div>
-  <div style="position:absolute; left:47.3%; top:28%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:47.3%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">split by meaning</div>
-  <div style="position:absolute; left:61.6%; top:28%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:61.6%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">keyword &amp; vector indexes</div>
-  <div style="position:absolute; left:75.9%; top:28%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:75.9%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">SLM batch summaries</div>
 
   <!-- Summarization 내부: Queue → Worker (점선 컨테이너) -->
-  <div style="position:absolute; left:73%; top:37%; width:20%; height:14%; z-index:1;
+  <div style="position:absolute; left:73%; top:49%; width:20%; height:14%; z-index:1;
               border:1.2px dashed color-mix(in srgb, var(--c-text) 30%, transparent); border-radius:8px;"></div>
-  <div class="dg-node" style="left:74%;top:39.5%;width:8%">
+  <div class="dg-node" style="left:74%;top:51.5%;width:8%">
     <div class="dg-head"><span class="dg-t">Queue</span></div>
   </div>
-  <div class="dg-node" style="left:84%;top:39.5%;width:8%">
+  <div class="dg-node" style="left:84%;top:51.5%;width:8%">
     <div class="dg-head"><span class="dg-t">Worker</span></div>
   </div>
-  <div style="position:absolute; left:71%; top:51.5%; width:15%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:68%; top:64.3%; width:22%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">event-driven; re-registration replaces old summary</div>
 
   <!-- Model Gateway 고스트 (존 밖 우상단) -->
-  <div class="dg-node dg-node--ghost" style="left:92.5%;top:22%;width:7%">
+  <div class="dg-node dg-node--ghost" style="left:76%;top:8%;width:9.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Model<br>Gateway</span></div>
   </div>
 
   <!-- Semantic Chunking ⇢ DD 라벨 -->
-  <div style="position:absolute; left:54%; top:41%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+  <div style="position:absolute; left:59.5%; top:14.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">domain term<br>reference</div>
 
   <!-- Domain Dictionary 고스트 (존 밖 중단) -->
-  <div class="dg-node dg-node--ghost" style="left:47.5%;top:57%;width:11%">
+  <div class="dg-node dg-node--ghost" style="left:47.5%;top:8%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
 
