@@ -45,17 +45,13 @@
   <div class="dg-node dg-node--ghost" style="left:32%;top:6%;width:12%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
   </div>
-  <div style="position:absolute; left:39%; top:14.8%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
-              color:color-mix(in srgb, var(--c-text) 62%, transparent);">domain term reference</div>
 
   <div class="dg-node dg-node--ghost" style="left:52%;top:6%;width:11%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Model Gateway</span></div>
   </div>
-  <div style="position:absolute; left:58.7%; top:14.8%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
-              color:color-mix(in srgb, var(--c-text) 62%, transparent);">embedding calls</div>
 
   <!-- ── 좌측: AO 고스트 ── -->
-  <div class="dg-node dg-node--ghost" style="left:13.5%;top:49%;width:12%">
+  <div class="dg-node dg-node--accent" style="left:13.5%;top:49%;width:12%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent Orchestrator</span></div>
   </div>
   <div style="position:absolute; left:26.8%; top:49.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
@@ -69,9 +65,8 @@
   <!-- ① Query Preprocessing -->
   <div class="dg-node" style="left:31%;top:48.5%;width:13.5%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-cursor-input}}</span><span class="dg-t">Query<br>Preprocessing</span></div>
+    <p class="dg-s">normalize · expand</p>
   </div>
-  <div style="position:absolute; left:31%; top:62%; width:13.5%; z-index:3; font-size:6.8pt; text-align:center;
-              color:color-mix(in srgb, var(--c-text) 52%, transparent);">normalize · expand</div>
 
   <!-- ② 상단 경로: Lexical -->
   <div class="dg-node" style="left:48%;top:26%;width:12%">
@@ -100,7 +95,7 @@
   </div>
 
   <!-- 단독 툴 주석 -->
-  <div style="position:absolute; left:31.5%; top:83%; width:52%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:31.5%; top:80.5%; width:52%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">search.lexical · search.semantic expose retrievers directly — no fusion</div>
 
   <!-- ── 좌하단: Document Context 슬롯 ── -->
