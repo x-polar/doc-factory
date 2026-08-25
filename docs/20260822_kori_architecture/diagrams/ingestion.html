@@ -13,8 +13,8 @@
     </defs>
 
     <!-- 액터 2종 → Registration 합류 (민트) -->
-    <path class="e e--accent" d="M120,92 L158,92 L158,183 L187,183" marker-end="url(#ah)"/>
-    <path class="e e--accent" d="M120,178 L158,178 L158,197 L187,197" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M120,152 L158,152 L158,183 L187,183" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M120,242 L158,242 L158,197 L187,197" marker-end="url(#ah)"/>
 
     <!-- 파이프라인 진행 (민트): R → C → SC → I → S -->
     <path class="e e--accent" d="M302,190 L330,190" marker-end="url(#ah)"/>
@@ -28,10 +28,10 @@
     <path class="e e--accent" d="M822,316 L838,316" marker-end="url(#ah)"/>
 
     <!-- Model Gateway 고스트 ↕ 존 (민트 무향) -->
-    <path class="e e--accent" d="M808,81 L808,112"/>
+    <path class="e e--accent" d="M808,81 L808,129"/>
 
     <!-- Semantic Chunking ⇢ Domain Dictionary (그레이 점선 참조, 하강) -->
-    <path class="e e--flow" d="M530,81 L530,112"/>
+    <path class="e e--flow" d="M530,81 L530,129"/>
 
     <!-- 적재 (그레이 무향): 스토어 상단 y=414 -->
     <!-- Registration(중심 236·252) → OLTP(115) · File(305) : 원본·메타 먼저 -->
@@ -45,19 +45,19 @@
   </svg>
 
   <!-- ── 좌측 진입 액터 ── -->
-  <div class="dg-node dg-node--ghost" style="left:2%;top:13.2%;width:10%">
+  <div class="dg-node dg-node--ghost" style="left:2%;top:24%;width:10%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/user-round}}</span><span class="dg-t">End User</span></div>
   </div>
-  <div class="dg-node dg-node--ghost" style="left:2%;top:28%;width:10%">
+  <div class="dg-node dg-node--ghost" style="left:2%;top:40%;width:10%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/arrow-left-right}}</span><span class="dg-t">External Interface</span></div>
   </div>
-  <div style="position:absolute; left:13.2%; top:12.2%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+  <div style="position:absolute; left:13.2%; top:23%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">upload</div>
-  <div style="position:absolute; left:12.9%; top:35%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+  <div style="position:absolute; left:12.9%; top:44.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
               color:color-mix(in srgb, var(--c-text) 62%, transparent);">batch sync</div>
 
   <!-- ── Ingestion Pipeline 존 ── -->
-  <div class="dg-zone dg-zone--accent" style="left:17%;top:20%;width:74%;height:47%">
+  <div class="dg-zone dg-zone--accent" style="left:17%;top:23%;width:74%;height:44%">
     <span class="dg-zone-label">Ingestion Pipeline</span>
   </div>
 
