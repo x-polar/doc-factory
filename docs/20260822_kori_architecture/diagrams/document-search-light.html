@@ -49,16 +49,18 @@
     <path class="e e--accent" d="M140,205 L192,286" marker-end="url(#ah)"/>
 
     <!-- QP 팬아웃 → Lexical / Query Embedding (민트 직선) -->
-    <path class="e e--accent" d="M330,282 L386,188" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M330,282 L361,171" marker-end="url(#ah)"/>
     <path class="e e--accent" d="M330,300 L361,395" marker-end="url(#ah)"/>
 
     <!-- Query Embedding → Semantic Retriever (민트) -->
     <path class="e e--accent" d="M487,403 L512,403" marker-end="url(#ah)"/>
+    <!-- Term Extraction → Lexical Retriever (민트) -->
+    <path class="e e--accent" d="M487,179 L512,179" marker-end="url(#ah)"/>
 
     <!-- 리트리버 → 스토어 (그레이 무향 직선, 게이트 관통) -->
 
     <!-- 리트리버 결과 → Fusion & Rank (민트 직선 합류) -->
-    <path class="e e--accent" d="M472,207 L613,234" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M583,207 L631,232" marker-end="url(#ah)"/>
     <path class="e e--accent" d="M583,363 L631,296" marker-end="url(#ah)"/>
 
     <!-- F&R → Document Context (민트 하강·좌행) -->
@@ -97,12 +99,16 @@
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-cursor-input}}</span><span class="dg-t">Query<br>Preprocessing</span></div>
   </div>
   <div style="position:absolute; left:19.5%; top:60.5%; width:13.5%; z-index:3; font-size:6.8pt; text-align:center;
-              color:color-mix(in srgb, var(--c-text) 52%, transparent);">normalize · expand · split terms</div>
+              color:color-mix(in srgb, var(--c-text) 52%, transparent);">normalize · expand</div>
 
   <!-- ② 상단 경로: Lexical -->
-  <div class="dg-node" style="left:39%;top:26%;width:15%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Lexical Retriever</span></div>
-    <p class="dg-s">keyword match (BM25)</p>
+  <div class="dg-node" style="left:36.5%;top:26%;width:12%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/list-filter}}</span><span class="dg-t">Term<br>Extraction</span></div>
+    <p class="dg-s">text → terms</p>
+  </div>
+  <div class="dg-node" style="left:51.5%;top:26%;width:13%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Lexical<br>Retriever</span></div>
+    <p class="dg-s">BM25 match</p>
   </div>
 
   <!-- ② 하단 경로: Embedding → Semantic -->
