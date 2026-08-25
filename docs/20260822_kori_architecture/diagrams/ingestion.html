@@ -35,13 +35,13 @@
 
     <!-- 적재 (그레이 무향): 스토어 상단 y=414 -->
     <!-- Registration(중심 236·252) → OLTP(115) · File(305) : 원본·메타 먼저 -->
-    <path class="e" d="M236,240 L236,370 L115,370 L115,442"/>
-    <path class="e" d="M252,240 L252,390 L305,390 L305,442"/>
+    <path class="e" d="M236,240 L236,370 L305,370 L305,442"/>
+    <path class="e" d="M252,240 L252,390 L495,390 L495,442"/>
     <!-- Indexing(645·661) → Vector(495) · Keyword(685) -->
-    <path class="e" d="M645,240 L645,370 L495,370 L495,442"/>
-    <path class="e" d="M661,240 L661,390 L685,390 L685,442"/>
+    <path class="e" d="M645,240 L645,370 L685,370 L685,442"/>
+    <path class="e" d="M661,240 L661,390 L855,390 L855,442"/>
     <!-- Worker → Keyword 요약 필드 (그레이, 우측 진입) -->
-    <path class="e" d="M870,328 L870,395 L700,395 L700,442"/>
+    <path class="e" d="M870,328 L870,442"/>
   </svg>
 
   <!-- ── 좌측 진입 액터 ── -->
@@ -133,19 +133,19 @@
     <span class="dg-zone-label">Data Stores</span>
   </div>
   <div class="dg-node" style="left:4%;top:79%;width:15%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">OLTP</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database-zap}}</span><span class="dg-t">OLAP</span></div>
   </div>
   <div class="dg-node" style="left:23%;top:79%;width:15%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database}}</span><span class="dg-t">OLTP</span></div>
   </div>
   <div class="dg-node" style="left:42%;top:79%;width:15%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/box}}</span><span class="dg-t">Vector Store</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/folder-archive}}</span><span class="dg-t">File Store</span></div>
   </div>
   <div class="dg-node" style="left:61%;top:79%;width:15%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/box}}</span><span class="dg-t">Vector Store</span></div>
   </div>
   <div class="dg-node" style="left:80%;top:79%;width:15%">
-    <div class="dg-head"><span class="dg-ico">{{icon:lucide/database-zap}}</span><span class="dg-t">OLAP</span></div>
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
   </div>
 
 </div>
