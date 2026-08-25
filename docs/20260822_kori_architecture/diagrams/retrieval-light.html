@@ -53,15 +53,15 @@
 
     <!-- 툴 → 스토어 (그레이 무향, ACL 게이트 관통) -->
     <!-- DS(중심 y106) → Keyword(101) / Vector(185) -->
-    <path class="e" d="M550,100 L775,100"/>
-    <path class="e" d="M550,116 L650,116 L650,185 L775,185"/>
+    <path class="e" d="M550,87 L775,101"/>
+    <path class="e" d="M550,103 L650,103 L650,185 L775,185"/>
     <!-- DD(207) → OLTP(269) -->
-    <path class="e" d="M550,207 L660,207 L660,262 L775,262"/>
+    <path class="e" d="M550,173 L660,173 L660,262 L775,262"/>
     <!-- QQ(308) → OLTP(269) / OLAP(353) -->
-    <path class="e" d="M550,300 L670,300 L670,276 L775,276"/>
-    <path class="e" d="M550,316 L678,316 L678,353 L775,353"/>
+    <path class="e" d="M550,243 L670,243 L670,276 L775,276"/>
+    <path class="e" d="M550,259 L678,259 L678,353 L775,353"/>
     <!-- DP(409) → File(437) -->
-    <path class="e" d="M550,409 L685,409 L685,437 L775,437"/>
+    <path class="e" d="M550,330 L640,330 L640,437 L775,437"/>
 
     <!-- 툴 결과 → Grounding Context (민트): Tool 존 좌하단 → GC 존 우변 -->
     <path class="e e--accent" d="M310,430 L202,430" marker-end="url(#ah)"/>
@@ -100,22 +100,28 @@
     <span class="dg-zone-label">Tool Layer</span>
   </div>
 
-  <div class="dg-node" style="left:33%;top:14%;width:22%">
+  <div class="dg-node" style="left:33%;top:12%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-search}}</span><span class="dg-t">Document Search</span></div>
     <p class="dg-s">hybrid search (keyword + vector)</p>
   </div>
-  <div class="dg-node" style="left:33%;top:32%;width:22%">
+  <div class="dg-node" style="left:33%;top:26%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/book-a}}</span><span class="dg-t">Domain Dictionary</span></div>
     <p class="dg-s">terminology lookup</p>
   </div>
-  <div class="dg-node" style="left:33%;top:50%;width:22%">
+  <div class="dg-node" style="left:33%;top:40%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/sigma}}</span><span class="dg-t">Quantitative Query</span></div>
     <p class="dg-s">analytics over OLTP · OLAP</p>
   </div>
-  <div class="dg-node" style="left:33%;top:68%;width:22%">
+  <div class="dg-node" style="left:33%;top:54%;width:22%">
     <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-output}}</span><span class="dg-t">Document Provider</span></div>
     <p class="dg-s">original file retrieval</p>
   </div>
+  <div class="dg-node dg-node--ghost" style="left:33%;top:68%;width:22%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/globe}}</span><span class="dg-t">Web Search</span></div>
+    <p class="dg-s">external sources — pluggable</p>
+  </div>
+  <div style="position:absolute; left:33%; top:81%; width:22%; z-index:3; font-size:6.8pt; text-align:center;
+              color:color-mix(in srgb, var(--c-text) 52%, transparent);">tools are extensible</div>
 
   <!-- ── Data Stores 존 ── -->
   <div class="dg-zone" style="left:76%;top:8%;width:19%;height:80%">
