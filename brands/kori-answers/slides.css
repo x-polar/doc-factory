@@ -2,9 +2,7 @@
    사진 배경 대신 미묘한 방사 그라디언트로 깊이만 준다. */
 
 .slide{
-  background:
-    radial-gradient(120% 80% at 18% 0%, color-mix(in srgb, var(--accent) 9%, transparent) 0%, transparent 58%),
-    var(--paper);
+  background: var(--paper);   /* PDF 대비: 글로우 제거, 순수 블랙 */
 }
 .veil{ background: none; }
 
