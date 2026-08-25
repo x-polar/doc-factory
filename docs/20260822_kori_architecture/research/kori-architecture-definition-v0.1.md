@@ -1,6 +1,6 @@
 # KORI Answers 아키텍처 — 구성 요소·관계 정의 v0.1
 
-다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D36)으로만 보존한다.
+다이어그램 작도의 기준 문서. 본 버전(v0.1)은 G-레벨(큰 컴포넌트) 체계 확정본에서 새로 시작하는 리베이스 판이다 — 이전 v7.x 이력은 결정 이력(§4 D1~D37)으로만 보존한다.
 
 컴포넌트는 **이름으로 참조**한다. 임의 부여 ID(구 C·R 번호)는 D26으로 폐기 — §4 결정 이력 안의 구 ID 표기는 당시 기록 그대로 동결한다. 그룹 키(G1~G6·X, T1~T3)는 유지한다.
 
@@ -163,3 +163,4 @@ Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Conversio
 | D34 | Agent Loop 구성: End User·Compliance Gateway는 AO 존 좌측(수평 왕복: Principal-bound request→ / ←Verified answer), Tool Layer·Model Gateway는 상단 고스트. AO 존 내 루프 5칩에 ①~⑤ 뱃지(⑤만 앰버)+영문 캡션 1줄, CG는 책임 4종 리스트(Authn·Authz·Audit·Observability). Deterministic Security 밴드 미표시(3장 소재) — Validation 앰버 테두리·뱃지로만 암시. Tool Layer↕Tool Orchestration 무향, MG 호출선은 AO 존 경계 출발 |
 | D35 | Ingestion 진입 액터 2종: External Interface(배치 동기화) 외에 End User 직접 업로드 경로 추가 — 두 액터가 Conversion으로 합류. 4장 드릴다운에서 Queue·Worker(D5·D28 Summarization 내부 구현) 명시 표기, 스토어 배열은 적재 순서(OLTP·File·Vector·Keyword·OLAP), OLAP는 무연결(적재 대상 아님) |
 | D36 | Ingestion 단계 5개로 재정의: Registration(원본 File Store·메타 OLTP 선 적재) → Conversion(파싱·추출) → Semantic Chunking → Indexing → Summarization. 원본 보존이 파싱보다 선행 — 인풋 수신 즉시 저장 후 가공. Conversion의 적재 역할은 Registration으로 이관 |
+| D37 | 5단계를 Summarization & Classification으로 확장: 등록 시점 SLM 배치가 요약과 자동 분류(문서 유형·주제 태그)를 함께 생성, 분류 태그는 Keyword Store 메타데이터로 적재(패싯·필터 검색 및 권한 정책 매핑 기반). Queue·Worker는 두 배치 작업의 공용 인프라 |
