@@ -1,14 +1,41 @@
+<style>
+/* ---- Light Mode 오버라이드 (이 슬라이드 한정) ---- */
+.slide:has(.dg-light) {
+  background: #F7F9F8;
+  --c-background: #F7F9F8;
+  --c-text: #10201B;
+  --c-accent: #0B9E74;   /* 민트를 라이트 배경 대비용으로 딥하게 */
+  --muted: #5C6663;
+}
+.slide:has(.dg-light) .bg, .slide:has(.dg-light) .veil { display:none; }
+.slide:has(.dg-light) h1, .slide:has(.dg-light) h2,
+.slide:has(.dg-light) .slide-title, .slide:has(.dg-light) .kicker { color:#10201B; }
+.slide:has(.dg-light) .ftr .logo-sm { filter: invert(1); opacity:.75; }
+.slide:has(.dg-light) .pg { color:#5C6663; }
+.slide:has(.dg-light) .dg-node { box-shadow: 0 2px 8px rgba(16,32,27,.10); }
+/* 회색 계통 외곽선·연결선을 라이트 배경 대비로 진하게 */
+.slide:has(.dg-light) .dg-node {
+  border-color: color-mix(in srgb, var(--c-text) 42%, transparent);
+}
+.slide:has(.dg-light) .dg-zone {
+  border-color: color-mix(in srgb, var(--c-text) 52%, transparent);
+}
+.slide:has(.dg-light) svg.dg-edges .e {
+  stroke: color-mix(in srgb, var(--c-text) 68%, transparent);
+}
+</style>
+
 <!-- KORI Answers — Ingestion Pipeline (v3, D35·D36)
      진입 액터 2종 → ① Registration(원본·메타 먼저 적재) → ② Conversion → ③ Semantic Chunking
      → ④ Indexing → ⑤ Summarization(내부 Queue→Worker→MG)
      하단 Data Stores: 적재 순서 배열(OLTP·File·Vector·Keyword·OLAP), OLAP 무연결.
      좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6). -->
-<div class="dg-canvas">
+<div class="dg-canvas dg-light">
 
   <svg class="dg-edges" viewBox="0 0 1000 560" preserveAspectRatio="none">
     <defs>
       <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#22FFBD" stroke-width="1.8"/>
+        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#0B9E74" stroke-width="1.8"/>
       </marker>
     </defs>
 
@@ -83,15 +110,15 @@
 
   <!-- 뱃지 ①~⑤ -->
   <div style="position:absolute; left:22.1%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
-              background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">1</div>
+              background:#0B9E74; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">1</div>
   <div style="position:absolute; left:36.4%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
-              background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">2</div>
+              background:#0B9E74; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">2</div>
   <div style="position:absolute; left:50.7%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
-              background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">3</div>
+              background:#0B9E74; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">3</div>
   <div style="position:absolute; left:65%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
-              background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">4</div>
+              background:#0B9E74; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">4</div>
   <div style="position:absolute; left:79.3%; top:27.6%; z-index:3; width:0.16in; height:0.16in; border-radius:50%;
-              background:#22FFBD; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">5</div>
+              background:#0B9E74; color:#000; font-size:6.5pt; font-weight:700; display:flex; align-items:center; justify-content:center;">5</div>
 
   <!-- 칩 캡션 -->
   <div style="position:absolute; left:22.7%; top:40%; width:11.5%; z-index:3; font-size:6.8pt; text-align:center;

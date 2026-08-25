@@ -164,4 +164,4 @@ Ingestion Pipeline 내부 흐름(별도 장): 자료 등록/갱신 → Conversio
 | D35 | Ingestion 진입 액터 2종: External Interface(배치 동기화) 외에 End User 직접 업로드 경로 추가 — 두 액터가 Conversion으로 합류. 4장 드릴다운에서 Queue·Worker(D5·D28 Summarization 내부 구현) 명시 표기, 스토어 배열은 적재 순서(OLTP·File·Vector·Keyword·OLAP), OLAP는 무연결(적재 대상 아님) |
 | D36 | Ingestion 단계 5개로 재정의: Registration(원본 File Store·메타 OLTP 선 적재) → Conversion(파싱·추출) → Semantic Chunking → Indexing → Summarization. 원본 보존이 파싱보다 선행 — 인풋 수신 즉시 저장 후 가공. Conversion의 적재 역할은 Registration으로 이관 |
 | D37 | 5단계를 Summarization & Classification으로 확장: 등록 시점 SLM 배치가 요약과 자동 분류(문서 유형·주제 태그)를 함께 생성, 분류 태그는 Keyword Store 메타데이터로 적재(패싯·필터 검색 및 권한 정책 매핑 기반). Queue·Worker는 두 배치 작업의 공용 인프라 |
-| D38 | External Interface의 정형 데이터 직접 적재 경로 추가: 문서형 자료는 Ingestion Pipeline(Registration)으로, 정형 데이터(DB 동기화 등)는 파이프라인을 거치지 않고 OLTP·OLAP에 직접 적재 |
+| D38 | External Interface의 정형 데이터 직접 적재 경로 추가: 문서형 자료는 Ingestion Pipeline(Registration)으로, 정형 데이터(DB 동기화 등)는 파이프라인을 거치지 않고 직접 적재 — 4장 표기는 개별 스토어가 아닌 Data Stores 존 경계 종단 화살표 1개(메인의 존 경계 종단 문법과 동일), 실제 대상은 OLTP·OLAP |
