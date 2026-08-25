@@ -1,0 +1,122 @@
+<style>
+/* ---- Light Mode 오버라이드 (이 슬라이드 한정) ---- */
+.slide:has(.dg-light) {
+  background: #F7F9F8;
+  --c-background: #F7F9F8;
+  --c-text: #10201B;
+  --c-accent: #0B9E74;   /* 민트를 라이트 배경 대비용으로 딥하게 */
+  --muted: #5C6663;
+}
+.slide:has(.dg-light) .bg, .slide:has(.dg-light) .veil { display:none; }
+.slide:has(.dg-light) h1, .slide:has(.dg-light) h2,
+.slide:has(.dg-light) .slide-title, .slide:has(.dg-light) .kicker { color:#10201B; }
+.slide:has(.dg-light) .ftr .logo-sm { filter: invert(1); opacity:.75; }
+.slide:has(.dg-light) .pg { color:#5C6663; }
+.slide:has(.dg-light) .lede, .slide:has(.dg-light) .slide-lede { color:#10201B; }
+.slide:has(.dg-light) .dg-node { box-shadow: none; background: #FFFFFF; }
+/* 회색 계통 외곽선·연결선을 라이트 배경 대비로 진하게 */
+.slide:has(.dg-light) .dg-node {
+  border-color: color-mix(in srgb, var(--c-text) 42%, transparent);
+}
+.slide:has(.dg-light) .dg-zone {
+  border-color: color-mix(in srgb, var(--c-text) 52%, transparent);
+}
+.slide:has(.dg-light) svg.dg-edges .e {
+  stroke: color-mix(in srgb, var(--c-text) 68%, transparent);
+}
+</style>
+
+<!-- KORI Answers — Document Search Internals (T1 드릴다운, 정의서 §1 T1 + G4 노출 툴 표)
+     search.hybrid: AO → 팬아웃(Lexical·Semantic Retriever) → Fusion & Rank(RRF) → Document Context → AO.
+     리트리버 → 스토어 조회는 그레이(ACL PRE-FILTER 관통). search.lexical/semantic 단독 경로는 주석.
+     좌표계: dg-canvas %. 연결선 viewBox 1000x560 (x% = X/10, y% = Y/5.6). -->
+<div class="dg-canvas dg-light">
+
+  <!-- ACL Pre-filter 게이트 (앰버 세로 스트립, 3장 문법) -->
+  <div style="position:absolute; left:74%; top:8%; width:4%; height:80%;
+              background:color-mix(in srgb, #FFB224 6.5%, transparent);
+              border:1.2px dashed color-mix(in srgb, #FFB224 55%, transparent);
+              border-radius:10px; z-index:0;"></div>
+  <div style="position:absolute; left:76%; top:6.2%; z-index:2; padding:0.01in 0.08in;
+              font-size:8pt; font-weight:700; letter-spacing:0.05em; border-radius:4px;
+              color:#000; background:#FFB224; transform:translateX(-50%); white-space:nowrap;">ACL PRE-FILTER</div>
+
+  <svg class="dg-edges" viewBox="0 0 1000 560" preserveAspectRatio="none">
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9" fill="none" stroke="#0B9E74" stroke-width="1.8"/>
+      </marker>
+    </defs>
+
+    <!-- AO → 존 진입 (민트) -->
+    <path class="e e--accent" d="M140,185 L218,185"/>
+    <!-- 팬아웃: 진입점 → Lexical / Semantic -->
+    <path class="e e--accent" d="M218,185 L218,137 L226,137" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M218,185 L218,361 L226,361" marker-end="url(#ah)"/>
+
+    <!-- 리트리버 → Fusion & Rank (민트 합류) -->
+    <path class="e e--accent" d="M430,137 L455,137 L455,232 L476,232" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M430,361 L455,361 L455,266 L476,266" marker-end="url(#ah)"/>
+
+    <!-- 리트리버 → 스토어 (그레이 무향, 게이트 관통) -->
+    <path class="e" d="M430,118 L797,118"/>
+    <path class="e" d="M430,380 L797,380"/>
+
+    <!-- Fusion & Rank → Document Context (민트 하강·좌행) -->
+    <path class="e e--accent" d="M585,290 L585,430 L80,430 L80,405" marker-end="url(#ah)"/>
+    <!-- Document Context → AO (민트 상승) -->
+    <path class="e e--accent" d="M80,340 L80,218" marker-end="url(#ah)"/>
+  </svg>
+
+  <!-- ── 좌측: AO 고스트 ── -->
+  <div class="dg-node dg-node--ghost" style="left:2%;top:28%;width:12%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/brain-circuit}}</span><span class="dg-t">Agent Orchestrator</span></div>
+  </div>
+  <div style="position:absolute; left:14.8%; top:26%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">search.hybrid</div>
+
+  <!-- ── Document Search 존 ── -->
+  <div class="dg-zone dg-zone--accent" style="left:20%;top:8%;width:52%;height:80%">
+    <span class="dg-zone-label">Document Search</span>
+  </div>
+
+  <!-- 리트리버 2종 -->
+  <div class="dg-node" style="left:23%;top:18%;width:20%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Lexical Retriever</span></div>
+    <p class="dg-s">keyword match (BM25)</p>
+  </div>
+  <div class="dg-node" style="left:23%;top:58%;width:20%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Semantic Retriever</span></div>
+    <p class="dg-s">embedding similarity</p>
+  </div>
+
+  <!-- Fusion & Rank (합류) -->
+  <div class="dg-node dg-node--accent" style="left:48%;top:37%;width:21%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/git-merge}}</span><span class="dg-t">Fusion &amp; Rank</span></div>
+    <p class="dg-s">RRF fusion &amp; re-ranking</p>
+  </div>
+
+  <!-- 단독 툴 주석 -->
+  <div style="position:absolute; left:23%; top:80%; width:46%; z-index:3; font-size:6.8pt; text-align:center;
+              color:color-mix(in srgb, var(--c-text) 52%, transparent);">search.lexical · search.semantic expose retrievers directly — no fusion</div>
+
+  <!-- ── 우측: 스토어 2종 ── -->
+  <div class="dg-node" style="left:80%;top:18%;width:16%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/text-search}}</span><span class="dg-t">Keyword Store</span></div>
+  </div>
+  <div class="dg-node" style="left:80%;top:58%;width:16%">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/waypoints}}</span><span class="dg-t">Vector Store</span></div>
+  </div>
+
+  <!-- ── 좌하단: Document Context 슬롯 (아티팩트 스타일) ── -->
+  <div class="dg-node" style="left:2%;top:61%;width:12%; background:color-mix(in srgb, #0B9E74 7%, transparent); border:1.2px dashed color-mix(in srgb, #0B9E74 55%, transparent);">
+    <div class="dg-head"><span class="dg-ico">{{icon:lucide/file-text}}</span><span class="dg-t">Document<br>Context</span></div>
+  </div>
+  <div style="position:absolute; left:0.5%; top:75.5%; width:11%; z-index:3; font-size:6.8pt; text-align:center;
+              color:color-mix(in srgb, var(--c-text) 52%, transparent);">slot in Grounding Context</div>
+
+  <!-- F&R→DC 라벨 -->
+  <div style="position:absolute; left:16%; top:73.5%; z-index:3; font-size:7pt; line-height:1.25; text-align:left;
+              color:color-mix(in srgb, var(--c-text) 62%, transparent);">fused, ranked results</div>
+
+</div>
