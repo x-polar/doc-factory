@@ -25,7 +25,7 @@
     <!-- Summarization → Queue 컨테이너 (민트 하강) -->
     <path class="e e--accent" d="M815,218 L815,274" marker-end="url(#ah)"/>
     <!-- Queue → Worker (민트) -->
-    <path class="e e--accent" d="M822,316 L838,316" marker-end="url(#ah)"/>
+    <path class="e e--accent" d="M822,305 L838,305" marker-end="url(#ah)"/>
 
     <!-- Model Gateway 고스트 ↕ 존 (민트 무향) -->
     <path class="e e--accent" d="M808,99 L808,129"/>
@@ -41,7 +41,7 @@
     <path class="e" d="M645,240 L645,370 L495,370 L495,442"/>
     <path class="e" d="M661,240 L661,390 L685,390 L685,442"/>
     <!-- Worker → Keyword 요약 필드 (그레이, 우측 진입) -->
-    <path class="e" d="M870,333 L870,395 L700,395 L700,442"/>
+    <path class="e" d="M870,328 L870,395 L700,395 L700,442"/>
   </svg>
 
   <!-- ── 좌측 진입 액터 ── -->
@@ -103,15 +103,15 @@
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">SLM batch summaries</div>
 
   <!-- Summarization 내부: Queue → Worker (점선 컨테이너) -->
-  <div style="position:absolute; left:73%; top:49%; width:20%; height:14%; z-index:1;
+  <div style="position:absolute; left:73%; top:49%; width:20%; height:11%; z-index:1;
               border:1.2px dashed color-mix(in srgb, var(--c-text) 30%, transparent); border-radius:8px;"></div>
-  <div class="dg-node" style="left:74%;top:51.5%;width:8%">
+  <div class="dg-node" style="left:74%;top:50.5%;width:8%">
     <div class="dg-head"><span class="dg-t">Queue</span></div>
   </div>
-  <div class="dg-node" style="left:84%;top:51.5%;width:8%">
+  <div class="dg-node" style="left:84%;top:50.5%;width:8%">
     <div class="dg-head"><span class="dg-t">Worker</span></div>
   </div>
-  <div style="position:absolute; left:68%; top:64.3%; width:22%; z-index:3; font-size:6.8pt; text-align:center;
+  <div style="position:absolute; left:68%; top:61.5%; width:22%; z-index:3; font-size:6.8pt; text-align:center;
               color:color-mix(in srgb, var(--c-text) 52%, transparent);">event-driven; re-registration replaces old summary</div>
 
   <!-- Model Gateway 고스트 (존 밖 우상단) -->
